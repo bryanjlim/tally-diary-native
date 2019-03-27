@@ -1,3 +1,5 @@
+import { UPDATE_ENTRIES, UPDATE_PREFERENCES, SET_USER_INFO } from "./actionTypes";
+
 export const updateEntries = entries => ({
   type: UPDATE_ENTRIES,
   payload: {
@@ -6,15 +8,15 @@ export const updateEntries = entries => ({
 });
 
 export const updatePreferences = preferences => ({
-    type: UPDATE_PREFERENCES,
-    payload: {
-      preferences
-    }
+  type: UPDATE_PREFERENCES,
+  payload: {
+    preferences
+  }
 });
 
-export const setAuthentication = accessToken => ({
-    type: SET_AUTHENTICATION,
-    payload: {
-      accessToken
-    }
+export const setUserInfo = userInfo => ({
+  type: SET_USER_INFO,
+  payload: {
+    userInfo
+  }
 });

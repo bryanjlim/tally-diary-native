@@ -1,33 +1,22 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, Image, View } from 'react-native'
-import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin'
 import DriveHelper from '../Helpers/newDriveHelper'
-
-import { getDiaryEntries, getUserPreferences } from '../Redux/selectors'
+import { connect } from 'react-redux'
 import { updateEntries, updatePreferences } from '../Redux/actions'
 
-// Styles
-import styles from './Styles/LaunchScreenStyles'
-
 class TimelineSreen extends Component {
-
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     return (
-      <View style={styles.centerContainer}>
+      <View>
         <Text>Timeline</Text>
       </View>
     )
   }
 }
 
-const mapStateToProps = () => {
-  const entries = getDiaryEntries();
-  const preferences = getUserPreferences();
+const mapStateToProps = (store) => {
+  const entries = store.entries.entries;
+  const preferences = store.preferences.preferences;
   return { entries, preferences };
 }
 

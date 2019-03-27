@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import preferences from "./preferences";
 import entries from "./entries";
-import authentication from "./authentication";
+import userInfo from "./userInfo";
 
-export default combineReducers({ entries, preferences, authentication });
+export default combineReducers({ entries, preferences, userInfo });
