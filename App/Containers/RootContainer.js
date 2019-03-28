@@ -5,6 +5,7 @@ import TimelineScreen from '../Containers/TimelineScreen'
 import InitialLoadingScreen from '../Containers/InitialLoadingScreen'
 import UserSetupScreen from '../Containers/UserSetupScreen'
 import SettingsScreen from '../Containers/SettingsScreen'
+import AddDiaryEntryScreen from './AddDiaryEntryScreen'
 import { createAppContainer, createStackNavigator, createDrawerNavigator } from 'react-navigation'
 
 // Styles
@@ -12,12 +13,15 @@ import styles from './Styles/RootContainerStyles'
 import Colors from '../Themes/Colors'
 
 const DrawerNavigator = createDrawerNavigator({
-  Timeline: {
+  "Timeline": {
     screen: TimelineScreen,
   },
   Settings: {
     screen: SettingsScreen,
   },
+  "Add Diary Entry": {
+    screen: AddDiaryEntryScreen,
+  }
 },
   {
     navigationOptions: () => ({ header: null }),
