@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
 import { View, ScrollView, Keyboard, SafeAreaView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
+import TimeHelper from '../Helpers/timeHelper';
 import { updatePreferences } from '../Redux/actions'
 import { Appbar, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
 import { GoogleSignin } from 'react-native-google-signin'
 import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // Styles
 import styles from './Styles/SettingsScreenStyles'
 import Colors from '../Themes/Colors'
 
 class SettingsScreen extends Component {
+
+    static navigationOptions = {
+        drawerIcon: ({ tintColor }) => (
+          <Icon
+            name="settings"
+            style={{ color: tintColor, marginLeft: -5, fontSize: 32 }}
+          />
+        ),
+    };
+
     constructor(props) {
         super(props);
 
@@ -76,11 +88,7 @@ class SettingsScreen extends Component {
     _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     _handleDatePicked = (date) => {
-        const dateObject = date;
-        const formattedMonth = (dateObject.getMonth() + 1).toString().length === 1 ? "0" + (dateObject.getMonth() + 1) : dateObject.getMonth() + 1;
-        const dateNumber = dateObject.getDate();
-        const formattedDate = dateNumber / 10 < 1 ? "0" + dateNumber : dateNumber;
-        const dateString = dateObject.getFullYear() + "-" + formattedMonth + "-" + formattedDate;
+        const dateString = TimeHelper.getReadableDate(date)
 
         this.setState({
             dateOfBirth: dateString

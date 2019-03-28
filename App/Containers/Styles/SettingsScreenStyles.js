@@ -53,7 +53,8 @@ export default StyleSheet.create({
     display: 'none',
   },
   submitButton: {
-    marginTop: 10,
+    marginTop: 15,
+    paddingBottom: 1,
     marginBottom: 200,
   },
   appBar: {

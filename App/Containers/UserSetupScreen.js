@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Keyboard, SafeAreaView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
+import TimeHelper from '../Helpers/timeHelper'
 import { updatePreferences, updateEntries } from '../Redux/actions'
 import { Title, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
 import { connect } from 'react-redux'
@@ -19,11 +20,7 @@ class UserSetupScreen extends Component {
     constructor(props) {
         super(props);
 
-        const dateObject = new Date();
-        const formattedMonth = (dateObject.getMonth() + 1).toString().length === 1 ? "0" + (dateObject.getMonth() + 1) : dateObject.getMonth() + 1;
-        const dateNumber = dateObject.getDate();
-        const formattedDate = dateNumber / 10 < 1 ? "0" + dateNumber : dateNumber;
-        const currentDate = dateObject.getFullYear() + "-" + formattedMonth + "-" + formattedDate;
+        const currentDate = TimeHelper.formatDate(new Date());
 
         this.state = {
             isDateTimePickerVisible: false,
@@ -89,11 +86,7 @@ class UserSetupScreen extends Component {
     _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     _handleDatePicked = (date) => {
-        const dateObject = date;
-        const formattedMonth = (dateObject.getMonth() + 1).toString().length === 1 ? "0" + (dateObject.getMonth() + 1) : dateObject.getMonth() + 1;
-        const dateNumber = dateObject.getDate();
-        const formattedDate = dateNumber / 10 < 1 ? "0" + dateNumber : dateNumber;
-        const dateString = dateObject.getFullYear() + "-" + formattedMonth + "-" + formattedDate;
+        const dateString = TimeHelper.formatDate(date)
 
         this.setState({
             dateOfBirth: dateString

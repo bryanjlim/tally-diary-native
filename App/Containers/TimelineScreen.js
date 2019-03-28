@@ -5,11 +5,22 @@ import { connect } from 'react-redux'
 import { Appbar } from 'react-native-paper';
 import LargeEntryCard from '../Components/LargeEntryCard'
 import { updateEntries, updatePreferences } from '../Redux/actions'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // Styles
 import styles from './Styles/TimelineScreenStyles'
 
 class TimelineSreen extends Component {
+
+  static navigationOptions = {
+    drawerIcon: ({ tintColor }) => (
+      <Icon
+        name="library-books"
+        style={{ color: tintColor, marginLeft: -5, fontSize: 32 }}
+      />
+    ),
+  };
+
   constructor(props) {
     super(props);
 
