@@ -9,6 +9,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Styles
 import styles from './Styles/SettingsScreenStyles'
+import Colors from '../Themes/Colors'
 
 class SettingsScreen extends Component {
     constructor(props) {
@@ -98,7 +99,7 @@ class SettingsScreen extends Component {
                     <View style={styles.centerContainer}>
                         <Surface style={styles.surface}>
                             <Text style={styles.titleText}>Account Actions</Text>
-                            <Button style={styles.signOutButton} mode="outlined" 
+                            <Button style={styles.signOutButton} mode="outlined" color={Colors.blue}
                                     onPress={() => {GoogleSignin.signOut(); replace("LaunchScreen")}}>
                                 Sign Out
                             </Button>
@@ -108,7 +109,6 @@ class SettingsScreen extends Component {
                             <TextInput
                                 style={styles.dateSelector}
                                 mode='outlined'
-                                label='Start/Birth Date'
                                 value={this.state.dateOfBirth}
                                 onFocus={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
                             />
@@ -128,11 +128,11 @@ class SettingsScreen extends Component {
                                 <View style={styles.radioGroup}>
                                     <View style={styles.leftRadio}>
                                         <Text>Light</Text>
-                                        <RadioButton.Android value="light" />
+                                        <RadioButton.Android color={Colors.blue} value="light" />
                                     </View>
                                     <View style={styles.rightRadio}>
                                         <Text>Dark</Text>
-                                        <RadioButton.Android value="dark" disabled={true} />
+                                        <RadioButton.Android color={Colors.blue} value="dark" disabled={true} />
                                     </View>
                                 </View>
                             </RadioButton.Group>
@@ -146,11 +146,11 @@ class SettingsScreen extends Component {
                                 <View style={styles.radioGroup}>
                                     <View style={styles.leftRadio}>
                                         <Text>Yes</Text>
-                                        <RadioButton.Android value={true} />
+                                        <RadioButton.Android color={Colors.blue} value={true} />
                                     </View>
                                     <View style={styles.rightRadio}>
                                         <Text>No</Text>
-                                        <RadioButton.Android value={false} />
+                                        <RadioButton.Android color={Colors.blue} value={false} />
                                     </View>
                                 </View>
                             </RadioButton.Group>
@@ -166,7 +166,7 @@ class SettingsScreen extends Component {
                                 onChangeText={password => this.setState({ password })}
                             />
                         </Surface>
-                        <Button mode="outlined" onPress={this.updateUser} style={styles.submitButton}>
+                        <Button mode="outlined" color={Colors.blue} onPress={this.updateUser} style={styles.submitButton}>
                             Update Settings
                         </Button>
                     </View>
