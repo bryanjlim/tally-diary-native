@@ -7,13 +7,19 @@ import Colors from './Colors'
 
 const ApplicationStyles = {
   screen: {
+    appBar: {
+      color: Colors.blue,
+      backgroundColor: Colors.blue,
+    },
+    notchContainer: {
+      backgroundColor: Colors.blue,
+    },
     mainContainer: {
-      flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.background,
     },
     centerContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.background,
       alignItems: 'center',
       justifyContent: 'center'
     },

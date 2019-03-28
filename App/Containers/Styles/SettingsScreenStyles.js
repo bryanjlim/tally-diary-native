@@ -4,6 +4,10 @@ import Colors from '../../Themes/Colors'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  mainContainer: {
+    backgroundColor: Colors.background,
+    paddingTop: 15,
+  },
   welcomeText: {
     paddingTop: 20,
     fontSize: 30,
@@ -23,6 +27,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     elevation: 2,
     marginBottom: 10,
+  },
+  signOutButton: 
+  {
+    marginBottom: 1,
   },
   dateSelector: {
     width: 250,
@@ -46,6 +54,9 @@ export default StyleSheet.create({
   },
   submitButton: {
     marginTop: 10,
-    marginBottom: 15,
+    marginBottom: 200,
+  },
+  appBar: {
+    backgroundColor: Colors.blue,
   }
 })

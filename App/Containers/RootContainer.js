@@ -9,16 +9,26 @@ import { createAppContainer, createStackNavigator, createDrawerNavigator } from 
 
 // Styles
 import styles from './Styles/RootContainerStyles'
+import Colors from '../Themes/Colors'
 
 const DrawerNavigator = createDrawerNavigator({
-  TimelineScreen: {
+  Timeline: {
     screen: TimelineScreen,
   },
-  SettingsScreen: {
+  Settings: {
     screen: SettingsScreen,
   },
 },
-{ navigationOptions: () => ({ header: null }) }
+  {
+    navigationOptions: () => ({ header: null }),
+    contentOptions: {
+      activeBackgroundColor: Colors.background,
+      activeTintColor: Colors.blue,
+      inactiveBackgroundColor: Colors.blue,
+      inactiveTintColor: Colors.background,
+    },
+    drawerBackgroundColor: Colors.blue,
+  },
 );
 
 
@@ -39,7 +49,7 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(AppNavigator);
 
 class RootContainer extends Component {
-  render () {
+  render() {
     return (
       <View style={styles.applicationView}>
         <StatusBar barStyle='light-content' />

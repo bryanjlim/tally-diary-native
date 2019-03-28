@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View } from 'react-native'
+import { SafeAreaView, Text, Image, View } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { connect } from 'react-redux'
+import { Appbar } from 'react-native-paper';
 import { updateEntries, updatePreferences } from '../Redux/actions'
+
+// Styles
+import styles from './Styles/TimelineScreenStyles'
 
 class TimelineSreen extends Component {
   render() {
     return (
-      <View>
-        <Text>Timeline</Text>
-      </View>
+      <SafeAreaView style={styles.notchContainer}>
+        <Appbar style={styles.appBar}>
+          <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+        </Appbar>
+        <View style={styles.mainContainer}>
+          <Text>Timeline2</Text>
+        </View>
+      </SafeAreaView>
     )
   }
 }
@@ -17,7 +26,6 @@ class TimelineSreen extends Component {
 const mapStateToProps = (store) => {
   const entries = store.entries.entries;
   const preferences = store.preferences.preferences;
-  console.log(store.userInfo)
   return { entries, preferences };
 }
 

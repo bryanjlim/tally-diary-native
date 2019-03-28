@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, ScrollView, Keyboard, SafeAreaView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { updatePreferences } from '../Redux/actions'
-import { Title, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
+import { Appbar, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
 import { GoogleSignin } from 'react-native-google-signin'
 import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -90,17 +90,21 @@ class SettingsScreen extends Component {
     render() {
         const { replace } = this.props.navigation;
         return (
-            <SafeAreaView style={styles.mainContainer}>
-                <ScrollView>
+            <SafeAreaView style={styles.notchContainer}>
+                <Appbar style={styles.appBar}>
+                    <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+                </Appbar>
+                <ScrollView style={styles.mainContainer}>
                     <View style={styles.centerContainer}>
                         <Surface style={styles.surface}>
-                            <Text style={styles.titleText}>Sign Out</Text>
-                            <Button mode="outlined" onPress={() => {GoogleSignin.signOut(); replace("LaunchScreen")}}>
+                            <Text style={styles.titleText}>Account Actions</Text>
+                            <Button style={styles.signOutButton} mode="outlined" 
+                                    onPress={() => {GoogleSignin.signOut(); replace("LaunchScreen")}}>
                                 Sign Out
                             </Button>
                         </Surface>
                         <Surface style={styles.surface}>
-                            <Text style={styles.titleText}>When would you like to start tallying from?</Text>
+                            <Text style={styles.titleText}>Update Start Date</Text>
                             <TextInput
                                 style={styles.dateSelector}
                                 mode='outlined'
@@ -116,7 +120,7 @@ class SettingsScreen extends Component {
                             </HelperText>
                         </Surface>
                         <Surface style={styles.surface}>
-                            <Text style={styles.titleText}>Which theme do you prefer?</Text>
+                            <Text style={styles.titleText}>Update Theme</Text>
                             <RadioButton.Group
                                 onValueChange={primaryTheme => this.setState({ primaryTheme })}
                                 value={this.state.primaryTheme}
@@ -134,7 +138,7 @@ class SettingsScreen extends Component {
                             </RadioButton.Group>
                         </Surface>
                         <Surface style={styles.surface}>
-                            <Text style={styles.titleText}>Would you like to use a password?</Text>
+                            <Text style={styles.titleText}>Use Password?</Text>
                             <RadioButton.Group
                                 onValueChange={usePassword => this.setState({ usePassword })}
                                 value={this.state.usePassword}
@@ -152,7 +156,7 @@ class SettingsScreen extends Component {
                             </RadioButton.Group>
                         </Surface>
                         <Surface style={this.state.usePassword ? styles.surface : styles.none}>
-                            <Text style={styles.titleText}>What would you like your password to be?</Text>
+                            <Text style={styles.titleText}>Set Password</Text>
                             <TextInput
                                 secureTextEntry={true}
                                 style={styles.dateSelector}
