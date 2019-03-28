@@ -10,10 +10,6 @@ import styles from './Styles/LaunchScreenStyles'
 
 class LaunchScreen extends Component {
 
-  static navigationOptions = {
-    header: null
-  }
-
   componentDidMount() {
     const { replace } = this.props.navigation;
     DriveHelper.getFileList(this.props.accessToken).then((files) => {
@@ -29,9 +25,9 @@ class LaunchScreen extends Component {
             this.props.setEntriesId(entriesId);
 
             DriveHelper.getFileById(this.props.accessToken, preferencesId).then((preferences) => {
-                this.props.updatePreferences(preferences);
+                this.props.updatePreferences(JSON.parse(preferences));
                 DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
-                    this.props.updateEntries(entries);
+                    this.props.updateEntries(JSON.parse(entries));
                     replace("DrawerNavigator");
                 });
             });
