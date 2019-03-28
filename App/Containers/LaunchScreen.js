@@ -9,10 +9,6 @@ import styles from './Styles/LaunchScreenStyles'
 
 class LaunchScreen extends Component {
 
-  static navigationOptions = {
-    header: null
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +23,14 @@ class LaunchScreen extends Component {
       webClientId: '577206274010-1sn8lb9fvd0a7m3rof6r19drhtvk20nm.apps.googleusercontent.com',
       iosClientId: '577206274010-mllq7pnu4utqp4dh12335bp50vdlt9ug.apps.googleusercontent.com',
     });
+
+    GoogleSignin.signInSilently().then((userInfo) => {
+      if(userInfo) {
+        this.props.setUserInfo(userInfo)
+        const { replace } = this.props.navigation;
+        replace("InitialLoadingScreen");
+      }
+    })
   }
 
   signIn = async () => {
