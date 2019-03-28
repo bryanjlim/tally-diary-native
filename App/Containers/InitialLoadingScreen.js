@@ -15,22 +15,23 @@ class LaunchScreen extends Component {
   }
 
   componentDidMount() {
+    const { replace } = this.props.navigation;
     DriveHelper.getFileList(this.props.accessToken).then((files) => {
-        if(files == null || files == undefined || files.length == 0) {
+        if(files.length == 0) {
             // New User
+            replace("UserSetupScreen");
         } else {
-            const preferencesId = files[0].id;
-            const entriesId = files[1].id;
-
+            // Returning User
+            const preferencesId = files[0].name == '0' ? files[0].id : files[1].id;
+            const entriesId = files[0].name == '0' ? files[1].id : files[0].id;
             DriveHelper.getFileById(this.props.accessToken, preferencesId).then((preferences) => {
-            this.props.updatePreferences(preferences);
-
-            DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
-                this.props.updateEntries(entries);
-
-                const { replace } = this.props.navigation;
-                replace("DrawerNavigator");
-            });
+                this.props.updatePreferences(preferences);
+                console.log(preferences)
+                DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
+                    this.props.updateEntries(entries);
+                    console.log(entries)
+                    replace("DrawerNavigator");
+                });
             });
         }
     })

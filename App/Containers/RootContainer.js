@@ -3,6 +3,7 @@ import { View, StatusBar } from 'react-native'
 import LaunchScreen from '../Containers/LaunchScreen'
 import TimelineScreen from '../Containers/TimelineScreen'
 import InitialLoadingScreen from '../Containers/InitialLoadingScreen'
+import UserSetupScreen from '../Containers/UserSetupScreen'
 import { createAppContainer, createStackNavigator, createDrawerNavigator } from 'react-navigation'
 
 // Styles
@@ -19,6 +20,7 @@ const AppNavigator = createStackNavigator(
   {
     LaunchScreen: LaunchScreen,
     InitialLoadingScreen: InitialLoadingScreen,
+    UserSetupScreen: UserSetupScreen,
     DrawerNavigator: DrawerNavigator,
   },
   {

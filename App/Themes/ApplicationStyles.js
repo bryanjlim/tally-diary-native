@@ -17,6 +17,10 @@ const ApplicationStyles = {
       alignItems: 'center',
       justifyContent: 'center'
     },
+    horizontalCenter: {
+      backgroundColor: Colors.transparent,
+      alignItems: 'center',
+    },
     backgroundImage: {
       position: 'absolute',
       top: 0,
