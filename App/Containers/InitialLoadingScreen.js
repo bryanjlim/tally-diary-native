@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
-import { Button } from 'react-native-paper';
 import { connect } from 'react-redux'
 
 // Styles
 import styles from './Styles/LaunchScreenStyles'
+import Colors from '../Themes/Colors'
 
 class LaunchScreen extends Component {
 
@@ -38,8 +38,7 @@ class LaunchScreen extends Component {
   render() {
     return (
       <View style={styles.centerContainer}>
-        <Button loading={true} mode="text">
-        </Button>
+        <ActivityIndicator size="large" color={Colors.blue} />
       </View>
     )
   }

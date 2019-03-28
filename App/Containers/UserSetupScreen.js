@@ -8,6 +8,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // Styles
 import styles from './Styles/UserSetupScreenStyles'
+import Colors from '../Themes/Colors'
 
 class UserSetupScreen extends Component {
 
@@ -170,7 +171,7 @@ class UserSetupScreen extends Component {
                             onChangeText={password => this.setState({ password })}
                         />
                     </Surface>
-                    <Button mode="outlined" onPress={this.createNewUser}>
+                    <Button mode="outlined" onPress={this.createNewUser} color={Colors.blue}> 
                         Let's Begin
                     </Button>
                 </View>
