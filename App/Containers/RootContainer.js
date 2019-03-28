@@ -4,6 +4,7 @@ import LaunchScreen from '../Containers/LaunchScreen'
 import TimelineScreen from '../Containers/TimelineScreen'
 import InitialLoadingScreen from '../Containers/InitialLoadingScreen'
 import UserSetupScreen from '../Containers/UserSetupScreen'
+import SettingsScreen from '../Containers/SettingsScreen'
 import { createAppContainer, createStackNavigator, createDrawerNavigator } from 'react-navigation'
 
 // Styles
@@ -13,7 +14,12 @@ const DrawerNavigator = createDrawerNavigator({
   TimelineScreen: {
     screen: TimelineScreen,
   },
-});
+  SettingsScreen: {
+    screen: SettingsScreen,
+  },
+},
+{ navigationOptions: () => ({ header: null }) }
+);
 
 
 const AppNavigator = createStackNavigator(
@@ -24,7 +30,9 @@ const AppNavigator = createStackNavigator(
     DrawerNavigator: DrawerNavigator,
   },
   {
-    initialRouteName: "LaunchScreen"
+    initialRouteName: "LaunchScreen",
+    headerMode: 'none',
+    navigationOptions: () => ({ header: null })
   },
 );
 

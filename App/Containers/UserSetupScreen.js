@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Keyboard, SafeAreaView, Picker } from 'react-native'
+import { View, Keyboard, SafeAreaView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { updatePreferences, updateEntries } from '../Redux/actions'
 import { Title, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
@@ -124,7 +124,7 @@ class UserSetupScreen extends Component {
                         </HelperText>
                     </Surface>
                     <Surface style={styles.surface}>
-                        <Text style={styles.titleText}>How would you liked your style?</Text>
+                        <Text style={styles.titleText}>Which theme do you prefer?</Text>
                         <RadioButton.Group
                             onValueChange={primaryTheme => this.setState({ primaryTheme })}
                             value={this.state.primaryTheme}
@@ -160,7 +160,7 @@ class UserSetupScreen extends Component {
                         </RadioButton.Group>
                     </Surface>
                     <Surface style={this.state.usePassword ? styles.surface : styles.none}>
-                        <Text style={styles.titleText}>What would you liked your password to be?</Text>
+                        <Text style={styles.titleText}>What would you like your password to be?</Text>
                         <TextInput
                             secureTextEntry={true}
                             style={styles.dateSelector}
