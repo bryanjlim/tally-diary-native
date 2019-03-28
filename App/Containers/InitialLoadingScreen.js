@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
-import { updatePreferences, updateEntries } from '../Redux/actions'
+import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
 import { Button } from 'react-native-paper';
 import { connect } from 'react-redux'
 
@@ -24,12 +24,14 @@ class LaunchScreen extends Component {
             // Returning User
             const preferencesId = files[0].name == '0' ? files[0].id : files[1].id;
             const entriesId = files[0].name == '0' ? files[1].id : files[0].id;
+
+            this.props.setPreferencesId(preferencesId);
+            this.props.setEntriesId(entriesId);
+
             DriveHelper.getFileById(this.props.accessToken, preferencesId).then((preferences) => {
                 this.props.updatePreferences(preferences);
-                console.log(preferences)
                 DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
                     this.props.updateEntries(entries);
-                    console.log(entries)
                     replace("DrawerNavigator");
                 });
             });
@@ -53,5 +55,5 @@ const mapStateToProps = (store) => {
 
 export default connect(
     mapStateToProps,
-  { updatePreferences, updateEntries }
+  { updatePreferences, updateEntries, setPreferencesId, setEntriesId }
 )(LaunchScreen)

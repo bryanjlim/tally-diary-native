@@ -1,7 +1,9 @@
-import { SET_USER_INFO } from "../actionTypes";
+import { SET_USER_INFO, SET_PREFERENCES_ID, SET_ENTRIES_ID } from "../actionTypes";
 
 const initialState = {
-  accessToken: null,
+  userInfo: null,
+  preferencesId: null,
+  entriesId: null,
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +12,24 @@ export default function(state = initialState, action) {
       const { userInfo } = action.payload;
       return {
         userInfo: userInfo,
+        preferencesId: state.preferencesId,
+        entriesId: state.entriesId,
+      };
+    }
+    case SET_PREFERENCES_ID: {
+      const { preferencesId } = action.payload;
+      return {
+        userInfo: state.userInfo,
+        preferencesId: preferencesId,
+        entriesId: state.entriesId
+      };
+    }
+    case SET_ENTRIES_ID: {
+      const { entriesId } = action.payload;
+      return {
+        userInfo: state.userInfo,
+        preferencesId: state.preferencesId,
+        entriesId: entriesId,
       };
     }
     default: {

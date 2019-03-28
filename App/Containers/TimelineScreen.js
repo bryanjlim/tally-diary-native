@@ -17,6 +17,7 @@ class TimelineSreen extends Component {
 const mapStateToProps = (store) => {
   const entries = store.entries.entries;
   const preferences = store.preferences.preferences;
+  console.log(store.userInfo)
   return { entries, preferences };
 }
 
