@@ -41,8 +41,8 @@ class LaunchScreen extends Component {
 
   render() {
     return (
-      <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color={Colors.blue} />
+      <View style={styles.centerContainerBlue}>
+        <ActivityIndicator size="large" color="white" />
       </View>
     )
   }

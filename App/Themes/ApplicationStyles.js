@@ -43,6 +43,12 @@ const ApplicationStyles = {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    centerContainerBlue: {
+      flex: 1,
+      backgroundColor: Colors.blue,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
 
     horizontalCenter: {
       backgroundColor: Colors.transparent,
