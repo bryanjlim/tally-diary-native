@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Appbar, Button, IconButton, Surface, HelperText, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
 import { updateEntries } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -17,7 +18,7 @@ class AddEntryScreen extends Component {
 
   static navigationOptions = {
     drawerIcon: ({ tintColor }) => (
-      <Icon
+      <MaterialIcon
         name="add"
         style={{ color: tintColor, marginLeft: -5, fontSize: 32 }}
       />
