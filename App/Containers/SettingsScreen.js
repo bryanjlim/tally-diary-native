@@ -99,23 +99,23 @@ class SettingsScreen extends Component {
     render() {
         const { replace } = this.props.navigation;
         return (
-            <SafeAreaView style={styles.notchContainer}>
-                <Appbar style={styles.appBar}>
+            <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
+                <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
                     <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
                 </Appbar>
-                <ScrollView style={styles.mainContainer}>
-                    <View style={styles.centerContainer}>
-                        <Surface style={styles.surface}>
+                <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
+                    <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
+                        <Surface style={this.props.lightTheme ? styles.topSurface : styles.topSurfaceDark}>
                             <Text style={styles.titleText}>Account Actions</Text>
                             <Button style={styles.signOutButton} mode="outlined" color={Colors.blue}
                                     onPress={() => {GoogleSignin.signOut(); replace("LaunchScreen")}}>
                                 Sign Out
                             </Button>
                         </Surface>
-                        <Surface style={styles.surface}>
+                        <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
                             <Text style={styles.titleText}>Update Start Date</Text>
                             <TextInput
-                                style={styles.dateSelector}
+                                style={this.props.lightTheme ? styles.dateSelector : styles.dateSelectorDark}
                                 mode='outlined'
                                 value={this.state.dateOfBirth}
                                 onFocus={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
@@ -127,7 +127,7 @@ class SettingsScreen extends Component {
                                 Start date is invalid (cannot be in the future)
                             </HelperText>
                         </Surface>
-                        <Surface style={styles.surface}>
+                        <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
                             <Text style={styles.titleText}>Update Theme</Text>
                             <RadioButton.Group
                                 onValueChange={primaryTheme => this.setState({ primaryTheme })}
@@ -145,7 +145,7 @@ class SettingsScreen extends Component {
                                 </View>
                             </RadioButton.Group>
                         </Surface>
-                        <Surface style={styles.surface}>
+                        <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
                             <Text style={styles.titleText}>Use Password?</Text>
                             <RadioButton.Group
                                 onValueChange={usePassword => this.setState({ usePassword })}
@@ -163,7 +163,7 @@ class SettingsScreen extends Component {
                                 </View>
                             </RadioButton.Group>
                         </Surface>
-                        <Surface style={this.state.usePassword ? styles.surface : styles.none}>
+                        <Surface style={this.state.usePassword ? (this.props.lightTheme ? styles.surface : styles.surfaceDark) : styles.none}>
                             <Text style={styles.titleText}>Set Password</Text>
                             <TextInput
                                 secureTextEntry={true}
@@ -174,7 +174,8 @@ class SettingsScreen extends Component {
                                 onChangeText={password => this.setState({ password })}
                             />
                         </Surface>
-                        <Button mode="outlined" color={Colors.blue} onPress={this.updateUser} style={styles.submitButton}>
+                        <Button mode="outlined" color={Colors.blue} onPress={this.updateUser} 
+                            style={this.props.lightTheme ? styles.submitButton : styles.submitButtonDark}>
                             Update Settings
                         </Button>
                     </View>
