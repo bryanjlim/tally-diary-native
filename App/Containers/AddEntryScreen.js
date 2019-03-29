@@ -80,7 +80,11 @@ class AddEntryScreen extends Component {
   }
 
   submitEntry() {
-    let entries = this.props.entries;
+    let entries = [];
+    for(let i = 0; i < this.props.entries.length; i++) {
+      entries[i] = this.props.entries[i];
+    }
+
     if (!(this.props.entries instanceof Array)) {
       entries = [];
     }
@@ -293,8 +297,8 @@ class AddEntryScreen extends Component {
 
 const mapStateToProps = (store) => {
   const accessToken = store.userInfo.userInfo.accessToken;
-  const entries = store.entries.entries;
-  const preferences = store.preferences.preferences;
+  const entries = store.entries;
+  const preferences = store.preferences;
   const entriesId = store.userInfo.entriesId;
   return { entries, preferences, entriesId, accessToken };
 }

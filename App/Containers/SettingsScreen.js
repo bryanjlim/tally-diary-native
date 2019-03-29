@@ -193,7 +193,7 @@ const mapStateToProps = (store) => {
     return {
         accessToken: store.userInfo.userInfo.accessToken,
         preferencesId: store.userInfo.preferencesId,
-        preferences: store.preferences.preferences,
+        preferences: store.preferences,
     }
 }
 
