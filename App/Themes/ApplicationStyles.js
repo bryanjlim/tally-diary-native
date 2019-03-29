@@ -7,22 +7,43 @@ import Colors from './Colors'
 
 const ApplicationStyles = {
   screen: {
+
     appBar: {
       color: Colors.blue,
       backgroundColor: Colors.blue,
     },
+    appBarDark: {
+      color: Colors.lightBlue,
+      backgroundColor: Colors.lightBlue,
+    },
+
     notchContainer: {
       backgroundColor: Colors.blue,
     },
+    notchContainerDark: {
+      backgroundColor: Colors.lightBlue,
+    },
+
     mainContainer: {
       backgroundColor: Colors.background,
     },
+    mainContainerDark: {
+      backgroundColor: Colors.backgroundDark,
+    },
+
     centerContainer: {
       flex: 1,
       backgroundColor: Colors.background,
       alignItems: 'center',
       justifyContent: 'center'
     },
+    centerContainerDark: {
+      flex: 1,
+      backgroundColor: Colors.backgroundDark,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+
     horizontalCenter: {
       backgroundColor: Colors.transparent,
       alignItems: 'center',

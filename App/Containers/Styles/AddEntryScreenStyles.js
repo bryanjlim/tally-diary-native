@@ -12,6 +12,15 @@ export default StyleSheet.create({
         paddingBottom: 10,
         elevation: 3,
     },
+    surfaceDark: {
+        marginTop: 15,
+        marginBottom: 100,
+        backgroundColor: 'darkgray',
+        width: '92%',
+        padding: 8,
+        paddingBottom: 10,
+        elevation: 3,
+    },
     row: {
         flexDirection: "row",
     },
@@ -24,6 +33,11 @@ export default StyleSheet.create({
         height: 50,
         backgroundColor: 'white',
     },
+    inputTitleDark: {
+        fontSize: 23,
+        height: 50,
+        backgroundColor: 'darkgray',
+    },
     topDivider: {
         marginTop: 15,
     },
@@ -31,6 +45,12 @@ export default StyleSheet.create({
         height: 300,
         borderColor: Colors.blue,
         backgroundColor: 'white',
+        marginBottom: 10,
+    },
+    bodyTextDark: {
+        height: 300,
+        borderColor: Colors.lightBlue,
+        backgroundColor: 'darkgray',
         marginBottom: 10,
     },
     thumbButton: {
@@ -53,7 +73,14 @@ export default StyleSheet.create({
     tallyTextInput: {
         backgroundColor: 'white',
         width: 150,
-        height: 50,
+        height: 55,
+        fontSize: 30,
+        marginTop: 14,
+    },
+    tallyTextInputDark: {
+        backgroundColor: 'darkgray',
+        width: 150,
+        height: 55,
         fontSize: 30,
         marginTop: 14,
     },
@@ -73,7 +100,19 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginTop: 7,
     },
+    chipDark: {
+        backgroundColor: 'gray',
+    },
     submitButton: {
+        alignSelf: 'center',
+        width: 160,
+        marginTop: 20,
+        marginBottom: 20,
+        paddingBottom: 2,
+    },
+    submitButtonDark: {
+        backgroundColor: 'gray',
+        color: 'white',
         alignSelf: 'center',
         width: 160,
         marginTop: 20,
@@ -87,7 +126,25 @@ export default StyleSheet.create({
         marginBottom: 7,
         paddingBottom: 3,
     },
+    updateButton1Dark: {
+        backgroundColor: 'gray',
+        color: 'white',
+        alignSelf: 'center',
+        width: 160,
+        marginTop: 20,
+        marginBottom: 7,
+        paddingBottom: 3,
+    },
     updateButton2: {
+        alignSelf: 'center',
+        width: 160,
+        marginTop: 5,
+        marginBottom: 21,
+        paddingBottom: 3,
+    },
+    updateButton2Dark: {
+        backgroundColor: 'gray',
+        color: 'white',
         alignSelf: 'center',
         width: 160,
         marginTop: 5,

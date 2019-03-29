@@ -1,7 +1,11 @@
 const colors = {
   background: 'white',
+  backgroundDark: 'gray',
+
   clear: 'rgba(0,0,0,0)',
   blue: '#3f51b5',
+  lightBlue: '#3f51b5',
+
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',

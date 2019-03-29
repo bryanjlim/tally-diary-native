@@ -140,7 +140,7 @@ class SettingsScreen extends Component {
                                     </View>
                                     <View style={styles.rightRadio}>
                                         <Text>Dark</Text>
-                                        <RadioButton.Android color={Colors.blue} value="dark" disabled={true} />
+                                        <RadioButton.Android color={Colors.blue} value="dark" />
                                     </View>
                                 </View>
                             </RadioButton.Group>
