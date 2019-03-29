@@ -6,12 +6,12 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   timelineScroll: {
     backgroundColor: 'white',
-    marginBottom: 75,
+    height: '100%',
     paddingBottom: 200,
   },
   timelineScrollDark: {
     backgroundColor: 'gray',
-    marginBottom: 75,
+    height: '100%',
     paddingBottom: 200,
   }
 })
