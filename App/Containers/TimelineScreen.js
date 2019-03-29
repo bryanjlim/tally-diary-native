@@ -25,7 +25,7 @@ class TimelineSreen extends Component {
     super(props);
     this.assignIndexes(); // Important: keep index values to diary entries up to date locally
 
-    this.state= {
+    this.state = {
       modalVisible: false,
       diaryEntryToDelete: "None",
     }
@@ -41,30 +41,37 @@ class TimelineSreen extends Component {
     return (
       <View style={{ alignItems: 'center' }}>
         <LargeEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth}
-          delete={() => this.setState({diaryEntryToDelete: entry.index})}/>
+          delete={() => {
+            this.setState({ diaryEntryToDelete: entry.index });
+            this._showDialog()
+          }} />
       </View>
     );
   }
 
   deleteEntry() {
-    if(this.state.diaryEntryToDelete != "None") {
-      let entriesArray = [...this.props.entries];
+    if (this.state.diaryEntryToDelete != "None") {
+      let entriesArray = [];
+      for(let i = 0; i < this.props.entries.length; i++) {
+        entriesArray[i] = this.props.entries[i];
+      }
+
       const index = this.state.diaryEntryToDelete;
       entriesArray.splice(index, 1);
       DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
-      updateEntries(entriesArray);
       this.setState({
         diaryEntryToDelete: "None",
       })
+      this._hideDialog();
+      this.forceUpdate();
+      this.props.updateEntries(entriesArray);
     }
   }
 
   assignIndexes() {
     let entriesArray = [];
-    for(let i = 0; i < this.props.entries.length; i++) {
+    for (let i = 0; i < this.props.entries.length; i++) {
       entriesArray[i] = this.props.entries[i];
-    }
-    for (let i = 0; i < entriesArray.length; i++) {
       entriesArray[i].index = i;
     }
     this.props.updateEntries(entriesArray);
@@ -111,7 +118,7 @@ class TimelineSreen extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store) => {  
   const entries = store.entries;
   const preferences = store.preferences;
   const accessToken = store.userInfo.userInfo.accessToken;

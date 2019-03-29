@@ -37,7 +37,7 @@ export default class LargeEntryCard extends React.Component {
                 </Card.Content>
                 <Card.Actions>
                     <Button color={Colors.blue}>View</Button>
-                    <Button onPress={this._showDialog}>Delete</Button>
+                    <Button onPress={this.props.delete}>Delete</Button>
                 </Card.Actions>
             </Card>
         );
