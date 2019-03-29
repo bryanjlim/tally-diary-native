@@ -6,7 +6,6 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   titleText: {
     fontSize: 15,
-    color: Colors.blue,
     paddingBottom: 12,
   },
   topSurface: {

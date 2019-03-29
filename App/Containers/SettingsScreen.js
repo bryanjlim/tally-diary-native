@@ -58,13 +58,14 @@ class SettingsScreen extends Component {
                 "firstName": this.state.firstName,
                 "lastName": this.state.lastName,
                 "dateOfBirth": this.state.dateOfBirth,
-                "appLaunches": 1,
+                "appLaunches": this.props.preferences.appLaunches,
                 "primaryTheme": this.state.primaryTheme,
                 "secondaryColor": this.state.secondaryColor,
                 "usePassword": this.state.usePassword,
                 "password": this.state.password,
             };
             DriveHelper.patchFile(this.props.accessToken, userData, '0', this.props.preferencesId);
+            this.props.updatePreferences(userData)
             // TODO: Snackbar showing success or failure
         }
     }
