@@ -191,6 +191,7 @@ class SettingsScreen extends Component {
 
 const mapStateToProps = (store) => {
     return {
+        lightTheme: store.preferences.primaryTheme == "light",
         accessToken: store.userInfo.userInfo.accessToken,
         preferencesId: store.userInfo.preferencesId,
         preferences: store.preferences,

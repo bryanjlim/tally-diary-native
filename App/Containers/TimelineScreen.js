@@ -156,7 +156,7 @@ class TimelineSreen extends Component {
         {this.state.showDiaryEntry ?
           <UpdateEntryScreen entry={this.props.entries[this.state.diaryEntryToShowIndex]}
             updateEntry={(entry) => this.updateEntry(entry, this.state.diaryEntryToShowIndex)}
-            preferences={this.props.preferences}
+            preferences={this.props.preferences} lightTheme={this.props.lightTheme}
           />
           :
           <View style={this.props.lightTheme ? {} : { backgroundColor: 'gray' }}>
@@ -201,11 +201,12 @@ class TimelineSreen extends Component {
 }
 
 const mapStateToProps = (store) => {
+  const lightTheme = store.preferences.primaryTheme == "light";
   const entries = store.entries;
   const preferences = store.preferences;
   const accessToken = store.userInfo.userInfo.accessToken;
   const entriesId = store.userInfo.entriesId;
-  return { entries, preferences, accessToken, entriesId };
+  return { entries, preferences, accessToken, entriesId, lightTheme };
 }
 
 export default connect(
