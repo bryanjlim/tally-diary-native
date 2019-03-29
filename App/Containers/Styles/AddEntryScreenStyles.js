@@ -17,29 +17,15 @@ export default StyleSheet.create({
     },
     dayLabel: {
         marginTop: 12,
-        fontSize: 25,
-        color: Colors.blue,
-    },
-    labelUnderline: {
-        borderBottomColor: Colors.blue,
-        paddingRight: 10,
-        borderBottomWidth: .9,
+        marginLeft: 10,
     },
     inputTitle: {
         fontSize: 23,
-        borderBottomColor: Colors.blue,
-        borderBottomWidth: 1,
-        width: '63%',
+        height: 50,
+        backgroundColor: 'white',
     },
-    dateLabel: {
-        marginTop: 10,
-        fontSize: 15,
-    },
-    dateUnderline: {
-        borderBottomColor: Colors.blue,
-        borderBottomWidth: .9,
-        width: 200,
-        marginBottom: 10,
+    topDivider: {
+        marginTop: 15,
     },
     bodyText: {
         height: 300,

@@ -90,7 +90,7 @@ class SettingsScreen extends Component {
                             <Text>{this.state.appLaunches}</Text>
                         </Surface>
                         <Surface style={styles.tallySurface}>
-                            <Title style={{alignSelf: "center"}}>Tallies</Title>
+                            <Title style={{ alignSelf: "center" }}>Tallies</Title>
                             <List.Section>
                                 <List.Accordion
                                     title="Food"

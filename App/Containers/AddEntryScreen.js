@@ -81,7 +81,7 @@ class AddEntryScreen extends Component {
 
   submitEntry() {
     let entries = [];
-    for(let i = 0; i < this.props.entries.length; i++) {
+    for (let i = 0; i < this.props.entries.length; i++) {
       entries[i] = this.props.entries[i];
     }
 
@@ -159,24 +159,23 @@ class AddEntryScreen extends Component {
             <Surface style={styles.surface}>
 
               {/* Header */}
-              <View style={styles.row}>
-                <View style={styles.labelUnderline}>
-                  <Text style={styles.dayLabel}>Day {dayNumber}</Text>
-                </View>
-                <TextInput
-                  label="Title"
-                  value={this.state.title}
-                  onChangeText={(title) => this.setState({ title })}
-                  style={styles.inputTitle}
-                />
-              </View>
-              <View style={styles.dateUnderline}>
-                <Text style={styles.dateLabel} onPress={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}>
-                  {this.state.date}
-                </Text>
-              </View>
+              <Title style={styles.dayLabel}>Day {dayNumber}</Title>
+              <PaperInput
+                label="Title (Optional)"
+                value={this.state.title}
+                onChangeText={(title) => this.setState({ title })}
+                style={styles.inputTitle}
+                theme={{ colors: { primary: Colors.blue } }}
+              />
+              <PaperInput
+                label="Date"
+                value={this.state.date}
+                onTouchStart={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
+                style={styles.inputTitle}
+                theme={{ colors: { primary: Colors.blue } }}
+              />
 
-              <Divider />
+              <Divider style={styles.topDivider}/>
 
               {/* Paragraph Entry */}
               <Title style={styles.tallyTitle}>Your Thoughts</Title>
