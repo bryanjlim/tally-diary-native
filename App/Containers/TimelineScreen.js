@@ -24,10 +24,6 @@ class TimelineSreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      diaryEntriesToShow: this.props.entries,
-    };
-
     this.eachDiaryEntryObject = this.eachDiaryEntryObject.bind(this);
   }
 
@@ -47,8 +43,8 @@ class TimelineSreen extends Component {
         </Appbar>
         <ScrollView>
           <View style={styles.mainContainer}>
-            {this.state.diaryEntriesToShow instanceof Array && this.state.diaryEntriesToShow.length > 0 ?
-              this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject) :
+            {this.props.entries instanceof Array && this.props.entries.length > 0 ?
+              this.props.entries.map(this.eachDiaryEntryObject) :
               <View style={styles.centerContainer}>
                 <Text style={{marginTop: 10}}>No Diary Entries To Show</Text>
               </View>

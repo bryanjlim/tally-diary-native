@@ -87,7 +87,6 @@ class UserSetupScreen extends Component {
 
     _handleDatePicked = (date) => {
         const dateString = TimeHelper.formatDate(date)
-
         this.setState({
             dateOfBirth: dateString
         })

@@ -8,7 +8,6 @@ import Colors from '../Themes/Colors'
 export default class AppBar extends React.Component {
     render() {
         const entryDate = new Date(this.props.entry.date);
-        entryDate.setDate(entryDate.getDate() + 1);
         const daysAlive = TimeHelper.calculateDayDifference(new Date(this.props.birthDate), entryDate);
         const readDate = TimeHelper.getReadableDate(entryDate);
         const textToShow = this.props.entry.bodyText;
