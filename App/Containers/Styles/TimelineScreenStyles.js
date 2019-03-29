@@ -8,5 +8,10 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     marginBottom: 75,
     paddingBottom: 200,
+  },
+  timelineScrollDark: {
+    backgroundColor: 'gray',
+    marginBottom: 75,
+    paddingBottom: 200,
   }
 })

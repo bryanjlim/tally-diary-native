@@ -59,7 +59,7 @@ class TimelineSreen extends Component {
   eachDiaryEntryObject(entry) {
     return (
       <View style={{ alignItems: 'center' }}>
-        <LargeEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth}
+        <LargeEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth} lightTheme={this.props.lightTheme}
           delete={() => {
             this.setState({ diaryEntryToDelete: entry.index });
             this._showDialog()
@@ -149,8 +149,8 @@ class TimelineSreen extends Component {
 
 
     return (
-      <SafeAreaView style={styles.notchContainer}>
-        <Appbar style={styles.appBar}>
+      <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
+        <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
           <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
         </Appbar>
         {this.state.showDiaryEntry ?
@@ -159,7 +159,7 @@ class TimelineSreen extends Component {
             preferences={this.props.preferences}
           />
           :
-          <View>
+          <View style={this.props.lightTheme ? {} : { backgroundColor: 'gray' }}>
             <Portal>
               <Dialog
                 visible={this.state.modalVisible}
@@ -179,13 +179,13 @@ class TimelineSreen extends Component {
                 this.loadMoreEntries();
               }
             }}
-              style={styles.timelineScroll}
+              style={this.props.lightTheme ? styles.timelineScroll : styles.timelineScrollDark}
             >
-              <View style={styles.mainContainer}>
+              <View style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                 {this.props.entries instanceof Array && this.props.entries.length > 0 ?
                   this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject) :
-                  <View style={styles.centerContainer}>
-                    <Text style={{ marginTop: 10 }}>No Diary Entries To Show</Text>
+                  <View style={this.props.lightTheme ? styles.centerContainer : styles.mainContainerDark}>
+                    <Text style={this.props.lightTheme ? { marginTop: 10 } : {marginTop: 10, color: 'white'}}>No Diary Entries To Show</Text>
                   </View>
                 }
 

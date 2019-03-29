@@ -16,14 +16,26 @@ export default class LargeEntryCard extends React.Component {
         const title = "Day " + daysAlive + (this.props.entry.title ? ' - ' + this.props.entry.title : '')
 
         return (
-            <Card style={{ marginTop: 10, width: '95%' }}>
-                <Card.Title title={title} subtitle={readDate} />
+            <Card style={this.props.lightTheme ? { marginTop: 10, width: '95%' }
+                : { marginTop: 10, width: '95%', backgroundColor: 'darkgray' }}>
+                <Card.Title title={title} subtitle={readDate}
+                    style={this.props.lightTheme ? {} : { color: 'white' }} />
                 <Card.Content>
-                    <Paragraph style={{ maxHeight: 50 }}>{textToShow}</Paragraph>
+                    <Paragraph style={{ maxHeight: 50 }}>
+                        {textToShow}
+                    </Paragraph>
                 </Card.Content>
                 <Card.Actions>
-                    <Button onPress={this.props.view} color={Colors.blue}>View</Button>
-                    <Button onPress={this.props.delete} color="red">Delete</Button>
+                    <Button onPress={this.props.view} color={Colors.blue}
+                        style={this.props.lightTheme ? {} : { backgroundColor: Colors.transparent }}
+                    >
+                        View
+                    </Button>
+                    <Button onPress={this.props.delete} color="red"
+                        style={this.props.lightTheme ? {} : { backgroundColor: Colors.transparent }}
+                    >
+                        Delete
+                    </Button>
                 </Card.Actions>
             </Card>
         );
