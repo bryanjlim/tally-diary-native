@@ -14,10 +14,28 @@ export default StyleSheet.create({
     elevation: 2,
     marginBottom: 10,
   },
+  appLaunchSurfaceDark: {
+    marginTop: 20,
+    padding: 8,
+    width: '90%',
+    height: 130,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 2,
+    marginBottom: 10,
+    backgroundColor: 'darkgray',
+  },
   tallySurface: {
     padding: 8,
     width: '90%',
     elevation: 2,
     marginBottom: 10,
   },
+  tallySurfaceDark: {
+    padding: 8,
+    width: '90%',
+    elevation: 2,
+    marginBottom: 300,
+    backgroundColor: 'darkgray'
+  }
 })

@@ -41,7 +41,7 @@ const ApplicationStyles = {
       flex: 1,
       backgroundColor: Colors.backgroundDark,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
 
     horizontalCenter: {
