@@ -184,7 +184,7 @@ class TimelineSreen extends Component {
               <View style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                 {this.props.entries instanceof Array && this.props.entries.length > 0 ?
                   this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject) :
-                  <View style={this.props.lightTheme ? styles.centerContainer : styles.mainContainerDark}>
+                  <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
                     <Text style={this.props.lightTheme ? { marginTop: 10 } : {marginTop: 10, color: 'white'}}>No Diary Entries To Show</Text>
                   </View>
                 }
