@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, Keyboard, } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View, TextInput, Keyboard, BackHandler } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import TimeHelper from '../Helpers/timeHelper';
 import { connect } from 'react-redux'
@@ -39,7 +39,28 @@ export default class UpdateEntryScreen extends Component {
     this.toggleThumbsDown = this.toggleThumbsDown.bind(this);
     this.deleteTally = this.deleteTally.bind(this);
     this.updateEntry = this.updateEntry.bind(this);
+    this.handleBackPress = this.handleBackPress.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
+
+  // Handle Android back button press
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    this.goBack();
+    return true;
+  }
+
+  goBack() {
+    this.props.updateEntry(this.props.entry);
+  }
+
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
@@ -113,10 +134,6 @@ export default class UpdateEntryScreen extends Component {
 
     return (
       <SafeAreaView style={styles.notchContainer}>
-
-        <Appbar style={styles.appBar}>
-          <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
-        </Appbar>
 
         <ScrollView style={styles.mainContainer}>
           <View style={styles.centerContainer}>
@@ -240,8 +257,16 @@ export default class UpdateEntryScreen extends Component {
                 color={Colors.blue}
                 onPress={this.updateEntry}
                 mode="outlined"
-                style={styles.submitButton}>
+                style={styles.updateButton1} >
                 Update Entry
+              </Button>
+
+              <Button
+                color={Colors.blue}
+                onPress={this.goBack}
+                mode="outlined"
+                style={styles.updateButton2}>
+                Go Back
               </Button>
 
             </Surface>

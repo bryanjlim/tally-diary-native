@@ -93,5 +93,19 @@ export default StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         paddingBottom: 2,
+    },
+    updateButton1: {
+        alignSelf: 'center',
+        width: 160,
+        marginTop: 20,
+        marginBottom: 7,
+        paddingBottom: 3,
+    },
+    updateButton2: {
+        alignSelf: 'center',
+        width: 160,
+        marginTop: 5,
+        marginBottom: 21,
+        paddingBottom: 3,
     }
 })

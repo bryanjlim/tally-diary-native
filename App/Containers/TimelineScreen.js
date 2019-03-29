@@ -110,18 +110,16 @@ class TimelineSreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.notchContainer}>
-
+        <Appbar style={styles.appBar}>
+          <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+        </Appbar>
         {this.state.showDiaryEntry ?
           <UpdateEntryScreen entry={this.props.entries[this.state.diaryEntryToShowIndex]}
             updateEntry={(entry) => this.updateEntry(entry, this.state.diaryEntryToShowIndex)}
             preferences={this.props.preferences}
-            />
+          />
           :
           <View>
-            <Appbar style={styles.appBar}>
-              <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
-            </Appbar>
-
             <Portal>
               <Dialog
                 visible={this.state.modalVisible}
