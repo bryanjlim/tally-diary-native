@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StatusBar } from 'react-native'
 import LaunchScreen from '../Containers/LaunchScreen'
 import TimelineScreen from '../Containers/TimelineScreen'
+import InsightsScreen from '../Containers/InsightsScreen'
 import InitialLoadingScreen from '../Containers/InitialLoadingScreen'
 import UserSetupScreen from '../Containers/UserSetupScreen'
 import SettingsScreen from '../Containers/SettingsScreen'
@@ -18,6 +19,9 @@ const DrawerNavigator = createDrawerNavigator({
   },
   "Timeline": {
     screen: TimelineScreen,
+  },
+  "Insights": {
+    screen: InsightsScreen,
   },
   "Settings": {
     screen: SettingsScreen,
