@@ -237,7 +237,7 @@ export default class UpdateEntryScreen extends Component {
 
               {/* Submit */}
               <Button
-                theme={{ colors: { primary: Colors.blue } }}
+                color={Colors.blue}
                 onPress={this.updateEntry}
                 mode="outlined"
                 style={styles.submitButton}>

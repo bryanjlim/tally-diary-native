@@ -6,10 +6,11 @@ import { Appbar, Portal, Dialog, Paragraph, Button } from 'react-native-paper';
 import LargeEntryCard from '../Components/LargeEntryCard'
 import { updateEntries, updatePreferences } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import UpdateEntryScreen from './UpdateEntryScreen';
 
 // Styles
 import styles from './Styles/TimelineScreenStyles'
-import UpdateEntryScreen from './UpdateEntryScreen';
+import Colors from '../Themes/Colors'
 
 class TimelineSreen extends Component {
 
@@ -130,7 +131,7 @@ class TimelineSreen extends Component {
                   <Paragraph>This cannot be undone</Paragraph>
                 </Dialog.Content>
                 <Dialog.Actions>
-                  <Button onPress={() => this.deleteEntry()}>Confirm</Button>
+                  <Button color={Colors.blue} onPress={() => this.deleteEntry()}>Confirm</Button>
                 </Dialog.Actions>
               </Dialog>
             </Portal>
