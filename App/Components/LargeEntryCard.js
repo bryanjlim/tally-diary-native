@@ -6,20 +6,6 @@ import TimeHelper from '../Helpers/timeHelper'
 import Colors from '../Themes/Colors'
 
 export default class LargeEntryCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            popupVisible: false,
-        }
-
-        // this._showDialog = this._showDialog.bind(this);
-        // this._hideDialog = this._hideDialog.bind(this);
-    }
-
-    // _showDialog = () => this.setState({ popupVisible: true });
-
-    // _hideDialog = () => this.setState({ popupVisible: false });
-
     render() {
         const entryDate = new Date(this.props.entry.date);
         const daysAlive = TimeHelper.calculateDayDifference(new Date(this.props.birthDate), entryDate);
@@ -36,19 +22,10 @@ export default class LargeEntryCard extends React.Component {
                     <Paragraph style={{ maxHeight: 50 }}>{textToShow}</Paragraph>
                 </Card.Content>
                 <Card.Actions>
-                    <Button color={Colors.blue}>View</Button>
-                    <Button onPress={this.props.delete}>Delete</Button>
+                    <Button onPress={this.props.view} color={Colors.blue}>View</Button>
+                    <Button onPress={this.props.delete} color="red">Delete</Button>
                 </Card.Actions>
             </Card>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    top: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-    },
-});
