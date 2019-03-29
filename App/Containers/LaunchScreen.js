@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, View } from 'react-native'
+import { Image, View } from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin'
+import { Snackbar } from 'react-native-paper'
 import { setUserInfo } from '../Redux/actions'
 import { connect } from 'react-redux'
 
@@ -14,6 +15,9 @@ class LaunchScreen extends Component {
     this.state = {
       user: null,
       accessToken: null,
+      showScreen: false,
+      showError: false,
+      errorToShow: ""
     }
   }
 
@@ -25,11 +29,18 @@ class LaunchScreen extends Component {
     });
 
     GoogleSignin.signInSilently().then((userInfo) => {
-      if(userInfo) {
+      if (userInfo) {
         this.props.setUserInfo(userInfo)
         const { replace } = this.props.navigation;
         replace("InitialLoadingScreen");
       }
+      this.setState({
+        showScreen: true,
+      })
+    }).catch((err) => {
+      this.setState({
+        showScreen: true,
+      })
     })
   }
 
@@ -56,13 +67,33 @@ class LaunchScreen extends Component {
 
   render() {
     return (
-      <View style={styles.centerContainer}>
-        <GoogleSigninButton
-          style={{ width: 192, height: 48 }}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={this.signIn}
-        />
+      <View style={styles.centerContainerBlue}>
+        {
+          this.state.showScreen ?
+            <View style={styles.centerContainerBlue}>
+              <View style={{ marginBottom: 20 }}>
+                <Image source={require('../Images/TextLogoWhite.png')} style={{
+                  width: 250,
+                  resizeMode: 'contain'
+                }} />
+              </View>
+              <View>
+                <GoogleSigninButton
+                  style={{ width: 192, height: 48 }}
+                  size={GoogleSigninButton.Size.Wide}
+                  color={GoogleSigninButton.Color.Light}
+                  onPress={this.signIn}
+                />
+              </View>
+            </View> :
+            <View></View>
+        }
+        <Snackbar
+          visible={this.state.showError}
+          onDismiss={() => this.setState({ showError: false })}
+        >
+          Error Signing In: {this.state.errorToShow}
+        </Snackbar>
       </View>
     )
   }
