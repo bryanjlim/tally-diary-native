@@ -95,30 +95,35 @@ class SettingsScreen extends Component {
                                 <List.Accordion
                                     title="Food"
                                     color={Colors.blue}
+                                    theme={{ colors: { primary: Colors.blue } }}
                                 >
                                     {foodTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="People"
                                     color={Colors.blue}
+                                    theme={{ colors: { primary: Colors.blue } }}
                                 >
                                     {peopleTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Activity"
                                     color={Colors.blue}
+                                    theme={{ colors: { primary: Colors.blue } }}
                                 >
                                     {activityTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Location"
                                     color={Colors.blue}
+                                    theme={{ colors: { primary: Colors.blue } }}
                                 >
                                     {locationTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Other"
                                     color={Colors.blue}
+                                    theme={{ colors: { primary: Colors.blue } }}
                                 >
                                     {otherTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
