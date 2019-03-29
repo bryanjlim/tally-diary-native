@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View, ActivityIndicator } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { connect } from 'react-redux'
 import { Appbar, Portal, Dialog, Paragraph, Button } from 'react-native-paper';
@@ -27,11 +27,23 @@ class TimelineSreen extends Component {
     super(props);
     this.assignIndexes(); // Important: keep index values to diary entries up to date locally
 
+    let moreToShow = false;
+    let diaryEntriesToShow = this.props.entries;
+    if (this.props.entries instanceof Array && this.props.entries.length > 0) {
+      if (this.props.entries.length > 15) {
+        moreToShow = true;
+      }
+      diaryEntriesToShow = this.props.entries.splice(0, 16)
+    }
+
     this.state = {
       modalVisible: false,
       diaryEntryToDelete: "None",
       showDiaryEntry: false,
       diaryEntryToShowIndex: "None",
+      totalEntriesShowing: 15,
+      moreToShow: moreToShow,
+      diaryEntriesToShow: diaryEntriesToShow,
     }
 
     this.eachDiaryEntryObject = this.eachDiaryEntryObject.bind(this);
@@ -40,6 +52,8 @@ class TimelineSreen extends Component {
     this.updateEntry = this.updateEntry.bind(this);
     this._showDialog = this._showDialog.bind(this);
     this._hideDialog = this._hideDialog.bind(this);
+    this.isCloseToBottom = this.isCloseToBottom.bind(this);
+    this.loadMoreEntries = this.loadMoreEntries.bind(this);
   }
 
   eachDiaryEntryObject(entry) {
@@ -58,6 +72,30 @@ class TimelineSreen extends Component {
           }} />
       </View>
     );
+  }
+
+  isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+    return layoutMeasurement.height + contentOffset.y
+      >= contentSize.height - 50;
+  }
+
+  loadMoreEntries() {
+    const currentIndex = this.state.totalEntriesShowing + 1;
+
+    let maxIndex = currentIndex + 15;
+    if (this.props.entries.length < maxIndex) {
+      maxIndex = this.props.entries.length;
+    }
+
+    for (let i = currentIndex; i < currentIndex + 15; i++) {
+      this.setState((prevState) => ({
+        diaryEntriesToShow: [...prevState.diaryEntriesToShow, this.props.entries[i]],
+      }))
+    }
+    this.setState((prevState) => ({
+      totalEntriesShowing: prevState.totalEntriesShowing + 15,
+      moreToShow: (prevState.totalEntriesShowing + 15 < this.props.entries.length),
+    }));
   }
 
   updateEntry(updatedEntry, index) {
@@ -108,6 +146,8 @@ class TimelineSreen extends Component {
   _hideDialog = () => this.setState({ modalVisible: false });
 
   render() {
+
+
     return (
       <SafeAreaView style={styles.notchContainer}>
         <Appbar style={styles.appBar}>
@@ -134,15 +174,23 @@ class TimelineSreen extends Component {
               </Dialog>
             </Portal>
 
-            <ScrollView>
+            <ScrollView onScroll={({ nativeEvent }) => {
+              if (this.isCloseToBottom(nativeEvent) && this.state.moreToShow) {
+                this.loadMoreEntries();
+              }
+            }}
+              style={styles.timelineScroll}
+            >
               <View style={styles.mainContainer}>
                 {this.props.entries instanceof Array && this.props.entries.length > 0 ?
-                  this.props.entries.map(this.eachDiaryEntryObject) :
+                  this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject) :
                   <View style={styles.centerContainer}>
                     <Text style={{ marginTop: 10 }}>No Diary Entries To Show</Text>
                   </View>
                 }
 
+                {this.state.moreToShow ? <ActivityIndicator size="large" color={Colors.blue} style={{marginTop: 5,}}/>
+                  : <View></View>}
               </View>
             </ScrollView>
           </View>
