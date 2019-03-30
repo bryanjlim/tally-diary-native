@@ -25,7 +25,10 @@ class LaunchScreen extends Component {
         this.props.setEntriesId(entriesId);
 
         DriveHelper.getFileById(this.props.accessToken, preferencesId).then((preferences) => {
-          this.props.updatePreferences(JSON.parse(preferences));
+          const parsedPreferences = JSON.parse(preferences);
+          parsedPreferences.appLaunches++;
+          DriveHelper.patchFile(this.props.accessToken, parsedPreferences, "0", preferencesId);
+          this.props.updatePreferences(parsedPreferences);
           DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
             let entriesArray = JSON.parse(entries);
             if (entriesArray instanceof Array) {
