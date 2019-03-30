@@ -135,7 +135,7 @@ export default class UpdateEntryScreen extends Component {
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
 
-<ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
+        <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
           <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
             <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
 
@@ -145,7 +145,7 @@ export default class UpdateEntryScreen extends Component {
                 onPress={() => { this._showDateTimePicker(); }}
                 style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
               >
-                <Text style={this.props.lightTheme ? {} : {color: 'white'}}>
+                <Text style={this.props.lightTheme ? {} : { color: 'white' }}>
                   {this.state.date}
                 </Text>
               </TouchableOpacity>

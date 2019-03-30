@@ -90,7 +90,7 @@ class SettingsScreen extends Component {
                                 { marginLeft: 15, color: 'white' }}>{this.state.appLaunches}</Text>
                         </Surface>
 
-                        <Surface style={this.props.lightTheme ? styles.appLaunchSurface : styles.appLaunchSurfaceDark}>
+                        <Surface style={this.props.lightTheme ? styles.entriesSurface : styles.entriesSurfaceDark}>
                             <Title style={this.props.lightTheme ? {} : { color: 'white' }}>Diary Entries</Title>
                             <Text style={this.props.lightTheme ? {marginLeft: 15, } : 
                                 { marginLeft: 15, color: 'white' }}>{this.props.entries.length}</Text>
