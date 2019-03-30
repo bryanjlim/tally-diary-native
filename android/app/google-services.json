@@ -8,18 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:577206274010:android:59c8b26a705164b9",
+        "mobilesdk_app_id": "1:577206274010:android:26e779b93ebf4dda",
         "android_client_info": {
           "package_name": "com.tallydiary"
         }
       },
       "oauth_client": [
         {
-          "client_id": "577206274010-1jfhbc10a1beon0btir3m8b3n31j5857.apps.googleusercontent.com",
+          "client_id": "577206274010-m46ed13io2q7qn3salco0i14kvmo1kgu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tallydiary.tallydiary",
+            "package_name": "com.tallydiary",
             "certificate_hash": "f40c646d213e51205caae64bc50a6c682724268f"
+          }
+        },
+        {
+          "client_id": "577206274010-4itn9ftqd4n7g9b35oih03j0kq553ele.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tallydiary",
+            "certificate_hash": "d8e99cae1f412d16f7289b3977c0e71ff89b124f"
           }
         },
         {
