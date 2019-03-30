@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Keyboard, SafeAreaView, ScrollView } from 'react-native'
-import DriveHelper from '../Helpers/newDriveHelper'
+import DriveHelper from '../Helpers/driveHelper'
 import TimeHelper from '../Helpers/timeHelper'
 import { updatePreferences, updateEntries } from '../Redux/actions'
 import { Title, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';

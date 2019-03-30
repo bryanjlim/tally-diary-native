@@ -21,7 +21,7 @@ export default class LargeEntryCard extends React.Component {
                 <Card.Title title={title} subtitle={readDate}
                     theme={this.props.lightTheme ? { } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }} />
                 <Card.Content>
-                    <Paragraph style={this.props.lightTheme ? { maxHeight: 50 } : { maxHeight: 50, color: 'white' }}>
+                    <Paragraph numberOfLines={2} style={this.props.lightTheme ? { } : { color: 'white' }}>
                         {textToShow}
                     </Paragraph>
                 </Card.Content>

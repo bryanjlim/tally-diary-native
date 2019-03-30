@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { SafeAreaView, ScrollView, View, ActivityIndicator } from 'react-native'
-import DriveHelper from '../Helpers/newDriveHelper'
+import DriveHelper from '../Helpers/driveHelper'
 import { connect } from 'react-redux'
 import { Appbar, Button, IconButton, Title } from 'react-native-paper';
 import LargeEntryCard from '../Components/LargeEntryCard'
@@ -39,7 +39,7 @@ class TimelineSreen extends Component {
     }
 
     this.state = {
-      showSmall: true,
+      numberToShow: 4,
 
       showConfirmationModal: false,
       diaryEntryToDelete: "None",
@@ -71,14 +71,19 @@ class TimelineSreen extends Component {
     this.loadMoreEntries = this.loadMoreEntries.bind(this);
   }
 
-  isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
-    return layoutMeasurement.height + contentOffset.y
-      >= contentSize.height - 50;
+  isCloseToBottom() {
+    // Hack
+    return true;
   }
 
   loadMoreEntries() {
+    let newNumberToShow =  this.state.numberToShow + 5;
+    if(newNumberToShow > this.state.diaryEntriesToShow.length) {
+      newNumberToShow = this.state.diaryEntriesToShow.length;
+    }
+
     this.setState({
-      showSmall: false,
+      numberToShow: newNumberToShow,
     })
   }
 
@@ -177,7 +182,7 @@ class TimelineSreen extends Component {
             view={() => {
               this.setState({
                 showDiaryEntry: true,
-                showSmall: true,
+                numberToShow: 5,
                 diaryEntryToShowIndex: entry.index,
               })
             }} />
@@ -192,7 +197,7 @@ class TimelineSreen extends Component {
             view={() => {
               this.setState({
                 showDiaryEntry: true,
-                showSmall: true,
+                numberToShow: 5,
                 diaryEntryToShowIndex: entry.index,
               })
             }} />
@@ -257,9 +262,9 @@ class TimelineSreen extends Component {
       });
     }
 
-    let smallSelection = [];
-    if (this.state.showSmall) {
-      smallSelection = [...this.state.diaryEntriesToShow].splice(0, 5);
+    let viewableSelection = [];
+    if(this.state.numberToShow <= this.state.diaryEntriesToShow.length) {
+      viewableSelection = [...this.state.diaryEntriesToShow].splice(0, this.state.numberToShow);
     }
 
     return (
@@ -298,7 +303,7 @@ class TimelineSreen extends Component {
             />
 
             <ScrollView onScroll={({ nativeEvent }) => {
-              if (this.isCloseToBottom(nativeEvent) && this.state.showSmall) {
+              if (this.isCloseToBottom(nativeEvent) && this.state.numberToShow <= this.state.diaryEntriesToShow.length) {
                 this.loadMoreEntries();
               }
             }}
@@ -319,30 +324,27 @@ class TimelineSreen extends Component {
                     icon="view-list"
                     color={this.props.lightTheme ? Colors.blue : Colors.teal}
                     disabled={!this.state.showHeadlines}
-                    onPress={() => { this.setState({ showHeadlines: false, showSmall: true, }) }}
+                    onPress={() => { this.setState({ showHeadlines: false, numberToShow: 5, }) }}
                   />
                   <IconButton
                     style={{ marginTop: 20, marginLeft: 20, }}
                     icon="view-headline"
                     color={this.props.lightTheme ? Colors.blue : Colors.teal}
                     disabled={this.state.showHeadlines}
-                    onPress={() => { this.setState({ showHeadlines: true, showSmall: true, }) }}
+                    onPress={() => { this.setState({ showHeadlines: true, numberToShow: 5, }) }}
                   />
                 </View>
 
                 {this.state.diaryEntriesToShow instanceof Array && this.state.diaryEntriesToShow.length > 0 ?
                   <View>
-                    {this.state.showSmall ?
                       <View>
-                        {smallSelection.map(this.eachDiaryEntryObject)}
-                        {smallSelection.length < this.state.diaryEntriesToShow.length ?
+                        {viewableSelection.map(this.eachDiaryEntryObject)}
+                        {viewableSelection.length < this.state.diaryEntriesToShow.length ?
                           <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
                             style={{ marginTop: 20, marginBottom: 30, }} /> :
                           <View></View>
                         }
                       </View>
-                      :
-                      this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
                   </View>
                   :
                   <View ></View>

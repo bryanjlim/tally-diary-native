@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, Keyboard, BackHandler, TouchableOpacity } from 'react-native'
-import DriveHelper from '../Helpers/newDriveHelper'
+import { SafeAreaView, ScrollView, Text, View, TextInput, BackHandler, TouchableOpacity } from 'react-native'
 import TimeHelper from '../Helpers/timeHelper';
-import { connect } from 'react-redux'
-import { Appbar, Button, IconButton, Surface, HelperText, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
-import { updateEntries } from '../Redux/actions'
+import { Button, IconButton, Surface, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Dropdown } from 'react-native-material-dropdown';
 

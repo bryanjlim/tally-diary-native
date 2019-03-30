@@ -70,13 +70,13 @@ export default StyleSheet.create({
         marginTop: 7,
     },
     bodyText: {
-        height: 300,
+        height: 303,
         borderColor: Colors.blue,
         backgroundColor: 'white',
         marginBottom: 10,
     },
     bodyTextDark: {
-        height: 300,
+        height: 303,
         borderColor: Colors.lightBlue,
         backgroundColor: Colors.surfaceDark,
         marginBottom: 10,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, ActivityIndicator } from 'react-native'
-import DriveHelper from '../Helpers/newDriveHelper'
+import DriveHelper from '../Helpers/driveHelper'
 import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
 import { connect } from 'react-redux'
 
