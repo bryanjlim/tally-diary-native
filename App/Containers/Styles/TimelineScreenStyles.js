@@ -7,12 +7,11 @@ export default StyleSheet.create({
   timelineScroll: {
     backgroundColor: 'white',
     height: '100%',
-    paddingBottom: 200,
+    paddingBottom: 300,
   },
   timelineScrollDark: {
     backgroundColor: Colors.backgroundDark,
     height: '100%',
-    paddingBottom: 200,
   },
   filterButton: {
     width: 130,

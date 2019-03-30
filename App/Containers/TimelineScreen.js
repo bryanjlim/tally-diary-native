@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { SafeAreaView, ScrollView, Text, View, ActivityIndicator } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { connect } from 'react-redux'
-import { Appbar, Portal, Dialog, Paragraph, Button } from 'react-native-paper';
+import { Appbar, Button, IconButton } from 'react-native-paper';
 import LargeEntryCard from '../Components/LargeEntryCard'
+import SmallEntryCard from '../Components/SmallEntryCard'
 import { updateEntries, updatePreferences } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import UpdateEntryScreen from './UpdateEntryScreen';
@@ -29,31 +30,25 @@ class TimelineSreen extends Component {
     super(props);
     this.assignIndexes(); // Important: keep index values to diary entries up to date locally
 
-    let moreToShow = false;
-
-
-    let entriesCopy = [];
-    for(let i = 0; i < this.props.entries.length; i++) {
-      entriesCopy[i] = this.props.entries[i];
-    }
+    let diaryEntriesToShow = [];
 
     if (this.props.entries instanceof Array && this.props.entries.length > 0) {
-      if (this.props.entries.length > 15) {
-        moreToShow = true;
+      for (let i = 0; i < this.props.entries.length; i++) {
+        diaryEntriesToShow[i] = this.props.entries[i];
       }
-      diaryEntriesToShow = entriesCopy.splice(0, 16)
     }
 
     this.state = {
-      confirmationModalVisible: false,
+      showSmall: true,
+
+      showConfirmationModal: false,
       diaryEntryToDelete: "None",
       showDiaryEntry: false,
       diaryEntryToShowIndex: "None",
-      totalEntriesShowing: 15,
-      moreToShow: moreToShow,
+
       diaryEntriesToShow: diaryEntriesToShow,
-      filteredDiaryEntries: [...this.props.entries],
-      allEntries: [...this.props.entries],
+      knownEntriesPropLength: this.props.entries.length,
+
       titleFilter: null,
       bodyFilter: null,
       dateFilterStart: null,
@@ -62,23 +57,33 @@ class TimelineSreen extends Component {
       goodDayFilter: null,
       badDayFilter: null,
       showFiltersModal: false,
+      showHeadlines: false,
     }
 
     this.eachDiaryEntryObject = this.eachDiaryEntryObject.bind(this);
     this.assignIndexes = this.assignIndexes.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
     this.updateEntry = this.updateEntry.bind(this);
-    this._showDialog = this._showDialog.bind(this);
-    this._hideDialog = this._hideDialog.bind(this);
-    this.isCloseToBottom = this.isCloseToBottom.bind(this);
-    this.loadMoreEntries = this.loadMoreEntries.bind(this);
     this.setFilters = this.setFilters.bind(this);
     this.updateFilteredList = this.updateFilteredList.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.isCloseToBottom = this.isCloseToBottom.bind(this);
+    this.loadMoreEntries = this.loadMoreEntries.bind(this);
+  }
+
+  isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+    return layoutMeasurement.height + contentOffset.y
+      >= contentSize.height - 50;
+  }
+
+  loadMoreEntries() {
+    this.setState({
+      showSmall: false,
+    })
   }
 
   setFilters(titleFilter, bodyFilter, dateFilterStart, dateFilterEnd, tallyFilter, goodDayFilter, badDayFilter) {
-      this.state.titleFilter = titleFilter,
+    this.state.titleFilter = titleFilter,
       this.state.bodyFilter = bodyFilter,
       this.state.dateFilterStart = dateFilterStart,
       this.state.dateFilterEnd = dateFilterEnd,
@@ -86,7 +91,7 @@ class TimelineSreen extends Component {
       this.state.goodDayFilter = goodDayFilter,
       this.state.badDayFilter = badDayFilter,
 
-    this.updateFilteredList();
+      this.updateFilteredList();
     this.hideModal();
   }
 
@@ -97,11 +102,11 @@ class TimelineSreen extends Component {
   }
 
   updateFilteredList() {
-    this.state.filteredDiaryEntries = [];
+    let filteredDiaryEntries = [];
 
-    for (let i = 0; i < this.state.allEntries.length; i++) {
+    for (let i = 0; i < this.props.entries.length; i++) {
       let addEntry = true;
-      const entry = this.state.allEntries[i];
+      const entry = this.props.entries[i];
 
       if (this.state.dateFilterStart !== null && this.state.dateFilterEnd !== null) {
         if (new Date(entry.date) < new Date(this.state.dateFilterStart) || new Date(entry.date) > new Date(this.state.dateFilterEnd)) {
@@ -136,73 +141,65 @@ class TimelineSreen extends Component {
         }
       }
 
-      if(this.state.goodDayFilter) {
-        if(!entry.isThumbsUp) {
+      if (this.state.goodDayFilter) {
+        if (!entry.isThumbsUp) {
           addEntry = false;
         }
       }
 
-      if(this.state.badDayFilter) {
-        if(!entry.isThumbsDown) {
+      if (this.state.badDayFilter) {
+        if (!entry.isThumbsDown) {
           addEntry = false;
         }
       }
 
       if (addEntry) {
-        this.state.filteredDiaryEntries.push(entry);
+        filteredDiaryEntries.push(entry);
       }
     }
 
-    let filteredEntriesCopy = [...this.state.filteredDiaryEntries];
-    let moreToShow = filteredEntriesCopy.length > 15;
-    let diaryEntriesToShow = filteredEntriesCopy.splice(0, 16);
-
     this.setState({
-      diaryEntriesToShow,
-      moreToShow,
+      diaryEntriesToShow: filteredDiaryEntries,
     });
   }
 
-  eachDiaryEntryObject(entry) {
+  eachDiaryEntryObject = (entry, i) => {
     return (
-      <View style={{ alignItems: 'center' }}>
-        <LargeEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth} lightTheme={this.props.lightTheme}
-          delete={() => {
-            this.setState({ diaryEntryToDelete: entry.index });
-            this._showDialog()
-          }}
-          view={() => {
-            this.setState({
-              showDiaryEntry: true,
-              diaryEntryToShowIndex: entry.index,
-            })
-          }} />
+      <View key={i} style={{ alignItems: 'center' }}>
+        {this.state.showHeadlines ?
+          <SmallEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth} lightTheme={this.props.lightTheme}
+            delete={() => {
+              this.setState({
+                diaryEntryToDelete: entry.index,
+                showConfirmationModal: true
+              });
+            }}
+            view={() => {
+              this.setState({
+                showDiaryEntry: true,
+                showSmall: true,
+                diaryEntryToShowIndex: entry.index,
+              })
+            }} />
+          :
+          <LargeEntryCard entry={entry} birthDate={this.props.preferences.dateOfBirth} lightTheme={this.props.lightTheme}
+            delete={() => {
+              this.setState({
+                diaryEntryToDelete: entry.index,
+                showConfirmationModal: true
+              });
+            }}
+            view={() => {
+              this.setState({
+                showDiaryEntry: true,
+                showSmall: true,
+                diaryEntryToShowIndex: entry.index,
+              })
+            }} />
+        }
+
       </View>
     );
-  }
-
-  isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
-    return layoutMeasurement.height + contentOffset.y
-      >= contentSize.height - 50;
-  }
-
-  loadMoreEntries() {
-    const currentIndex = this.state.totalEntriesShowing + 1;
-
-    let maxIndex = currentIndex + 15;
-    if (this.state.filteredDiaryEntries < maxIndex) {
-      maxIndex = this.state.filteredDiaryEntries.length;
-    }
-
-    for (let i = currentIndex; i < currentIndex + 15; i++) {
-      this.setState((prevState) => ({
-        diaryEntriesToShow: [...prevState.diaryEntriesToShow, this.state.filteredDiaryEntries[i]],
-      }))
-    }
-    this.setState((prevState) => ({
-      totalEntriesShowing: prevState.totalEntriesShowing + 15,
-      moreToShow: (prevState.totalEntriesShowing + 15 < this.state.filteredDiaryEntries.length),
-    }));
   }
 
   updateEntry(updatedEntry, index) {
@@ -234,8 +231,8 @@ class TimelineSreen extends Component {
       DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
       this.setState({
         diaryEntryToDelete: "None",
+        showConfirmationModal: false,
       })
-      this._hideDialog();
       this.forceUpdate();
       this.props.updateEntries(entriesArray);
     }
@@ -243,18 +240,28 @@ class TimelineSreen extends Component {
 
   assignIndexes() {
     let entriesArray = [];
-    for (let i = 0; i < this.props.entries.length; i++) {
-      entriesArray[i] = this.props.entries[i];
-      entriesArray[i].index = i;
+    if (this.props.entries instanceof Array && this.props.entries.length > 0) {
+      for (let i = 0; i < this.props.entries.length; i++) {
+        entriesArray[i] = this.props.entries[i];
+        entriesArray[i].index = i;
+      }
+      this.props.updateEntries(entriesArray);
     }
-    this.props.updateEntries(entriesArray);
   }
 
-  _showDialog = () => this.setState({ confirmationModalVisible: true });
-
-  _hideDialog = () => this.setState({ confirmationModalVisible: false });
-
   render() {
+    if (this.props.entries.length != this.state.knownEntriesPropLength) {
+      this.updateFilteredList();
+      this.setState({
+        knownEntriesPropLength: this.props.entries.length,
+      });
+    }
+
+    let smallSelection = [];
+    if (this.state.showSmall) {
+      smallSelection = [...this.state.diaryEntriesToShow].splice(0, 5);
+    }
+
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
 
@@ -283,14 +290,14 @@ class TimelineSreen extends Component {
               badDayFilter={this.state.badDayFilter}
             />
 
-            <ConfirmationModal 
-            visible={this.state.confirmationModalVisible} 
-            hideDialog={this._hideDialog}
-            handleConfirm={() => {this.deleteEntry()}}
+            <ConfirmationModal
+              visible={this.state.showConfirmationModal}
+              hideDialog={() => this.setState({ showConfirmationModal: false })}
+              handleConfirm={() => { this.deleteEntry() }}
             />
 
             <ScrollView onScroll={({ nativeEvent }) => {
-              if (this.isCloseToBottom(nativeEvent) && this.state.moreToShow) {
+              if (this.isCloseToBottom(nativeEvent) && this.state.showSmall) {
                 this.loadMoreEntries();
               }
             }}
@@ -298,29 +305,49 @@ class TimelineSreen extends Component {
             >
               <View style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
 
-                {this.props.entries instanceof Array && this.props.entries.length > 0 ?
-
+                {this.state.diaryEntriesToShow instanceof Array && this.state.diaryEntriesToShow.length > 0 ?
                   <View>
-                    <Button
-                      color={this.props.lightTheme ? 'white' : Colors.teal}
-                      onPress={() => { this.setState({ showFiltersModal: true }) }}
-                      style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
-                    >
-                      Filter
-                    </Button>
+                    <View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Button
+                          color={this.props.lightTheme ? 'white' : Colors.teal}
+                          onPress={() => { this.setState({ showFiltersModal: true }) }}
+                          style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
+                        >
+                          Filter
+                        </Button>
+                        <IconButton
+                          style={{ marginTop: 10, }}
+                          icon="view-list"
+                          color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                          disabled={!this.state.showHeadlines}
+                          onPress={() => { this.setState({ showHeadlines: false, showSmall: true, }) }}
+                        />
+                        <IconButton
+                          style={{ marginTop: 10, }}
+                          icon="view-headline"
+                          color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                          disabled={this.state.showHeadlines}
+                          onPress={() => { this.setState({ showHeadlines: true, showSmall: true, }) }}
+                        />
+                      </View>
+                    </View>
 
-                    {this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
+                    {this.state.showSmall ?
+                      <View>
+                        {smallSelection.map(this.eachDiaryEntryObject)}
+                        <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                          style={{ marginTop: 20, marginBottom: 30, }} />
+                      </View> :
+                      this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
                   </View>
                   :
-
                   <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
                     <Text style={this.props.lightTheme ? { marginTop: 10 } : { marginTop: 10, color: 'white' }}>No Diary Entries To Show</Text>
                   </View>
                 }
 
-                {this.state.moreToShow ?
-                  <ActivityIndicator size="large" color={Colors.blue} style={{ marginTop: 5, }} /> :
-                  <View></View>}
+                <View style={{ padding: 100 }}></View>
 
               </View>
             </ScrollView>
