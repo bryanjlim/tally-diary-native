@@ -25,9 +25,11 @@ const ApplicationStyles = {
     },
 
     mainContainer: {
+      height: '100%',
       backgroundColor: Colors.background,
     },
     mainContainerDark: {
+      height: '100%',
       backgroundColor: Colors.backgroundDark,
     },
 
@@ -50,10 +52,6 @@ const ApplicationStyles = {
       justifyContent: 'center',
     },
 
-    horizontalCenter: {
-      backgroundColor: Colors.transparent,
-      alignItems: 'center',
-    },
     backgroundImage: {
       position: 'absolute',
       top: 0,

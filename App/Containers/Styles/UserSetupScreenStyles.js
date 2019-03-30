@@ -4,6 +4,11 @@ import Colors from '../../Themes/Colors'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  horizontalCenter: {
+    backgroundColor: Colors.transparent,
+    alignItems: 'center',
+    marginBottom: 50,
+  },
   welcomeText: {
     paddingTop: 20,
     fontSize: 30,
@@ -18,11 +23,11 @@ export default StyleSheet.create({
   surface: {
     padding: 8,
     width: '90%',
-    height: 130,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 2,
-    marginBottom: 10,
+    elevation: 4,
+    marginBottom: 25,
   },
   dateSelector: {
     width: 250,

@@ -6,7 +6,7 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen,
     surface: {
         marginTop: 15,
-        marginBottom: 100,
+        marginBottom: 300,
         width: '92%',
         padding: 8,
         paddingBottom: 10,
@@ -14,8 +14,8 @@ export default StyleSheet.create({
     },
     surfaceDark: {
         marginTop: 15,
-        marginBottom: 100,
-        backgroundColor: 'darkgray',
+        marginBottom: 300,
+        backgroundColor: Colors.surfaceDark,
         width: '92%',
         padding: 8,
         paddingBottom: 10,
@@ -28,15 +28,21 @@ export default StyleSheet.create({
         marginTop: 12,
         marginLeft: 10,
     },
+    dayLabelDark: {
+        color: 'white',
+        marginTop: 12,
+        marginLeft: 10,
+    },
     inputTitle: {
         fontSize: 23,
         height: 50,
         backgroundColor: 'white',
     },
     inputTitleDark: {
+        color: 'white',
         fontSize: 23,
         height: 50,
-        backgroundColor: 'darkgray',
+        backgroundColor: Colors.surfaceDark,
     },
     topDivider: {
         marginTop: 15,
@@ -50,7 +56,7 @@ export default StyleSheet.create({
     bodyTextDark: {
         height: 300,
         borderColor: Colors.lightBlue,
-        backgroundColor: 'darkgray',
+        backgroundColor: Colors.surfaceDark,
         marginBottom: 10,
     },
     thumbButton: {
@@ -60,6 +66,11 @@ export default StyleSheet.create({
     tallyTitle: {
         marginLeft: 10,
         marginTop: 5,
+    },
+    tallyTitleDark: {
+        marginLeft: 10,
+        marginTop: 5,
+        color: 'white',
     },
     tallyRow: {
         flexDirection: 'row',
@@ -72,20 +83,22 @@ export default StyleSheet.create({
     },
     tallyTextInput: {
         backgroundColor: 'white',
-        width: 150,
-        height: 55,
-        fontSize: 30,
-        marginTop: 14,
+        width: 200,
+        borderBottomColor: 'black',
+        borderBottomWidth: .5,
+        height: 40,
+        marginTop: 22,
     },
     tallyTextInputDark: {
-        backgroundColor: 'darkgray',
-        width: 150,
-        height: 55,
-        fontSize: 30,
-        marginTop: 14,
+        backgroundColor: Colors.surfaceDark,
+        width: 200,
+        borderBottomColor: 'white',
+        borderBottomWidth: .5,
+        height: 40,
+        marginTop: 22,
     },
     addTallyButton: {
-        marginLeft: 10,
+        marginLeft: 20,
         marginTop: 25,
     },
     tallyChipContainer: {

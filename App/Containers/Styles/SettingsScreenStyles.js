@@ -6,12 +6,17 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   titleText: {
     fontSize: 15,
-    paddingBottom: 12,
+    paddingBottom: 8,
+  },
+  titleTextDark: {
+    fontSize: 15,
+    paddingBottom: 8,
+    color: 'white',
   },
   topSurface: {
     padding: 8,
     width: '90%',
-    height: 130,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
@@ -21,18 +26,18 @@ export default StyleSheet.create({
   topSurfaceDark: {
     padding: 8,
     width: '90%',
-    height: 130,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
     marginTop: 20,
     marginBottom: 10,
-    backgroundColor: 'darkgray'
+    backgroundColor: Colors.surfaceDark
   },
   surface: {
     padding: 8,
     width: '90%',
-    height: 130,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
@@ -41,15 +46,16 @@ export default StyleSheet.create({
   surfaceDark: {
     padding: 8,
     width: '90%',
-    height: 130,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
     marginBottom: 10,
-    backgroundColor: 'darkgray',
+    backgroundColor: Colors.surfaceDark,
   },
   signOutButton: 
   {
+    backgroundColor: Colors.backgroundDark,
     marginBottom: 1,
   },
   dateSelector: {
@@ -59,7 +65,7 @@ export default StyleSheet.create({
   },
   dateSelectorDark: {
     width: 250,
-    backgroundColor: 'darkgray',
+    backgroundColor: Colors.surfaceDark,
     borderColor: Colors.blue,
   },
   radioGroup: {
@@ -86,7 +92,7 @@ export default StyleSheet.create({
     marginTop: 15,
     paddingBottom: 1,
     marginBottom: 200,
-    backgroundColor: 'darkgray',
+    backgroundColor: Colors.surfaceDark,
   },
   appBar: {
     backgroundColor: Colors.blue,

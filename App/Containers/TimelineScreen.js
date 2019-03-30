@@ -150,16 +150,18 @@ class TimelineSreen extends Component {
 
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
+
         <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
           <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
         </Appbar>
+
         {this.state.showDiaryEntry ?
           <UpdateEntryScreen entry={this.props.entries[this.state.diaryEntryToShowIndex]}
             updateEntry={(entry) => this.updateEntry(entry, this.state.diaryEntryToShowIndex)}
             preferences={this.props.preferences} lightTheme={this.props.lightTheme}
           />
           :
-          <View style={this.props.lightTheme ? {} : { backgroundColor: 'gray' }}>
+          <View style={this.props.lightTheme ? {} : { backgroundColor: Colors.backgroundDark }}>
             <Portal>
               <Dialog
                 visible={this.state.modalVisible}
@@ -188,7 +190,6 @@ class TimelineSreen extends Component {
                     <Text style={this.props.lightTheme ? { marginTop: 10 } : {marginTop: 10, color: 'white'}}>No Diary Entries To Show</Text>
                   </View>
                 }
-
                 {this.state.moreToShow ? <ActivityIndicator size="large" color={Colors.blue} style={{marginTop: 5,}}/>
                   : <View></View>}
               </View>

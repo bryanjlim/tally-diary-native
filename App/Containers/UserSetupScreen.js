@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Keyboard, SafeAreaView } from 'react-native'
+import { View, Keyboard, SafeAreaView, ScrollView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import TimeHelper from '../Helpers/timeHelper'
 import { updatePreferences, updateEntries } from '../Redux/actions'
@@ -96,12 +96,13 @@ class UserSetupScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.mainContainer}>
+                <ScrollView>
                 <View style={styles.horizontalCenter}>
                     <Title style={styles.welcomeText}>Welcome, {this.props.firstName}!</Title>
                 </View>
-                <View style={styles.centerContainer}>
+                <View style={styles.horizontalCenter}>
                     <Surface style={styles.surface}>
-                        <Text style={styles.titleText}>When would you like to start tallying from?</Text>
+                        <Title style={styles.titleText}>When would you like to start tallying from?</Title>
                         <TextInput
                             style={styles.dateSelector}
                             mode='outlined'
@@ -117,7 +118,7 @@ class UserSetupScreen extends Component {
                         </HelperText>
                     </Surface>
                     <Surface style={styles.surface}>
-                        <Text style={styles.titleText}>Which theme do you prefer?</Text>
+                        <Title style={styles.titleText}>Which theme do you prefer?</Title>
                         <RadioButton.Group
                             onValueChange={primaryTheme => this.setState({ primaryTheme })}
                             value={this.state.primaryTheme}
@@ -135,7 +136,7 @@ class UserSetupScreen extends Component {
                         </RadioButton.Group>
                     </Surface>
                     <Surface style={styles.surface}>
-                        <Text style={styles.titleText}>Would you like to use a password?</Text>
+                        <Title style={styles.titleText}>Would you like to use a password?</Title>
                         <RadioButton.Group
                             onValueChange={usePassword => this.setState({ usePassword })}
                             value={this.state.usePassword}
@@ -153,7 +154,7 @@ class UserSetupScreen extends Component {
                         </RadioButton.Group>
                     </Surface>
                     <Surface style={this.state.usePassword ? styles.surface : styles.none}>
-                        <Text style={styles.titleText}>What would you like your password to be?</Text>
+                        <Title style={styles.titleText}>What would you like your password to be?</Title>
                         <TextInput
                             secureTextEntry={true}
                             style={styles.dateSelector}
@@ -161,6 +162,7 @@ class UserSetupScreen extends Component {
                             label='Password'
                             value={this.state.password}
                             onChangeText={password => this.setState({ password })}
+                            theme={{colors: { primary: Colors.blue }}}
                         />
                     </Surface>
                     <Button mode="outlined" onPress={this.createNewUser} color={Colors.blue}> 
@@ -172,6 +174,7 @@ class UserSetupScreen extends Component {
                     onConfirm={this._handleDatePicked}
                     onCancel={this._hideDateTimePicker}
                 />
+                </ScrollView>
             </SafeAreaView>
         )
     }

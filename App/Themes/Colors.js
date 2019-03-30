@@ -1,10 +1,14 @@
 const colors = {
   background: 'white',
-  backgroundDark: 'gray',
+  backgroundDark: '#303030',
+
+  surfaceDark: '#424242',
 
   clear: 'rgba(0,0,0,0)',
   blue: '#3f51b5',
   lightBlue: '#3f51b5',
+
+  teal: '#81d4fa',
 
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',

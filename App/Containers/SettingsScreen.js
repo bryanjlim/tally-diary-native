@@ -3,7 +3,7 @@ import { View, ScrollView, Keyboard, SafeAreaView } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import TimeHelper from '../Helpers/timeHelper';
 import { updatePreferences } from '../Redux/actions'
-import { Appbar, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
+import { Appbar, Surface, TextInput, Text, HelperText, RadioButton, Button, Title } from 'react-native-paper';
 import { GoogleSignin } from 'react-native-google-signin'
 import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -107,19 +107,22 @@ class SettingsScreen extends Component {
                 <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                     <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
                         <Surface style={this.props.lightTheme ? styles.topSurface : styles.topSurfaceDark}>
-                            <Text style={styles.titleText}>Account Actions</Text>
-                            <Button style={styles.signOutButton} mode="outlined" color={Colors.blue}
+                            <Title style={this.props.lightTheme ? styles.titleText : styles.titleTextDark}>Account Actions</Title>
+                            <Button style={styles.signOutButton} 
+                                    mode="outlined" 
+                                    color={this.props.lightTheme ? Colors.blue : 'white'}
                                     onPress={() => {GoogleSignin.signOut(); replace("LaunchScreen")}}>
                                 Sign Out
                             </Button>
                         </Surface>
                         <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
-                            <Text style={styles.titleText}>Update Start Date</Text>
+                            <Title style={this.props.lightTheme ? styles.titleText : styles.titleTextDark}>Update Start Date</Title>
                             <TextInput
                                 style={this.props.lightTheme ? styles.dateSelector : styles.dateSelectorDark}
                                 mode='outlined'
                                 value={this.state.dateOfBirth}
                                 onFocus={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
+                                theme={this.props.lightTheme ? { } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
                             />
                             <HelperText
                                 type="error"
@@ -129,53 +132,54 @@ class SettingsScreen extends Component {
                             </HelperText>
                         </Surface>
                         <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
-                            <Text style={styles.titleText}>Update Theme</Text>
+                            <Title style={this.props.lightTheme ? styles.titleText : styles.titleTextDark}>Update Theme</Title>
                             <RadioButton.Group
                                 onValueChange={primaryTheme => this.setState({ primaryTheme })}
                                 value={this.state.primaryTheme}
                             >
                                 <View style={styles.radioGroup}>
                                     <View style={styles.leftRadio}>
-                                        <Text>Light</Text>
-                                        <RadioButton.Android color={Colors.blue} value="light" />
+                                        <Text style={this.props.lightTheme ? {} : {color: 'white'}}>Light</Text>
+                                        <RadioButton.Android color={this.props.lightTheme ? Colors.blue : Colors.teal} value="light" />
                                     </View>
                                     <View style={styles.rightRadio}>
-                                        <Text>Dark</Text>
-                                        <RadioButton.Android color={Colors.blue} value="dark" />
+                                        <Text style={this.props.lightTheme ? {} : {color: 'white'}}>Dark</Text>
+                                        <RadioButton.Android color={this.props.lightTheme ? Colors.blue : Colors.teal} value="dark" />
                                     </View>
                                 </View>
                             </RadioButton.Group>
                         </Surface>
                         <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
-                            <Text style={styles.titleText}>Use Password?</Text>
+                            <Title style={this.props.lightTheme ? styles.titleText : styles.titleTextDark}>Use Password?</Title>
                             <RadioButton.Group
                                 onValueChange={usePassword => this.setState({ usePassword })}
                                 value={this.state.usePassword}
                             >
                                 <View style={styles.radioGroup}>
                                     <View style={styles.leftRadio}>
-                                        <Text>Yes</Text>
-                                        <RadioButton.Android color={Colors.blue} value={true} />
+                                        <Text style={this.props.lightTheme ? {} : {color: 'white'}}>Yes</Text>
+                                        <RadioButton.Android color={this.props.lightTheme ? Colors.blue : Colors.teal} value={true} />
                                     </View>
                                     <View style={styles.rightRadio}>
-                                        <Text>No</Text>
-                                        <RadioButton.Android color={Colors.blue} value={false} />
+                                        <Text style={this.props.lightTheme ? {} : {color: 'white'}}>No</Text>
+                                        <RadioButton.Android color={this.props.lightTheme ? Colors.blue : Colors.teal} value={false} />
                                     </View>
                                 </View>
                             </RadioButton.Group>
                         </Surface>
                         <Surface style={this.state.usePassword ? (this.props.lightTheme ? styles.surface : styles.surfaceDark) : styles.none}>
-                            <Text style={styles.titleText}>Set Password</Text>
+                            <Title style={this.props.lightTheme ? styles.titleText : styles.titleTextDark}>Set Password</Title>
                             <TextInput
                                 secureTextEntry={true}
-                                style={styles.dateSelector}
+                                style={this.props.lightTheme ? styles.dateSelector : styles.dateSelectorDark}
                                 mode='outlined'
                                 label='Password'
                                 value={this.state.password}
                                 onChangeText={password => this.setState({ password })}
+                                theme={this.props.lightTheme ? { } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
                             />
                         </Surface>
-                        <Button mode="outlined" color={Colors.blue} onPress={this.updateUser} 
+                        <Button mode="outlined" color={this.props.lightTheme ? Colors.blue : Colors.teal} onPress={this.updateUser} 
                             style={this.props.lightTheme ? styles.submitButton : styles.submitButtonDark}>
                             Update Settings
                         </Button>

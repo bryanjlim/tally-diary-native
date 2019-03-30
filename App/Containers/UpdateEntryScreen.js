@@ -135,33 +135,33 @@ export default class UpdateEntryScreen extends Component {
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
 
-        <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
+<ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
           <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
             <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
 
               {/* Header */}
-              <Title style={styles.dayLabel}>Day {dayNumber}</Title>
+              <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
               <PaperInput
                 label="Title (Optional)"
                 value={this.state.title}
                 onChangeText={(title) => this.setState({ title })}
                 style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.lightBlue } }}
+                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
               />
               <PaperInput
                 label="Date"
                 value={this.state.date}
                 onTouchStart={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
                 style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.lightBlue } }}
+                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
               />
 
               <Divider style={styles.topDivider} />
 
               {/* Paragraph Entry */}
-              <Title style={styles.tallyTitle}>Your Thoughts</Title>
+              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
               <PaperInput
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.lightBlue } }}
+                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
                 selectionColor={Colors.blue}
                 underlineColor={Colors.blue}
                 mode="outlined"
@@ -174,36 +174,40 @@ export default class UpdateEntryScreen extends Component {
               <Divider />
 
               {/* Thumbs */}
-              <Title style={styles.tallyTitle}>Rate Your Day</Title>
+              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
               <View style={styles.row}>
                 {this.state.isThumbsUp ?
                   <Icon.Button
                     name="thumb-up"
                     onPress={this.toggleThumbsUp}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } : { color: 'black', backgroundColor: 'darkgray' }}
-                    backgroundColor={this.props.lightTheme ? "white" : "darkgray"}
+                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                      { color: 'white', backgroundColor: Colors.surfaceDark }}
+                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   /> :
                   <Icon.Button
                     name="thumb-up-outline"
                     onPress={this.toggleThumbsUp}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } : { color: 'black', backgroundColor: 'darkgray' }}
-                    backgroundColor={this.props.lightTheme ? "white" : "darkgray"}
+                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                      { color: 'white', backgroundColor: Colors.surfaceDark }}
+                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   />}
                 {this.state.isThumbsDown ?
                   <Icon.Button
                     name="thumb-down"
                     onPress={this.toggleThumbsDown}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } : { color: 'black', backgroundColor: 'darkgray' }}
-                    backgroundColor={this.props.lightTheme ? "white" : "darkgray"}
+                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                      { color: 'white', backgroundColor: Colors.surfaceDark }}
+                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   /> :
                   <Icon.Button
                     name="thumb-down-outline"
                     onPress={this.toggleThumbsDown}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } : { color: 'black', backgroundColor: 'darkgray' }}
-                    backgroundColor={this.props.lightTheme ? "white" : "darkgray"}
+                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                      { color: 'white', backgroundColor: Colors.surfaceDark }}
+                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   />}
               </View>
@@ -211,20 +215,18 @@ export default class UpdateEntryScreen extends Component {
               <Divider />
 
               {/* Tally Entry */}
-              <Title style={styles.tallyTitle}>Tallies</Title>
+              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Tallies</Title>
               <View style={styles.tallyRow}>
                 <View style={styles.dropdownMenu}>
                   <Dropdown
                     label='Category'
                     data={categories}
                     value={this.state.tallyType}
+                    baseColor={this.props.light ? "black" : "white"}
                     onChangeText={(tallyType) => { this.setState({ tallyType }) }}
                   />
                 </View>
-                <PaperInput
-                  theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.lightBlue } }}
-                  selectionColor={this.props.lightTheme ? Colors.blue : Colors.lightBlue}
-                  underlineColor={this.props.lightTheme ? "lightgray" : "gray"}
+                <TextInput
                   style={this.props.lightTheme ? styles.tallyTextInput : styles.tallyTextInputDark}
                   value={this.state.tallyText}
                   onChangeText={(tallyText) => this.setState({ tallyText })}
@@ -232,8 +234,8 @@ export default class UpdateEntryScreen extends Component {
                 <IconButton
                   style={styles.addTallyButton}
                   icon="add"
-                  color={this.props.lightTheme ? Colors.blue : Colors.lightBlue}
-                  size={30}
+                  color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                  size={35}
                   onPress={this.addTally}
                 />
               </View>
@@ -243,7 +245,7 @@ export default class UpdateEntryScreen extends Component {
                 {this.state.tallies.map((value, index) => {
                   return (
                     <View style={styles.tallyChip}>
-                      <Chip onClose={() => { this.deleteTally(index) }} >
+                      <Chip onClose={() => { this.deleteTally(index) }}>
                         {value.type} | {value.text}
                       </Chip>
                     </View>
@@ -252,6 +254,7 @@ export default class UpdateEntryScreen extends Component {
               </View>
 
               <Divider />
+
 
               {/* Submit */}
               <Button

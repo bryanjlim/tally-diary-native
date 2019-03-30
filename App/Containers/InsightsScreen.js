@@ -78,45 +78,52 @@ class SettingsScreen extends Component {
 
         return (
             <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
-                <Appbar style={this.props.lightTHeme ? styles.appBar : styles.appBarDark}>
+                <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
                     <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
                 </Appbar>
                 <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                     <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
                         <Surface style={this.props.lightTheme ? styles.appLaunchSurface : styles.appLaunchSurfaceDark}>
-                            <Title>Number of App Launches</Title>
-                            <Text>{this.state.appLaunches}</Text>
+                            <Title style={this.props.lightTheme ? {} : { color: 'white' }}>Number of App Launches</Title>
+                            <Text style={this.props.lightTheme ? {marginLeft: 10, } : 
+                                { marginLeft: 10, color: 'white' }}>{this.state.appLaunches}</Text>
                         </Surface>
                         <Surface style={this.props.lightTheme ? styles.tallySurface : styles.tallySurfaceDark}>
-                            <Title style={{ alignSelf: "center" }}>Tallies</Title>
+                            <Title style={this.props.lightTheme ? { alignSelf: "center" } :
+                                { alignSelf: "center", color: 'white' }}>Tallies</Title>
                             <List.Section>
                                 <List.Accordion
                                     title="Food"
-                                    theme={{ colors: { primary: Colors.blue } }}
+                                    theme={{ colors: this.props.lightTheme ? { primary: Colors.blue } : 
+                                        { primary: Colors.teal, text: 'white' } }}
                                 >
                                     {foodTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="People"
-                                    theme={{ colors: { primary: Colors.blue } }}
+                                    theme={{ colors: this.props.lightTheme ? { primary: Colors.blue } : 
+                                        { primary: Colors.teal, text: 'white' } }}
                                 >
                                     {peopleTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Activity"
-                                    theme={{ colors: { primary: Colors.blue } }}
+                                    theme={{ colors: this.props.lightTheme ? { primary: Colors.blue } : 
+                                        { primary: Colors.teal, text: 'white' } }}
                                 >
                                     {activityTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Location"
-                                    theme={{ colors: { primary: Colors.blue } }}
+                                    theme={{ colors: this.props.lightTheme ? { primary: Colors.blue } : 
+                                        { primary: Colors.teal, text: 'white' } }}
                                 >
                                     {locationTallies.map(this.eachTallyObject)}
                                 </List.Accordion>
                                 <List.Accordion
                                     title="Other"
-                                    theme={{ colors: { primary: Colors.blue } }}
+                                    theme={{ colors: this.props.lightTheme ? { primary: Colors.blue } : 
+                                        { primary: Colors.teal, text: 'white' } }}
                                 >
                                     {otherTallies.map(this.eachTallyObject)}
                                 </List.Accordion>

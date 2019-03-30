@@ -17,16 +17,16 @@ export default class LargeEntryCard extends React.Component {
 
         return (
             <Card style={this.props.lightTheme ? { marginTop: 10, width: '95%' }
-                : { marginTop: 10, width: '95%', backgroundColor: 'darkgray' }}>
+                : { marginTop: 10, width: '95%', backgroundColor: Colors.surfaceDark }}>
                 <Card.Title title={title} subtitle={readDate}
-                    style={this.props.lightTheme ? {} : { color: 'white' }} />
+                    theme={this.props.lightTheme ? { } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }} />
                 <Card.Content>
-                    <Paragraph style={{ maxHeight: 50 }}>
+                    <Paragraph style={this.props.lightTheme ? { maxHeight: 50 } : { maxHeight: 50, color: 'white' }}>
                         {textToShow}
                     </Paragraph>
                 </Card.Content>
                 <Card.Actions>
-                    <Button onPress={this.props.view} color={Colors.blue}
+                    <Button onPress={this.props.view} color={this.props.lightTheme ? Colors.blue : 'white'}
                         style={this.props.lightTheme ? {} : { backgroundColor: Colors.transparent }}
                     >
                         View

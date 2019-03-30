@@ -23,7 +23,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     elevation: 2,
     marginBottom: 10,
-    backgroundColor: 'darkgray',
+    backgroundColor: Colors.surfaceDark,
   },
   tallySurface: {
     padding: 8,
@@ -36,6 +36,6 @@ export default StyleSheet.create({
     width: '90%',
     elevation: 2,
     marginBottom: 300,
-    backgroundColor: 'darkgray'
+    backgroundColor: Colors.surfaceDark
   }
 })

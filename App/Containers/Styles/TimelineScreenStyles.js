@@ -10,7 +10,7 @@ export default StyleSheet.create({
     paddingBottom: 200,
   },
   timelineScrollDark: {
-    backgroundColor: 'gray',
+    backgroundColor: Colors.backgroundDark,
     height: '100%',
     paddingBottom: 200,
   }
