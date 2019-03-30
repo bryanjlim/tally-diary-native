@@ -17,7 +17,7 @@ const DrawerNavigator = createDrawerNavigator({
   "Add Entry": {
     screen: AddEntryScreen,
   },
-  "Timeline": {
+  "Your Entries": {
     screen: TimelineScreen,
   },
   "Insights": {

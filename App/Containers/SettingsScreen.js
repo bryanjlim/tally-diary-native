@@ -101,9 +101,12 @@ class SettingsScreen extends Component {
         const { replace } = this.props.navigation;
         return (
             <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
+
                 <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
                     <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+                    <Title style={{fontSize: 20, color: 'white', marginLeft: 15,}}>Settings</Title>
                 </Appbar>
+
                 <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                     <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
                         <Surface style={this.props.lightTheme ? styles.topSurface : styles.topSurfaceDark}>

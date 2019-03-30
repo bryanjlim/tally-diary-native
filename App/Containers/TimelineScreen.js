@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, ActivityIndicator } from 'react-native'
+import { SafeAreaView, ScrollView, View, ActivityIndicator } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import { connect } from 'react-redux'
-import { Appbar, Button, IconButton } from 'react-native-paper';
+import { Appbar, Button, IconButton, Title } from 'react-native-paper';
 import LargeEntryCard from '../Components/LargeEntryCard'
 import SmallEntryCard from '../Components/SmallEntryCard'
 import { updateEntries, updatePreferences } from '../Redux/actions'
@@ -267,6 +267,7 @@ class TimelineSreen extends Component {
 
         <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
           <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+          <Title style={{fontSize: 20, color: 'white', marginLeft: 15,}}>Your Entries</Title>
         </Appbar>
 
         {this.state.showDiaryEntry ?

@@ -152,6 +152,7 @@ class AddEntryScreen extends Component {
 
         <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
           <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+          <Title style={{fontSize: 20, color: 'white', marginLeft: 15,}}>Add Entry</Title>
         </Appbar>
 
         <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
