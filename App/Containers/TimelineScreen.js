@@ -8,6 +8,7 @@ import { updateEntries, updatePreferences } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import UpdateEntryScreen from './UpdateEntryScreen';
 import TimelineFiltersModal from '../Components/TimelineFiltersModal';
+import ConfirmationModal from '../Components/ConfirmationModal';
 
 // Styles
 import styles from './Styles/TimelineScreenStyles'
@@ -44,7 +45,7 @@ class TimelineSreen extends Component {
     }
 
     this.state = {
-      modalVisible: false,
+      confirmationModalVisible: false,
       diaryEntryToDelete: "None",
       showDiaryEntry: false,
       diaryEntryToShowIndex: "None",
@@ -249,9 +250,9 @@ class TimelineSreen extends Component {
     this.props.updateEntries(entriesArray);
   }
 
-  _showDialog = () => this.setState({ modalVisible: true });
+  _showDialog = () => this.setState({ confirmationModalVisible: true });
 
-  _hideDialog = () => this.setState({ modalVisible: false });
+  _hideDialog = () => this.setState({ confirmationModalVisible: false });
 
   render() {
     return (
@@ -282,19 +283,11 @@ class TimelineSreen extends Component {
               badDayFilter={this.state.badDayFilter}
             />
 
-            <Portal>
-              <Dialog
-                visible={this.state.modalVisible}
-                onDismiss={this._hideDialog}>
-                <Dialog.Title>Confirm Deletion</Dialog.Title>
-                <Dialog.Content>
-                  <Paragraph>This cannot be undone</Paragraph>
-                </Dialog.Content>
-                <Dialog.Actions>
-                  <Button color={Colors.blue} onPress={() => this.deleteEntry()}>Confirm</Button>
-                </Dialog.Actions>
-              </Dialog>
-            </Portal>
+            <ConfirmationModal 
+            visible={this.state.confirmationModalVisible} 
+            hideDialog={this._hideDialog}
+            handleConfirm={() => {this.deleteEntry()}}
+            />
 
             <ScrollView onScroll={({ nativeEvent }) => {
               if (this.isCloseToBottom(nativeEvent) && this.state.moreToShow) {
