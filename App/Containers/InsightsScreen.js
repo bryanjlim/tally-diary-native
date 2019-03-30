@@ -83,11 +83,19 @@ class SettingsScreen extends Component {
                 </Appbar>
                 <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
                     <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
+
                         <Surface style={this.props.lightTheme ? styles.appLaunchSurface : styles.appLaunchSurfaceDark}>
-                            <Title style={this.props.lightTheme ? {} : { color: 'white' }}>Number of App Launches</Title>
-                            <Text style={this.props.lightTheme ? {marginLeft: 10, } : 
-                                { marginLeft: 10, color: 'white' }}>{this.state.appLaunches}</Text>
+                            <Title style={this.props.lightTheme ? {} : { color: 'white' }}>App Launches</Title>
+                            <Text style={this.props.lightTheme ? {marginLeft: 15, } : 
+                                { marginLeft: 15, color: 'white' }}>{this.state.appLaunches}</Text>
                         </Surface>
+
+                        <Surface style={this.props.lightTheme ? styles.appLaunchSurface : styles.appLaunchSurfaceDark}>
+                            <Title style={this.props.lightTheme ? {} : { color: 'white' }}>Diary Entries</Title>
+                            <Text style={this.props.lightTheme ? {marginLeft: 15, } : 
+                                { marginLeft: 15, color: 'white' }}>{this.props.entries.length}</Text>
+                        </Surface>
+
                         <Surface style={this.props.lightTheme ? styles.tallySurface : styles.tallySurfaceDark}>
                             <Title style={this.props.lightTheme ? { alignSelf: "center" } :
                                 { alignSelf: "center", color: 'white' }}>Tallies</Title>
