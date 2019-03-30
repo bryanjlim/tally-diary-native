@@ -24,7 +24,7 @@ class LaunchScreen extends Component {
   componentDidMount() {
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/drive.appdata'],
-      webClientId: '577206274010-1sn8lb9fvd0a7m3rof6r19drhtvk20nm.apps.googleusercontent.com',
+      webClientId: '577206274010-9oung4hgd77fij9e50kjbc32tlviai4e.apps.googleusercontent.com',
       iosClientId: '577206274010-mllq7pnu4utqp4dh12335bp50vdlt9ug.apps.googleusercontent.com',
     });
 
@@ -53,6 +53,8 @@ class LaunchScreen extends Component {
       const { replace } = this.props.navigation;
       replace("InitialLoadingScreen");
     } catch (error) {
+      alert(error)
+      console.log(error)
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {

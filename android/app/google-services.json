@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "577206274010",
+    "firebase_url": "https://tally-diary.firebaseio.com",
+    "project_id": "tally-diary",
+    "storage_bucket": "tally-diary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577206274010:android:59c8b26a705164b9",
+        "android_client_info": {
+          "package_name": "com.tallydiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577206274010-1jfhbc10a1beon0btir3m8b3n31j5857.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tallydiary.tallydiary",
+            "certificate_hash": "f40c646d213e51205caae64bc50a6c682724268f"
+          }
+        },
+        {
+          "client_id": "577206274010-9oung4hgd77fij9e50kjbc32tlviai4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD53jMgdi0TKg1VOEUFPGk8060gac2SrUM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577206274010-1sn8lb9fvd0a7m3rof6r19drhtvk20nm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "577206274010-mllq7pnu4utqp4dh12335bp50vdlt9ug.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "TallyDiary"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

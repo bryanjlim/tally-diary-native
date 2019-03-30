@@ -15,7 +15,7 @@ import store from '../Redux/store'
  *
  * We separate like this to play nice with React Native's hot reloading.
  */
-class App extends Component {
+export default class App extends Component {
   render () {
     return (
       <Provider store={store}>
@@ -26,8 +26,3 @@ class App extends Component {
     )
   }
 }
-
-// allow reactotron overlay for fast design in dev mode
-export default DebugConfig.useReactotron
-  ? console.tron.overlay(App)
-  : App
