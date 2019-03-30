@@ -6,7 +6,7 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen,
     surface: {
         marginTop: 15,
-        marginBottom: 300,
+        marginBottom: 120,
         width: '92%',
         padding: 8,
         paddingBottom: 10,
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     },
     surfaceDark: {
         marginTop: 15,
-        marginBottom: 300,
+        marginBottom: 120,
         backgroundColor: Colors.surfaceDark,
         width: '92%',
         padding: 8,
@@ -25,11 +25,13 @@ export default StyleSheet.create({
         flexDirection: "row",
     },
     dayLabel: {
+        fontSize: 30,
         marginTop: 12,
         marginLeft: 10,
     },
     dayLabelDark: {
         color: 'white',
+        fontSize: 30,
         marginTop: 12,
         marginLeft: 10,
     },
