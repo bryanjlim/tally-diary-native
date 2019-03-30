@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, Keyboard, BackHandler } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View, TextInput, Keyboard, BackHandler, TouchableOpacity } from 'react-native'
 import DriveHelper from '../Helpers/newDriveHelper'
 import TimeHelper from '../Helpers/timeHelper';
 import { connect } from 'react-redux'
@@ -141,19 +141,17 @@ export default class UpdateEntryScreen extends Component {
 
               {/* Header */}
               <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
-              <PaperInput
-                label="Title (Optional)"
+              <TouchableOpacity
+                onPress={() => { this._showDateTimePicker(); }}
+                style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
+              >
+                <Text>{this.state.date}</Text>
+              </TouchableOpacity>
+              <TextInput
+                placeholder="Title (Optional)"
                 value={this.state.title}
                 onChangeText={(title) => this.setState({ title })}
                 style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
-              />
-              <PaperInput
-                label="Date"
-                value={this.state.date}
-                onTouchStart={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
-                style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
               />
 
               <Divider style={styles.topDivider} />
@@ -278,6 +276,7 @@ export default class UpdateEntryScreen extends Component {
         </ScrollView>
 
         <DateTimePicker
+          date={new Date(this.state.date)}
           isVisible={this.state.isDateTimePickerVisible}
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
