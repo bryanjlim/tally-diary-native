@@ -145,13 +145,16 @@ export default class UpdateEntryScreen extends Component {
                 onPress={() => { this._showDateTimePicker(); }}
                 style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
               >
-                <Text>{this.state.date}</Text>
+                <Text style={this.props.lightTheme ? {} : {color: 'white'}}>
+                  {this.state.date}
+                </Text>
               </TouchableOpacity>
               <TextInput
                 placeholder="Title (Optional)"
                 value={this.state.title}
                 onChangeText={(title) => this.setState({ title })}
                 style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
+                placeholderTextColor={this.props.lightTheme ? 'lightgray' : 'darkgray'}
               />
 
               <Divider style={styles.topDivider} />
