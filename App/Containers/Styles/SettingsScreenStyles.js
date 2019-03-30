@@ -55,8 +55,11 @@ export default StyleSheet.create({
   },
   signOutButton: 
   {
-    backgroundColor: Colors.backgroundDark,
     marginBottom: 1,
+  },
+  signOutButtonDark: {
+    marginBottom: 1,
+    backgroundColor: Colors.backgroundDark,
   },
   dateSelector: {
     width: 250,

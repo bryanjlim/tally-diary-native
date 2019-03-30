@@ -241,7 +241,7 @@ class AddEntryScreen extends Component {
                     label='Category'
                     data={categories}
                     value={this.state.tallyType}
-                    baseColor={this.props.light ? "black" : "white"}
+                    baseColor={this.props.lightTheme ? "black" : "white"}
                     onChangeText={(tallyType) => { this.setState({ tallyType }) }}
                   />
                 </View>
@@ -276,11 +276,11 @@ class AddEntryScreen extends Component {
 
               {/* Submit */}
               <Button
-                color={this.props.lighTheme ? Colors.blue : 'white'}
+                color={this.props.lightTheme ? Colors.blue : 'white'}
                 theme={this.props.lightTheme ? {} : { colors: { primary: 'white', text: 'white' } }}
                 onPress={this.submitEntry}
                 mode="outlined"
-                style={this.props.lighTheme ? styles.submitButton : styles.submitButtonDark}>
+                style={this.props.lightTheme ? styles.submitButton : styles.submitButtonDark}>
                 Add Entry
               </Button>
 

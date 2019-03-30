@@ -222,7 +222,7 @@ export default class UpdateEntryScreen extends Component {
                     label='Category'
                     data={categories}
                     value={this.state.tallyType}
-                    baseColor={this.props.light ? "black" : "white"}
+                    baseColor={this.props.lightTheme ? "black" : "white"}
                     onChangeText={(tallyType) => { this.setState({ tallyType }) }}
                   />
                 </View>
@@ -266,7 +266,7 @@ export default class UpdateEntryScreen extends Component {
               </Button>
 
               <Button
-                color={this.props.lighTheme ? Colors.blue : 'white'}
+                color={this.props.lightTheme ? Colors.blue : 'white'}
                 onPress={this.goBack}
                 mode="outlined"
                 style={this.props.lightTheme ? styles.updateButton2 : styles.updateButton2Dark}>

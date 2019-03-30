@@ -29,9 +29,12 @@ class LaunchScreen extends Component {
           this.props.updatePreferences(JSON.parse(preferences));
           DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
             let entriesArray = JSON.parse(entries);
-            entriesArray.sort((a, b) => {
-              return new Date(b.date).getTime() - new Date(a.date).getTime();
-            })
+            if (entriesArray instanceof Array) {
+              entriesArray.sort((a, b) => {
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+              })
+            }
+
             this.props.updateEntries(entriesArray);
             replace("DrawerNavigator");
           });
