@@ -13,5 +13,19 @@ export default StyleSheet.create({
     backgroundColor: Colors.backgroundDark,
     height: '100%',
     paddingBottom: 200,
+  },
+  filterButton: {
+    width: 130,
+    marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 20,
+    backgroundColor: Colors.blue,
+  },
+  filterButtonDark: {
+    width: 130,
+    marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 20,
+    backgroundColor: Colors.surfaceDark,
   }
 })

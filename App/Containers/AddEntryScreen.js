@@ -287,13 +287,6 @@ class AddEntryScreen extends Component {
             </Surface>
           </View>
         </ScrollView>
-
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
-          onCancel={this._hideDateTimePicker}
-        />
-
       </SafeAreaView>
     )
   }

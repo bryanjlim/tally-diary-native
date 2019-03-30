@@ -13,7 +13,6 @@ class LaunchScreen extends Component {
   componentDidMount() {
     const { replace } = this.props.navigation;
     DriveHelper.getFileList(this.props.accessToken).then((files) => {
-      alert(files.length)
       if (files.length == 0) {
         // New User
         replace("UserSetupScreen");

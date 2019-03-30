@@ -7,6 +7,7 @@ import LargeEntryCard from '../Components/LargeEntryCard'
 import { updateEntries, updatePreferences } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import UpdateEntryScreen from './UpdateEntryScreen';
+import TimelineFiltersModal from '../Components/TimelineFiltersModal';
 
 // Styles
 import styles from './Styles/TimelineScreenStyles'
@@ -28,12 +29,18 @@ class TimelineSreen extends Component {
     this.assignIndexes(); // Important: keep index values to diary entries up to date locally
 
     let moreToShow = false;
-    let diaryEntriesToShow = this.props.entries;
+
+
+    let entriesCopy = [];
+    for(let i = 0; i < this.props.entries.length; i++) {
+      entriesCopy[i] = this.props.entries[i];
+    }
+
     if (this.props.entries instanceof Array && this.props.entries.length > 0) {
       if (this.props.entries.length > 15) {
         moreToShow = true;
       }
-      diaryEntriesToShow = this.props.entries.splice(0, 16)
+      diaryEntriesToShow = entriesCopy.splice(0, 16)
     }
 
     this.state = {
@@ -44,6 +51,16 @@ class TimelineSreen extends Component {
       totalEntriesShowing: 15,
       moreToShow: moreToShow,
       diaryEntriesToShow: diaryEntriesToShow,
+      filteredDiaryEntries: [...this.props.entries],
+      allEntries: [...this.props.entries],
+      titleFilter: null,
+      bodyFilter: null,
+      dateFilterStart: null,
+      dateFilterEnd: null,
+      tallyFilter: null,
+      goodDayFilter: null,
+      badDayFilter: null,
+      showFiltersModal: false,
     }
 
     this.eachDiaryEntryObject = this.eachDiaryEntryObject.bind(this);
@@ -54,6 +71,95 @@ class TimelineSreen extends Component {
     this._hideDialog = this._hideDialog.bind(this);
     this.isCloseToBottom = this.isCloseToBottom.bind(this);
     this.loadMoreEntries = this.loadMoreEntries.bind(this);
+    this.setFilters = this.setFilters.bind(this);
+    this.updateFilteredList = this.updateFilteredList.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+
+  setFilters(titleFilter, bodyFilter, dateFilterStart, dateFilterEnd, tallyFilter, goodDayFilter, badDayFilter) {
+      this.state.titleFilter = titleFilter,
+      this.state.bodyFilter = bodyFilter,
+      this.state.dateFilterStart = dateFilterStart,
+      this.state.dateFilterEnd = dateFilterEnd,
+      this.state.tallyFilter = tallyFilter,
+      this.state.goodDayFilter = goodDayFilter,
+      this.state.badDayFilter = badDayFilter,
+
+    this.updateFilteredList();
+    this.hideModal();
+  }
+
+  hideModal() {
+    this.setState({
+      showFiltersModal: false,
+    });
+  }
+
+  updateFilteredList() {
+    this.state.filteredDiaryEntries = [];
+
+    for (let i = 0; i < this.state.allEntries.length; i++) {
+      let addEntry = true;
+      const entry = this.state.allEntries[i];
+
+      if (this.state.dateFilterStart !== null && this.state.dateFilterEnd !== null) {
+        if (new Date(entry.date) < new Date(this.state.dateFilterStart) || new Date(entry.date) > new Date(this.state.dateFilterEnd)) {
+          addEntry = false;
+        }
+      } else if (this.state.dateFilterStart !== null && this.state.dateFilterEnd === null) {
+        if (new Date(entry.date) < new Date(this.state.dateFilterStart)) {
+          addEntry = false;
+        }
+      } else if (this.state.dateFilterStart === null && this.state.dateFilterEnd !== null) {
+        if (new Date(entry.date) > new Date(this.state.dateFilterEnd)) {
+          addEntry = false;
+        }
+      }
+
+      if (entry.bodyText !== null && entry.bodyText !== undefined && this.state.bodyFilter !== null
+        && this.state.bodyFilter !== undefined && this.state.bodyFilter !== '') {
+        if (!entry.bodyText.includes(this.state.bodyFilter)) {
+          addEntry = false;
+        }
+      }
+
+      if (this.state.tallyFilter !== null && this.state.tallyFilter !== undefined && this.state.tallyFilter !== '') {
+        let containsTally = false;
+        for (let j = 0; j < entry.tallies.length; j++) {
+          if (entry.tallies[j].text === this.state.tallyFilter) {
+            containsTally = true;
+          }
+        }
+        if (!containsTally) {
+          addEntry = false;
+        }
+      }
+
+      if(this.state.goodDayFilter) {
+        if(!entry.isThumbsUp) {
+          addEntry = false;
+        }
+      }
+
+      if(this.state.badDayFilter) {
+        if(!entry.isThumbsDown) {
+          addEntry = false;
+        }
+      }
+
+      if (addEntry) {
+        this.state.filteredDiaryEntries.push(entry);
+      }
+    }
+
+    let filteredEntriesCopy = [...this.state.filteredDiaryEntries];
+    let moreToShow = filteredEntriesCopy.length > 15;
+    let diaryEntriesToShow = filteredEntriesCopy.splice(0, 16);
+
+    this.setState({
+      diaryEntriesToShow,
+      moreToShow,
+    });
   }
 
   eachDiaryEntryObject(entry) {
@@ -83,18 +189,18 @@ class TimelineSreen extends Component {
     const currentIndex = this.state.totalEntriesShowing + 1;
 
     let maxIndex = currentIndex + 15;
-    if (this.props.entries.length < maxIndex) {
-      maxIndex = this.props.entries.length;
+    if (this.state.filteredDiaryEntries < maxIndex) {
+      maxIndex = this.state.filteredDiaryEntries.length;
     }
 
     for (let i = currentIndex; i < currentIndex + 15; i++) {
       this.setState((prevState) => ({
-        diaryEntriesToShow: [...prevState.diaryEntriesToShow, this.props.entries[i]],
+        diaryEntriesToShow: [...prevState.diaryEntriesToShow, this.state.filteredDiaryEntries[i]],
       }))
     }
     this.setState((prevState) => ({
       totalEntriesShowing: prevState.totalEntriesShowing + 15,
-      moreToShow: (prevState.totalEntriesShowing + 15 < this.props.entries.length),
+      moreToShow: (prevState.totalEntriesShowing + 15 < this.state.filteredDiaryEntries.length),
     }));
   }
 
@@ -109,8 +215,9 @@ class TimelineSreen extends Component {
     this.setState({
       showDiaryEntry: false,
       diaryEntryToShowIndex: "None",
-      diaryEntriesToShow: entriesArray.splice(0, 16)
+      allEntries: entriesArray,
     });
+    this.updateFilteredList();
     this.props.updateEntries(entriesArray);
   }
 
@@ -147,8 +254,6 @@ class TimelineSreen extends Component {
   _hideDialog = () => this.setState({ modalVisible: false });
 
   render() {
-
-
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
 
@@ -163,6 +268,20 @@ class TimelineSreen extends Component {
           />
           :
           <View style={this.props.lightTheme ? {} : { backgroundColor: Colors.backgroundDark }}>
+
+            <TimelineFiltersModal
+              visible={this.state.showFiltersModal}
+              hideDialog={this.hideModal}
+              setFilters={this.setFilters}
+              titleFilter={this.state.titleFilter}
+              bodyFilter={this.state.bodyFilter}
+              dateFilterStart={this.state.dateFilterStart}
+              dateFilterEnd={this.state.dateFilterEnd}
+              tallyFilter={this.state.tallyFilter}
+              goodDayFilter={this.state.goodDayFilter}
+              badDayFilter={this.state.badDayFilter}
+            />
+
             <Portal>
               <Dialog
                 visible={this.state.modalVisible}
@@ -185,14 +304,31 @@ class TimelineSreen extends Component {
               style={this.props.lightTheme ? styles.timelineScroll : styles.timelineScrollDark}
             >
               <View style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
+
                 {this.props.entries instanceof Array && this.props.entries.length > 0 ?
-                  this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject) :
+
+                  <View>
+                    <Button
+                      color={this.props.lightTheme ? 'white' : Colors.teal}
+                      onPress={() => { this.setState({ showFiltersModal: true }) }}
+                      style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
+                    >
+                      Filter
+                    </Button>
+
+                    {this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
+                  </View>
+                  :
+
                   <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
-                    <Text style={this.props.lightTheme ? { marginTop: 10 } : {marginTop: 10, color: 'white'}}>No Diary Entries To Show</Text>
+                    <Text style={this.props.lightTheme ? { marginTop: 10 } : { marginTop: 10, color: 'white' }}>No Diary Entries To Show</Text>
                   </View>
                 }
-                {this.state.moreToShow ? <ActivityIndicator size="large" color={Colors.blue} style={{marginTop: 5,}}/>
-                  : <View></View>}
+
+                {this.state.moreToShow ?
+                  <ActivityIndicator size="large" color={Colors.blue} style={{ marginTop: 5, }} /> :
+                  <View></View>}
+
               </View>
             </ScrollView>
           </View>
