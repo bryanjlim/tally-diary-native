@@ -109,6 +109,7 @@ class TimelineSreen extends Component {
     this.setState({
       showDiaryEntry: false,
       diaryEntryToShowIndex: "None",
+      diaryEntriesToShow: entriesArray.splice(0, 16)
     });
     this.props.updateEntries(entriesArray);
   }
