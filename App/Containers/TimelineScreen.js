@@ -317,14 +317,14 @@ class TimelineSreen extends Component {
                           Filter
                         </Button>
                         <IconButton
-                          style={{ marginTop: 10, }}
+                          style={{ marginTop: 20, marginLeft: 35, }}
                           icon="view-list"
                           color={this.props.lightTheme ? Colors.blue : Colors.teal}
                           disabled={!this.state.showHeadlines}
                           onPress={() => { this.setState({ showHeadlines: false, showSmall: true, }) }}
                         />
                         <IconButton
-                          style={{ marginTop: 10, }}
+                          style={{ marginTop: 20, marginLeft: 20, }}
                           icon="view-headline"
                           color={this.props.lightTheme ? Colors.blue : Colors.teal}
                           disabled={this.state.showHeadlines}
@@ -336,9 +336,13 @@ class TimelineSreen extends Component {
                     {this.state.showSmall ?
                       <View>
                         {smallSelection.map(this.eachDiaryEntryObject)}
-                        <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                          style={{ marginTop: 20, marginBottom: 30, }} />
-                      </View> :
+                        {smallSelection.length < this.state.diaryEntriesToShow.length ? 
+                          <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                          style={{ marginTop: 20, marginBottom: 30, }} /> :
+                          <View></View>
+                        }
+                      </View> 
+                      :
                       this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
                   </View>
                   :

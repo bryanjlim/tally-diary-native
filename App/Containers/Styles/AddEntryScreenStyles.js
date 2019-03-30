@@ -5,6 +5,7 @@ import Colors from '../../Themes/Colors'
 export default StyleSheet.create({
     ...ApplicationStyles.screen,
     surface: {
+        borderRadius: 7,
         marginTop: 15,
         marginBottom: 120,
         width: '92%',
@@ -13,6 +14,7 @@ export default StyleSheet.create({
         elevation: 3,
     },
     surfaceDark: {
+        borderRadius: 7,
         marginTop: 15,
         marginBottom: 120,
         backgroundColor: Colors.surfaceDark,
@@ -79,13 +81,13 @@ export default StyleSheet.create({
         marginTop: -15,
     },
     dropdownMenu: {
-        width: 100,
+        width: '28%',
         marginRight: 5,
         marginLeft: 10,
     },
     tallyTextInput: {
         backgroundColor: 'white',
-        width: 200,
+        width: '52%',
         borderBottomColor: 'black',
         borderBottomWidth: .5,
         height: 40,
@@ -93,14 +95,14 @@ export default StyleSheet.create({
     },
     tallyTextInputDark: {
         backgroundColor: Colors.surfaceDark,
-        width: 200,
+        width: '52%',
         borderBottomColor: 'white',
         borderBottomWidth: .5,
         height: 40,
         marginTop: 22,
     },
     addTallyButton: {
-        marginLeft: 20,
+        marginLeft: 15,
         marginTop: 25,
     },
     tallyChipContainer: {
