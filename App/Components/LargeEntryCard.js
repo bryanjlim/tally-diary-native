@@ -16,7 +16,7 @@ export default class LargeEntryCard extends React.Component {
         const title = "Day " + daysAlive + (this.props.entry.title ? ' - ' + this.props.entry.title : '')
 
         return (
-            <Card style={this.props.lightTheme ? { marginTop: 10, width: '95%' }
+            <Card style={this.props.lightTheme ? { marginTop: 10, width: '95%', marginBottom: 2, }
                 : { marginTop: 10, width: '95%', backgroundColor: Colors.surfaceDark }}>
                 <Card.Title title={title} subtitle={readDate}
                     theme={this.props.lightTheme ? { } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }} />
