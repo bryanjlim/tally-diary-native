@@ -214,6 +214,11 @@ class TimelineSreen extends Component {
     }
 
     entriesArray[index] = updatedEntry;
+
+    entriesArray.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+
     DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
     this.setState({
       showDiaryEntry: false,

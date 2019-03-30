@@ -98,6 +98,10 @@ class AddEntryScreen extends Component {
       "isThumbsDown": this.state.isThumbsDown,
     });
 
+    entries.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+
     DriveHelper.patchFile(this.props.accessToken, entries, "1", this.props.entriesId);
     this.props.updateEntries(entries);
 
