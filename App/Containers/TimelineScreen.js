@@ -305,50 +305,46 @@ class TimelineSreen extends Component {
             >
               <View style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
 
+                <View style={{ flexDirection: 'row' }}>
+                  <Button
+                    color={this.props.lightTheme ? 'white' : Colors.teal}
+                    onPress={() => { this.setState({ showFiltersModal: true }) }}
+                    style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
+                  >
+                    Filter
+                        </Button>
+                  <IconButton
+                    style={{ marginTop: 20, marginLeft: 35, }}
+                    icon="view-list"
+                    color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                    disabled={!this.state.showHeadlines}
+                    onPress={() => { this.setState({ showHeadlines: false, showSmall: true, }) }}
+                  />
+                  <IconButton
+                    style={{ marginTop: 20, marginLeft: 20, }}
+                    icon="view-headline"
+                    color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                    disabled={this.state.showHeadlines}
+                    onPress={() => { this.setState({ showHeadlines: true, showSmall: true, }) }}
+                  />
+                </View>
+
                 {this.state.diaryEntriesToShow instanceof Array && this.state.diaryEntriesToShow.length > 0 ?
                   <View>
-                    <View>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Button
-                          color={this.props.lightTheme ? 'white' : Colors.teal}
-                          onPress={() => { this.setState({ showFiltersModal: true }) }}
-                          style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
-                        >
-                          Filter
-                        </Button>
-                        <IconButton
-                          style={{ marginTop: 20, marginLeft: 35, }}
-                          icon="view-list"
-                          color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                          disabled={!this.state.showHeadlines}
-                          onPress={() => { this.setState({ showHeadlines: false, showSmall: true, }) }}
-                        />
-                        <IconButton
-                          style={{ marginTop: 20, marginLeft: 20, }}
-                          icon="view-headline"
-                          color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                          disabled={this.state.showHeadlines}
-                          onPress={() => { this.setState({ showHeadlines: true, showSmall: true, }) }}
-                        />
-                      </View>
-                    </View>
-
                     {this.state.showSmall ?
                       <View>
                         {smallSelection.map(this.eachDiaryEntryObject)}
-                        {smallSelection.length < this.state.diaryEntriesToShow.length ? 
+                        {smallSelection.length < this.state.diaryEntriesToShow.length ?
                           <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                          style={{ marginTop: 20, marginBottom: 30, }} /> :
+                            style={{ marginTop: 20, marginBottom: 30, }} /> :
                           <View></View>
                         }
-                      </View> 
+                      </View>
                       :
                       this.state.diaryEntriesToShow.map(this.eachDiaryEntryObject)}
                   </View>
                   :
-                  <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
-                    <Text style={this.props.lightTheme ? { marginTop: 10 } : { marginTop: 10, color: 'white' }}>No Diary Entries To Show</Text>
-                  </View>
+                  <View ></View>
                 }
 
                 <View style={{ padding: 100 }}></View>
