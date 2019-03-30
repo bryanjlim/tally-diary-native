@@ -212,7 +212,6 @@ class TimelineSreen extends Component {
     DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
     this.setState({
       showDiaryEntry: false,
-      diaryEntryToShowIndex: "None",
       allEntries: entriesArray,
     });
     this.updateFilteredList();
@@ -251,6 +250,7 @@ class TimelineSreen extends Component {
 
   render() {
     if (this.props.entries.length != this.state.knownEntriesPropLength) {
+      this.assignIndexes();
       this.updateFilteredList();
       this.setState({
         knownEntriesPropLength: this.props.entries.length,

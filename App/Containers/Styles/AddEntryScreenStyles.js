@@ -62,7 +62,7 @@ export default StyleSheet.create({
     inputTitleDark: {
         marginLeft: 7,
         fontSize: 25,
-        backgroundColor: 'white',
+        color: 'white',
         width: '95%',
         backgroundColor: Colors.surfaceDark,
     },
