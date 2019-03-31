@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, ActivityIndicator } from 'react-native'
 import DriveHelper from '../Helpers/driveHelper'
+import { TextInput, Title, Button, HelperText } from 'react-native-paper'
 import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
 import { connect } from 'react-redux'
 
@@ -9,6 +10,19 @@ import styles from './Styles/LaunchScreenStyles'
 import Colors from '../Themes/Colors'
 
 class LaunchScreen extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      usePassword: false,
+      passwordError: false,
+      password: '',
+      passwordAttempt: '',
+    }
+
+    this.attemptUnlock = this.attemptUnlock.bind(this);
+  }
 
   componentDidMount() {
     const { replace } = this.props.navigation;
@@ -38,19 +52,77 @@ class LaunchScreen extends Component {
             }
 
             this.props.updateEntries(entriesArray);
-            replace("DrawerNavigator");
+
+            if (parsedPreferences.usePassword) {
+              // Request password
+              this.setState({
+                usePassword: true,
+                password: parsedPreferences.password,
+                passwordError: false,
+              });
+            } else {
+              replace("DrawerNavigator");
+            }
           });
         });
       }
     })
   }
 
+  attemptUnlock() {
+    if (this.state.passwordAttempt == this.state.password) {
+      this.setState({
+        usePassword: false,
+        passwordAttempt: '',
+        passwordError: false,
+        password: '',
+      })
+      const { replace } = this.props.navigation;
+      replace("DrawerNavigator");
+    } else {
+      this.setState({
+        passwordError: true,
+      })
+    }
+  }
+
   render() {
-    return (
-      <View style={styles.centerContainerBlue}>
-        <ActivityIndicator size="large" color="white" />
-      </View>
-    )
+    if (this.state.usePassword) {
+      // Password Check
+      return (
+        <View style={styles.centerContainerBlue}>
+          <View>
+            <Title style={{ color: 'white', alignSelf: 'center' }}>This Diary Is Locked</Title>
+            <View style={{ height: 55, width: 250, marginBottom: 15, marginTop: 30, }}>
+              <TextInput
+                error={this.state.passwordError}
+                value={this.state.passwordAttempt}
+                placeholder="Please Enter Your Password"
+                secureTextEntry={true}
+                style={{ color: 'white', backgroundColor: 'white' }}
+                onChangeText={(passwordAttempt) => { this.setState({ passwordAttempt }) }}
+                theme={{ colors: { primary: Colors.blue } }}
+              />
+            </View>
+            <View style={{ width: 250, alignSelf: 'center' }}>
+              <Button
+                style={{ backgroundColor: 'white' }}
+                onPress={this.attemptUnlock}
+                theme={{ colors: { primary: Colors.blue } }}
+              >
+                Unlock Diary
+            </Button>
+            </View>
+          </View>
+        </View >
+      );
+    } else {
+      return (
+        <View style={styles.centerContainerBlue}>
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      )
+    }
   }
 }
 

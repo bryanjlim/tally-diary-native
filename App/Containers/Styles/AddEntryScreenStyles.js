@@ -7,7 +7,7 @@ export default StyleSheet.create({
     surface: {
         borderRadius: 7,
         marginTop: 15,
-        marginBottom: 240,
+        marginBottom: 120,
         width: '92%',
         padding: 8,
         paddingBottom: 10,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     surfaceDark: {
         borderRadius: 7,
         marginTop: 15,
-        marginBottom: 240,
+        marginBottom: 120,
         backgroundColor: Colors.surfaceDark,
         width: '92%',
         padding: 8,
@@ -54,13 +54,14 @@ export default StyleSheet.create({
         right: 13,
     },
     inputTitle: {
-        marginLeft: 7,
+        marginLeft: 10,
         fontSize: 25,
         backgroundColor: 'white',
+        color: 'black',
         width: '95%',
     },
     inputTitleDark: {
-        marginLeft: 7,
+        marginLeft: 10,
         fontSize: 25,
         color: 'white',
         width: '95%',
@@ -70,7 +71,7 @@ export default StyleSheet.create({
         marginTop: 7,
     },
     bodyText: {
-        height: 303,
+        height: 295,
         borderColor: Colors.blue,
         backgroundColor: 'white',
         marginBottom: 10,

@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, Keyb
 import DriveHelper from '../Helpers/driveHelper'
 import TimeHelper from '../Helpers/timeHelper';
 import { connect } from 'react-redux'
-import { Appbar, Button, IconButton, Surface, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
+import { Appbar, Button, IconButton, Surface, Chip, Title, Divider, Snackbar, TextInput as PaperInput } from 'react-native-paper';
 import { updateEntries } from '../Redux/actions'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
@@ -39,6 +39,7 @@ class AddEntryScreen extends Component {
       tallyText: "",
       isThumbsUp: false,
       isThumbsDown: false,
+      showSuccess: false,
     }
 
     this._showDateTimePicker = this._showDateTimePicker.bind(this);
@@ -118,6 +119,11 @@ class AddEntryScreen extends Component {
       tallyText: "",
       isThumbsUp: false,
       isThumbsDown: false,
+      showSuccess: false,
+    })
+
+    this.setState({
+      showSuccess: true,
     })
   }
 
@@ -306,6 +312,19 @@ class AddEntryScreen extends Component {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
+
+        <Snackbar
+          visible={this.state.showSuccess}
+          onDismiss={() => this.setState({ showSuccess: false })}
+          duration={4000}
+          action={{
+            label: 'Ok',
+            onPress: () => {},
+          }}
+          style={{ bottom: 100, }}
+        >
+          Diary Entry Added
+        </Snackbar>
 
       </SafeAreaView>
     )

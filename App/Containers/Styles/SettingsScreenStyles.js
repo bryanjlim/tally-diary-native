@@ -89,13 +89,14 @@ export default StyleSheet.create({
   submitButton: {
     marginTop: 15,
     paddingBottom: 1,
-    marginBottom: 200,
   },
   submitButtonDark: {
     marginTop: 15,
     paddingBottom: 1,
-    marginBottom: 200,
     backgroundColor: Colors.surfaceDark,
+  },
+  bottomView: {
+    padding: 100,
   },
   appBar: {
     backgroundColor: Colors.blue,
