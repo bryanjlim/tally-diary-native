@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, BackHandler, TouchableOpacity } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View, TextInput, BackHandler, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import TimeHelper from '../Helpers/timeHelper';
 import { Button, IconButton, Surface, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -212,34 +212,36 @@ export default class UpdateEntryScreen extends Component {
               <Divider />
 
               {/* Tally Entry */}
-              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Tallies</Title>
-              <View style={styles.tallyRow}>
-                <View style={styles.dropdownMenu}>
-                  <Dropdown
-                    label='Category'
-                    data={categories}
-                    value={this.state.tallyType}
-                    baseColor={this.props.lightTheme ? "black" : "white"}
-                    textColor={this.props.lightTheme ? "black" : "white"}
-                    animationDuration={0}
-                    rippleCentered={true}
-                    pickerStyle={this.props.lightTheme ? {} : {backgroundColor: Colors.backgroundDark}}
-                    onChangeText={(tallyType) => { this.setState({ tallyType }) }}
+              <KeyboardAvoidingView>
+                <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Tallies</Title>
+                <View style={styles.tallyRow}>
+                  <View style={styles.dropdownMenu}>
+                    <Dropdown
+                      label='Category'
+                      data={categories}
+                      value={this.state.tallyType}
+                      baseColor={this.props.lightTheme ? "black" : "white"}
+                      textColor={this.props.lightTheme ? "black" : "white"}
+                      animationDuration={0}
+                      rippleCentered={true}
+                      pickerStyle={this.props.lightTheme ? {} : { backgroundColor: Colors.backgroundDark }}
+                      onChangeText={(tallyType) => { this.setState({ tallyType }) }}
+                    />
+                  </View>
+                  <TextInput
+                    style={this.props.lightTheme ? styles.tallyTextInput : styles.tallyTextInputDark}
+                    value={this.state.tallyText}
+                    onChangeText={(tallyText) => this.setState({ tallyText })}
+                  />
+                  <IconButton
+                    style={styles.addTallyButton}
+                    icon="add"
+                    color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                    size={35}
+                    onPress={this.addTally}
                   />
                 </View>
-                <TextInput
-                  style={this.props.lightTheme ? styles.tallyTextInput : styles.tallyTextInputDark}
-                  value={this.state.tallyText}
-                  onChangeText={(tallyText) => this.setState({ tallyText })}
-                />
-                <IconButton
-                  style={styles.addTallyButton}
-                  icon="add"
-                  color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                  size={35}
-                  onPress={this.addTally}
-                />
-              </View>
+              </KeyboardAvoidingView>
 
               {/* Tally View */}
               <View style={styles.tallyChipContainer}>
