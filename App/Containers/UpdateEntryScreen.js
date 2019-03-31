@@ -153,7 +153,7 @@ export default class UpdateEntryScreen extends Component {
                 placeholderTextColor={this.props.lightTheme ? 'lightgray' : 'darkgray'}
               />
 
-              <Divider style={styles.topDivider} />
+              <Divider style={this.props.lightTheme ? styles.topDivider : styles.topDividerDark} />
 
               {/* Paragraph Entry */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
@@ -168,7 +168,7 @@ export default class UpdateEntryScreen extends Component {
                 onChangeText={(bodyText) => this.setState({ bodyText })}
               />
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Thumbs */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
@@ -209,7 +209,7 @@ export default class UpdateEntryScreen extends Component {
                   />}
               </View>
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Tally Entry */}
               <KeyboardAvoidingView>
@@ -256,7 +256,7 @@ export default class UpdateEntryScreen extends Component {
                 })}
               </View>
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
 
               {/* Submit */}

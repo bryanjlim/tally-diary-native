@@ -187,7 +187,7 @@ class AddEntryScreen extends Component {
                 placeholderTextColor={this.props.lightTheme ? 'lightgray' : 'darkgray'}
               />
 
-              <Divider style={styles.topDivider} />
+              <Divider style={this.props.lightTheme ? styles.topDivider : styles.topDividerDark} />
 
               {/* Paragraph Entry */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
@@ -202,7 +202,7 @@ class AddEntryScreen extends Component {
                 onChangeText={(bodyText) => this.setState({ bodyText })}
               />
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Thumbs */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
@@ -243,7 +243,7 @@ class AddEntryScreen extends Component {
                   />}
               </View>
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Tally Entry */}
               <KeyboardAvoidingView>
@@ -290,7 +290,7 @@ class AddEntryScreen extends Component {
                 })}
               </View>
 
-              <Divider />
+              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Submit */}
               <Button
@@ -319,7 +319,7 @@ class AddEntryScreen extends Component {
           duration={4000}
           action={{
             label: 'Ok',
-            onPress: () => {},
+            onPress: () => { },
           }}
           style={{ bottom: 100, }}
         >

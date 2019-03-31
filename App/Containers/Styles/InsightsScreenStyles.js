@@ -54,7 +54,7 @@ export default StyleSheet.create({
     padding: 8,
     width: '90%',
     elevation: 2,
-    marginBottom: 300,
+    marginBottom: 150,
     backgroundColor: Colors.surfaceDark
   }
 })

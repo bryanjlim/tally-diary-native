@@ -96,7 +96,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.surfaceDark,
   },
   bottomView: {
-    padding: 100,
+    padding: 50,
   },
   appBar: {
     backgroundColor: Colors.blue,

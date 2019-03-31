@@ -69,6 +69,21 @@ export default StyleSheet.create({
     },
     topDivider: {
         marginTop: 7,
+        width: '100%',
+        backgroundColor: '#e8e8e8'
+    },
+    topDividerDark: {
+        marginTop: 7,
+        width: '100%',
+        backgroundColor: '#5e5e5e'
+    },
+    divider: {
+        width: '100%',
+        backgroundColor: '#e8e8e8'
+    },
+    dividerDark: {
+        width: '100%',
+        backgroundColor: '#5e5e5e'
     },
     bodyText: {
         height: 295,
@@ -110,7 +125,7 @@ export default StyleSheet.create({
         borderBottomColor: 'black',
         borderBottomWidth: .5,
         height: 40,
-        marginTop: 22,
+        marginTop: 23,
     },
     tallyTextInputDark: {
         backgroundColor: Colors.surfaceDark,
