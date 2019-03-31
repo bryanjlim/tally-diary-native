@@ -37,8 +37,8 @@ class AddEntryScreen extends Component {
       todos: [],
       tallyType: "",
       tallyText: "",
-      isThumbsUp: false,
-      isThumbsDown: false,
+      isThumbUp: false,
+      isThumbDown: false,
       showSuccess: false,
     }
 
@@ -95,8 +95,8 @@ class AddEntryScreen extends Component {
       "bodyText": this.state.bodyText,
       "tallies": this.state.tallies,
       "todos": this.state.todos,
-      "isThumbsUp": this.state.isThumbsUp,
-      "isThumbsDown": this.state.isThumbsDown,
+      "isThumbUp": this.state.isThumbUp,
+      "isThumbDown": this.state.isThumbDown,
     });
 
     entries.sort((a, b) => {
@@ -117,8 +117,8 @@ class AddEntryScreen extends Component {
       todos: [],
       tallyType: "",
       tallyText: "",
-      isThumbsUp: false,
-      isThumbsDown: false,
+      isThumbUp: false,
+      isThumbDown: false,
       showSuccess: false,
     })
 
@@ -129,15 +129,15 @@ class AddEntryScreen extends Component {
 
   toggleThumbsUp() {
     this.setState((prevState) => ({
-      isThumbsUp: !prevState.isThumbsUp,
-      isThumbsDown: false,
+      isThumbUp: !prevState.isThumbUp,
+      isThumbDown: false,
     }))
   }
 
   toggleThumbsDown() {
     this.setState((prevState) => ({
-      isThumbsUp: false,
-      isThumbsDown: !prevState.isThumbsDown,
+      isThumbUp: false,
+      isThumbDown: !prevState.isThumbDown,
     }))
   }
 
@@ -207,7 +207,7 @@ class AddEntryScreen extends Component {
               {/* Thumbs */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
               <View style={styles.row}>
-                {this.state.isThumbsUp ?
+                {this.state.isThumbUp ?
                   <Icon.Button
                     name="thumb-up"
                     onPress={this.toggleThumbsUp}
@@ -224,7 +224,7 @@ class AddEntryScreen extends Component {
                     backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   />}
-                {this.state.isThumbsDown ?
+                {this.state.isThumbDown ?
                   <Icon.Button
                     name="thumb-down"
                     onPress={this.toggleThumbsDown}

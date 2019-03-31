@@ -23,8 +23,8 @@ export default class UpdateEntryScreen extends Component {
       todos: this.props.entry.todos,
       tallyType: "",
       tallyText: "",
-      isThumbsUp: this.props.entry.isThumbsUp,
-      isThumbsDown: this.props.entry.isThumbsDown,
+      isThumbUp: this.props.entry.isThumbUp,
+      isThumbDown: this.props.entry.isThumbDown,
     }
 
     this._showDateTimePicker = this._showDateTimePicker.bind(this);
@@ -93,22 +93,22 @@ export default class UpdateEntryScreen extends Component {
       "bodyText": this.state.bodyText,
       "tallies": this.state.tallies,
       "todos": this.state.todos,
-      "isThumbsUp": this.state.isThumbsUp,
-      "isThumbsDown": this.state.isThumbsDown,
+      "isThumbUp": this.state.isThumbUp,
+      "isThumbDown": this.state.isThumbDown,
     });
   }
 
   toggleThumbsUp() {
     this.setState((prevState) => ({
-      isThumbsUp: !prevState.isThumbsUp,
-      isThumbsDown: false,
+      isThumbUp: !prevState.isThumbUp,
+      isThumbDown: false,
     }))
   }
 
   toggleThumbsDown() {
     this.setState((prevState) => ({
-      isThumbsUp: false,
-      isThumbsDown: !prevState.isThumbsDown,
+      isThumbUp: false,
+      isThumbDown: !prevState.isThumbDown,
     }))
   }
 
@@ -127,6 +127,8 @@ export default class UpdateEntryScreen extends Component {
 
     const dayNumber = TimeHelper.calculateDayDifference(new Date(this.props.preferences.dateOfBirth),
       new Date(this.state.date));
+
+    console.log(this.props.entry)
 
     return (
       <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
@@ -173,7 +175,7 @@ export default class UpdateEntryScreen extends Component {
               {/* Thumbs */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
               <View style={styles.row}>
-                {this.state.isThumbsUp ?
+                {this.state.isThumbUp ?
                   <Icon.Button
                     name="thumb-up"
                     onPress={this.toggleThumbsUp}
@@ -190,7 +192,7 @@ export default class UpdateEntryScreen extends Component {
                     backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
                     style={styles.thumbButton}
                   />}
-                {this.state.isThumbsDown ?
+                {this.state.isThumbDown ?
                   <Icon.Button
                     name="thumb-down"
                     onPress={this.toggleThumbsDown}

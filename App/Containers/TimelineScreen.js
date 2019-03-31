@@ -134,14 +134,22 @@ class TimelineSreen extends Component {
         }
       }
 
+      if (entry.title !== null && entry.title !== undefined && this.state.titleFilter !== null
+        && this.state.titleFilter !== undefined && this.state.titleFilter !== '' && addEntry) {
+        if (!entry.title.includes(this.state.titleFilter)) {
+          addEntry = false;
+        }
+      }
+
       if (entry.bodyText !== null && entry.bodyText !== undefined && this.state.bodyFilter !== null
-        && this.state.bodyFilter !== undefined && this.state.bodyFilter !== '') {
+        && this.state.bodyFilter !== undefined && this.state.bodyFilter !== '' && addEntry) {
         if (!entry.bodyText.includes(this.state.bodyFilter)) {
           addEntry = false;
         }
       }
 
-      if (this.state.tallyFilter !== null && this.state.tallyFilter !== undefined && this.state.tallyFilter !== '') {
+      if (this.state.tallyFilter !== null && this.state.tallyFilter !== undefined && this.state.tallyFilter !== ''
+        && addEntry) {
         let containsTally = false;
         for (let j = 0; j < entry.tallies.length; j++) {
           if (entry.tallies[j].text === this.state.tallyFilter) {
@@ -153,14 +161,14 @@ class TimelineSreen extends Component {
         }
       }
 
-      if (this.state.goodDayFilter) {
-        if (!entry.isThumbsUp) {
+      if (this.state.goodDayFilter && addEntry) {
+        if (!entry.isThumbUp) {
           addEntry = false;
         }
       }
 
-      if (this.state.badDayFilter) {
-        if (!entry.isThumbsDown) {
+      if (this.state.badDayFilter && addEntry) {
+        if (!entry.isThumbDown) {
           addEntry = false;
         }
       }
@@ -171,9 +179,9 @@ class TimelineSreen extends Component {
     }
 
     let baseNumberToShow = 5;
-      if (filteredDiaryEntries.length < 5) {
-        baseNumberToShow = filteredDiaryEntries.length;
-      }
+    if (filteredDiaryEntries.length < 5) {
+      baseNumberToShow = filteredDiaryEntries.length;
+    }
 
     this.setState({
       diaryEntriesToShow: filteredDiaryEntries,
