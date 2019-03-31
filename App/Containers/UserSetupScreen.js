@@ -130,7 +130,7 @@ class UserSetupScreen extends Component {
                                 </View>
                                 <View style={styles.rightRadio}>
                                     <Text>Dark</Text>
-                                    <RadioButton.Android value="dark" disabled={true} />
+                                    <RadioButton.Android value="dark" />
                                 </View>
                             </View>
                         </RadioButton.Group>

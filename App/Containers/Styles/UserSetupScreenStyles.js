@@ -21,6 +21,7 @@ export default StyleSheet.create({
     paddingBottom: 12,
   },
   surface: {
+    borderRadius: 5,
     padding: 8,
     width: '90%',
     height: 150,

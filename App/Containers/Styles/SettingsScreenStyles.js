@@ -14,6 +14,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   topSurface: {
+    borderRadius: 5,
     padding: 8,
     width: '90%',
     height: 150,
@@ -24,6 +25,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   topSurfaceDark: {
+    borderRadius: 5,
     padding: 8,
     width: '90%',
     height: 150,
@@ -35,6 +37,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.surfaceDark
   },
   surface: {
+    borderRadius: 5,
     padding: 8,
     width: '90%',
     height: 150,
@@ -44,6 +47,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   surfaceDark: {
+    borderRadius: 5,
     padding: 8,
     width: '90%',
     height: 150,
