@@ -38,8 +38,13 @@ class TimelineSreen extends Component {
       }
     }
 
+    let numberToShow = 5;
+    if (this.props.entries.length < 5) {
+      numberToShow = this.props.entries.length;
+    }
+
     this.state = {
-      numberToShow: 4,
+      numberToShow: numberToShow,
 
       showConfirmationModal: false,
       diaryEntryToDelete: "None",
@@ -77,8 +82,8 @@ class TimelineSreen extends Component {
   }
 
   loadMoreEntries() {
-    let newNumberToShow =  this.state.numberToShow + 5;
-    if(newNumberToShow > this.state.diaryEntriesToShow.length) {
+    let newNumberToShow = this.state.numberToShow + 5;
+    if (newNumberToShow > this.state.diaryEntriesToShow.length) {
       newNumberToShow = this.state.diaryEntriesToShow.length;
     }
 
@@ -106,12 +111,14 @@ class TimelineSreen extends Component {
     });
   }
 
-  updateFilteredList() {
+  updateFilteredList(array) {
     let filteredDiaryEntries = [];
 
-    for (let i = 0; i < this.props.entries.length; i++) {
+    let arrayToUse = array ? array : this.props.entries;
+
+    for (let i = 0; i < arrayToUse.length; i++) {
       let addEntry = true;
-      const entry = this.props.entries[i];
+      const entry = arrayToUse[i];
 
       if (this.state.dateFilterStart !== null && this.state.dateFilterEnd !== null) {
         if (new Date(entry.date) < new Date(this.state.dateFilterStart) || new Date(entry.date) > new Date(this.state.dateFilterEnd)) {
@@ -163,12 +170,25 @@ class TimelineSreen extends Component {
       }
     }
 
+    let baseNumberToShow = 5;
+      if (filteredDiaryEntries.length < 5) {
+        baseNumberToShow = filteredDiaryEntries.length;
+      }
+
     this.setState({
       diaryEntriesToShow: filteredDiaryEntries,
+      numberToShow: baseNumberToShow,
     });
+
+    this.assignIndexes();
   }
 
   eachDiaryEntryObject = (entry, i) => {
+    let baseNumberToShow = 5;
+    if (this.state.diaryEntriesToShow.length < 5) {
+      baseNumberToShow = this.props.entries.length;
+    }
+
     return (
       <View key={i} style={{ alignItems: 'center' }}>
         {this.state.showHeadlines ?
@@ -182,7 +202,7 @@ class TimelineSreen extends Component {
             view={() => {
               this.setState({
                 showDiaryEntry: true,
-                numberToShow: 5,
+                numberToShow: baseNumberToShow,
                 diaryEntryToShowIndex: entry.index,
               })
             }} />
@@ -197,7 +217,7 @@ class TimelineSreen extends Component {
             view={() => {
               this.setState({
                 showDiaryEntry: true,
-                numberToShow: 5,
+                numberToShow: baseNumberToShow,
                 diaryEntryToShowIndex: entry.index,
               })
             }} />
@@ -222,9 +242,9 @@ class TimelineSreen extends Component {
     DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
     this.setState({
       showDiaryEntry: false,
-      allEntries: entriesArray,
     });
-    this.updateFilteredList();
+    entriesArray = this.assignIndexes(entriesArray);
+    this.updateFilteredList(entriesArray);
     this.props.updateEntries(entriesArray);
   }
 
@@ -238,24 +258,31 @@ class TimelineSreen extends Component {
       const index = this.state.diaryEntryToDelete;
       entriesArray.splice(index, 1);
       DriveHelper.patchFile(this.props.accessToken, entriesArray, "1", this.props.entriesId);
+
       this.setState({
         diaryEntryToDelete: "None",
         showConfirmationModal: false,
       })
-      this.forceUpdate();
+
+      entriesArray = this.assignIndexes(entriesArray);
+      this.updateFilteredList(entriesArray);
       this.props.updateEntries(entriesArray);
     }
   }
 
-  assignIndexes() {
+  assignIndexes(array) {
     let entriesArray = [];
-    if (this.props.entries instanceof Array && this.props.entries.length > 0) {
-      for (let i = 0; i < this.props.entries.length; i++) {
-        entriesArray[i] = this.props.entries[i];
+
+    const arrayToIndex = array ? array : this.props.entries;
+
+    if (arrayToIndex instanceof Array && arrayToIndex.length > 0) {
+      for (let i = 0; i < arrayToIndex.length; i++) {
+        entriesArray[i] = arrayToIndex[i];
         entriesArray[i].index = i;
       }
       this.props.updateEntries(entriesArray);
     }
+    return entriesArray;
   }
 
   render() {
@@ -267,8 +294,13 @@ class TimelineSreen extends Component {
       });
     }
 
+    let baseNumberToShow = 5;
+    if (this.state.diaryEntriesToShow.length < 5) {
+      baseNumberToShow = this.props.entries.length;
+    }
+
     let viewableSelection = [];
-    if(this.state.numberToShow <= this.state.diaryEntriesToShow.length) {
+    if (this.state.numberToShow <= this.state.diaryEntriesToShow.length) {
       viewableSelection = [...this.state.diaryEntriesToShow].splice(0, this.state.numberToShow);
     }
 
@@ -277,7 +309,7 @@ class TimelineSreen extends Component {
 
         <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
           <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
-          <Title style={{fontSize: 20, color: 'white', marginLeft: 15,}}>Your Entries</Title>
+          <Title style={{ fontSize: 20, color: 'white', marginLeft: 15, }}>Your Entries</Title>
         </Appbar>
 
         {this.state.showDiaryEntry ?
@@ -323,33 +355,33 @@ class TimelineSreen extends Component {
                     style={this.props.lightTheme ? styles.filterButton : styles.filterButtonDark}
                   >
                     Filter
-                        </Button>
+                  </Button>
                   <IconButton
                     style={{ marginTop: 20, marginLeft: 35, }}
                     icon="view-list"
                     color={this.props.lightTheme ? Colors.blue : Colors.teal}
                     disabled={!this.state.showHeadlines}
-                    onPress={() => { this.setState({ showHeadlines: false, numberToShow: 5, }) }}
+                    onPress={() => { this.setState({ showHeadlines: false, numberToShow: baseNumberToShow, }) }}
                   />
                   <IconButton
                     style={{ marginTop: 20, marginLeft: 20, }}
                     icon="view-headline"
                     color={this.props.lightTheme ? Colors.blue : Colors.teal}
                     disabled={this.state.showHeadlines}
-                    onPress={() => { this.setState({ showHeadlines: true, numberToShow: 5, }) }}
+                    onPress={() => { this.setState({ showHeadlines: true, numberToShow: baseNumberToShow, }) }}
                   />
                 </View>
 
                 {this.state.diaryEntriesToShow instanceof Array && this.state.diaryEntriesToShow.length > 0 ?
                   <View>
-                      <View>
-                        {viewableSelection.map(this.eachDiaryEntryObject)}
-                        {viewableSelection.length < this.state.diaryEntriesToShow.length ?
-                          <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
-                            style={{ marginTop: 20, marginBottom: 30, }} /> :
-                          <View></View>
-                        }
-                      </View>
+                    <View>
+                      {viewableSelection.map(this.eachDiaryEntryObject)}
+                      {viewableSelection.length < this.state.diaryEntriesToShow.length ?
+                        <ActivityIndicator color={this.props.lightTheme ? Colors.blue : Colors.teal}
+                          style={{ marginTop: 20, marginBottom: 30, }} /> :
+                        <View></View>
+                      }
+                    </View>
                   </View>
                   :
                   <View ></View>
