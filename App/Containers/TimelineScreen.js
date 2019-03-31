@@ -335,6 +335,7 @@ class TimelineSreen extends Component {
             />
 
             <ConfirmationModal
+              lightTheme={this.props.lightTheme}
               visible={this.state.showConfirmationModal}
               hideDialog={() => this.setState({ showConfirmationModal: false })}
               handleConfirm={() => { this.deleteEntry() }}
