@@ -321,6 +321,7 @@ class TimelineSreen extends Component {
           <View style={this.props.lightTheme ? {} : { backgroundColor: Colors.backgroundDark }}>
 
             <TimelineFiltersModal
+              lightTheme={this.props.lightTheme}
               visible={this.state.showFiltersModal}
               hideDialog={this.hideModal}
               setFilters={this.setFilters}
