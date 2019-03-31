@@ -220,6 +220,10 @@ export default class UpdateEntryScreen extends Component {
                     data={categories}
                     value={this.state.tallyType}
                     baseColor={this.props.lightTheme ? "black" : "white"}
+                    textColor={this.props.lightTheme ? "black" : "white"}
+                    animationDuration={0}
+                    rippleCentered={true}
+                    pickerStyle={this.props.lightTheme ? {} : {backgroundColor: Colors.backgroundDark}}
                     onChangeText={(tallyType) => { this.setState({ tallyType }) }}
                   />
                 </View>

@@ -7,7 +7,7 @@ export default StyleSheet.create({
     surface: {
         borderRadius: 7,
         marginTop: 15,
-        marginBottom: 120,
+        marginBottom: 240,
         width: '92%',
         padding: 8,
         paddingBottom: 10,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     surfaceDark: {
         borderRadius: 7,
         marginTop: 15,
-        marginBottom: 120,
+        marginBottom: 240,
         backgroundColor: Colors.surfaceDark,
         width: '92%',
         padding: 8,
@@ -114,6 +114,7 @@ export default StyleSheet.create({
     tallyTextInputDark: {
         backgroundColor: Colors.surfaceDark,
         width: '52%',
+        color: 'white',
         borderBottomColor: 'white',
         borderBottomWidth: .5,
         height: 40,
@@ -134,6 +135,7 @@ export default StyleSheet.create({
         alignSelf: 'baseline',
         marginLeft: 10,
         marginTop: 7,
+        maxWidth: '88%'
     },
     chipDark: {
         backgroundColor: 'gray',
