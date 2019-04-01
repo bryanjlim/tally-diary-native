@@ -31,7 +31,7 @@ export default class TimelineFiltersModal extends React.Component {
         this._showDateTimePickerEnd = this._showDateTimePickerEnd.bind(this);
         this._showDateTimePickerStart = this._showDateTimePickerStart.bind(this);
 
-        this.cancel = this.cancel.bind(this);
+        this.deleteFilters = this.deleteFilters.bind(this);
     }
 
     _showDateTimePickerStart = () => this.setState({ isDateTimePickerStartVisible: true });
@@ -58,7 +58,7 @@ export default class TimelineFiltersModal extends React.Component {
         this._hideDateTimePickerEnd();
     };
 
-    cancel() {
+    deleteFilters() {
         this.setState({
             titleFilter: null,
             bodyFilter: null,
@@ -70,7 +70,6 @@ export default class TimelineFiltersModal extends React.Component {
             isDateTimePickerStartVisible: false,
             isDateTimePickerEndVisible: false,
         })
-        this.props.hideDialog();
     }
 
     render() {
@@ -151,7 +150,8 @@ export default class TimelineFiltersModal extends React.Component {
                         </View>
                     </Dialog.Content>
                 <Dialog.Actions>
-                    <Button color={this.props.lightTheme ? 'black' : 'white'} onPress={this.cancel}>Cancel</Button>
+                    <Button color={this.props.lightTheme ? 'black' : 'white'} onPress={this.props.hideDialog}>Cancel</Button>
+                    <Button color={this.props.lightTheme ? 'black' : 'white'} onPress={this.deleteFilters}>Clear</Button>
                     <Button
                         color={this.props.lightTheme ? Colors.blue : Colors.teal}
                         onPress={() => {
@@ -159,19 +159,19 @@ export default class TimelineFiltersModal extends React.Component {
                                 this.state.bodyFilter, this.state.dateFilterStart, this.state.dateFilterEnd,
                                 this.state.tallyFilter, this.state.goodDayFilter, this.state.badDayFilter)
                         }}>
-                        Set Filters
+                        Apply
                         </Button>
                 </Dialog.Actions>
 
                 <DateTimePicker
                     isVisible={this.state.isDateTimePickerStartVisible}
                     onConfirm={this._handleDatePickedStart}
-                    onCancel={this._hideDateTimePickerStart}
+                    ondeleteFilters={this._hideDateTimePickerStart}
                 />
                 <DateTimePicker
                     isVisible={this.state.isDateTimePickerEndVisible}
                     onConfirm={this._handleDatePickedEnd}
-                    onCancel={this._hideDateTimePickerEnd}
+                    ondeleteFilters={this._hideDateTimePickerEnd}
                 />
                 </Dialog>
             </Portal >
