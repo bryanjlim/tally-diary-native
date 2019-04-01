@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator, Image } from 'react-native'
 import DriveHelper from '../Helpers/driveHelper'
-import { TextInput, Title, Button, HelperText } from 'react-native-paper'
+import { TextInput, Title, Button, Snackbar } from 'react-native-paper'
 import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
 import { connect } from 'react-redux'
 
@@ -19,6 +19,8 @@ class LaunchScreen extends Component {
       passwordError: false,
       password: '',
       passwordAttempt: '',
+      driveErrorExists: false,
+      errorToShow: '',
     }
 
     this.attemptUnlock = this.attemptUnlock.bind(this);
@@ -66,7 +68,12 @@ class LaunchScreen extends Component {
           });
         });
       }
-    })
+    }).catch((err) => {
+      this.setState({
+        driveErrorExists: true,
+        errorToShow: "Error connecting to Google servers. Please try again"
+      })
+    });
   }
 
   attemptUnlock() {
@@ -76,6 +83,8 @@ class LaunchScreen extends Component {
         passwordAttempt: '',
         passwordError: false,
         password: '',
+        driveErrorExists: false,
+        errorToShow: '',
       })
       const { replace } = this.props.navigation;
       replace("DrawerNavigator");
@@ -119,7 +128,23 @@ class LaunchScreen extends Component {
     } else {
       return (
         <View style={styles.centerContainerBlue}>
-          <ActivityIndicator size="large" color="white" />
+                      <View style={{ marginBottom: 20 }}>
+                <Image source={require('../Images/TextLogoWhite.png')} style={{
+                  width: 250,
+                  resizeMode: 'contain'
+                }} />
+              </View>
+              <View>
+              <ActivityIndicator size="large" color="white" />
+              </View>
+          
+          <Snackbar
+            duration={20000}
+            visible={this.state.driveErrorExists}
+            onDismiss={() => this.setState({ driveErrorExists: false })}
+          >
+            {this.state.errorToShow}
+          </Snackbar>
         </View>
       )
     }
