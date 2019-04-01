@@ -100,14 +100,14 @@ class SettingsScreen extends Component {
 
                         <Surface style={this.props.lightTheme ? styles.appLaunchSurface : styles.appLaunchSurfaceDark}>
                             <Title style={this.props.lightTheme ? {} : { color: 'white' }}>App Launches</Title>
-                            <Text style={this.props.lightTheme ? { marginLeft: 15, } :
-                                { marginLeft: 15, color: 'white' }}>{this.state.appLaunches}</Text>
+                            <Text style={this.props.lightTheme ? { alignSelf: 'center', } :
+                                { alignSelf: 'center', color: 'white' }}>{this.state.appLaunches}</Text>
                         </Surface>
 
                         <Surface style={this.props.lightTheme ? styles.entriesSurface : styles.entriesSurfaceDark}>
                             <Title style={this.props.lightTheme ? {} : { color: 'white' }}>Diary Entries</Title>
-                            <Text style={this.props.lightTheme ? { marginLeft: 15, } :
-                                { marginLeft: 15, color: 'white' }}>{this.props.entries.length}</Text>
+                            <Text style={this.props.lightTheme ? { alignSelf: 'center', } :
+                                { alignSelf: 'center', color: 'white' }}>{this.props.entries.length}</Text>
                         </Surface>
 
                         <Surface style={this.props.lightTheme ? styles.tallySurface : styles.tallySurfaceDark}>
