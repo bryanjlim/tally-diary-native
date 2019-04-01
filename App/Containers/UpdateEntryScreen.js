@@ -160,7 +160,7 @@ export default class UpdateEntryScreen extends Component {
               {/* Paragraph Entry */}
               <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
               <PaperInput
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: 'white', text: 'white', placeholder: 'white' } }}
+                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: 'white' } }}
                 selectionColor={Colors.blue}
                 underlineColor={Colors.blue}
                 mode="outlined"

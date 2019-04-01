@@ -86,16 +86,18 @@ export default StyleSheet.create({
         backgroundColor: '#5e5e5e'
     },
     bodyText: {
-        height: 295,
+        height: 300,
         borderColor: Colors.blue,
         backgroundColor: 'white',
         marginBottom: 10,
+        lineHeight: 30,
     },
     bodyTextDark: {
-        height: 303,
+        height: 300,
         borderColor: Colors.lightBlue,
         backgroundColor: Colors.surfaceDark,
         marginBottom: 10,
+        lineHeight: 30,
     },
     thumbButton: {
         marginBottom: 5,
