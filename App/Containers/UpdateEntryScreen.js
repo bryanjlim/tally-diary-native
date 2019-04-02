@@ -25,6 +25,7 @@ export default class UpdateEntryScreen extends Component {
       tallyText: "",
       isThumbUp: this.props.entry.isThumbUp,
       isThumbDown: this.props.entry.isThumbDown,
+      bodyTouched: this.props.entry.bodyText != ''
     }
 
     this._showDateTimePicker = this._showDateTimePicker.bind(this);
@@ -158,18 +159,25 @@ export default class UpdateEntryScreen extends Component {
               <Divider style={this.props.lightTheme ? styles.topDivider : styles.topDividerDark} />
 
               {/* Paragraph Entry */}
-              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
-              <PaperInput
-                theme={this.props.lightTheme ? { colors: { primary: Colors.blue } } : { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: 'white' } }}
-                selectionColor={Colors.blue}
-                underlineColor={Colors.blue}
-                mode="outlined"
-                style={this.props.lightTheme ? styles.bodyText : styles.bodyTextDark}
-                multiline={true}
-                value={this.state.bodyText}
-                onChangeText={(bodyText) => this.setState({ bodyText })}
-              />
-
+              <KeyboardAvoidingView>
+                <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
+                <PaperInput
+                  theme={this.props.lightTheme ?
+                    this.state.bodyTouched ? { colors: { placeholder: 'white', primary: 'white' } } :
+                      { colors: { placeholder: 'black', primary: 'white' } } :
+                    this.state.bodyTouched ?
+                      { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: Colors.surfaceDark } } :
+                      { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: 'white' } }}
+                  mode="outlined"
+                  selectionColor={Colors.blue}
+                  underlineColor={Colors.blue}
+                  style={this.props.lightTheme ? styles.bodyText : styles.bodyTextDark}
+                  multiline={true}
+                  value={this.state.bodyText}
+                  onTouchEnd={() => this.setState({ bodyTouched: this.state.bodyText != "" })}
+                  onChangeText={(bodyText) => this.setState({ bodyText, bodyTouched: bodyText != '' })}
+                />
+              </KeyboardAvoidingView>
               <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
               {/* Thumbs */}
@@ -224,6 +232,7 @@ export default class UpdateEntryScreen extends Component {
                       value={this.state.tallyType}
                       baseColor={this.props.lightTheme ? "black" : "white"}
                       textColor={this.props.lightTheme ? "black" : "white"}
+                      itemColor={this.props.lightTheme ? "black" : "white"}
                       animationDuration={0}
                       rippleCentered={true}
                       pickerStyle={this.props.lightTheme ? {} : { backgroundColor: Colors.backgroundDark }}

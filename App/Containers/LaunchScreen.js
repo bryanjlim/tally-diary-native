@@ -56,7 +56,7 @@ class LaunchScreen extends Component {
       console.log(error)
       this.setState({
         showError: true,
-        errorToShow: error,
+        errorToShow: "Error signing in with Google",
       })
     }
   };
