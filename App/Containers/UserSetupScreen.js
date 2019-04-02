@@ -62,7 +62,8 @@ class UserSetupScreen extends Component {
             };
             DriveHelper.postFile(this.props.accessToken, userData, '0');
             DriveHelper.postFile(this.props.accessToken, { 1: [] }, '1');
-            const { replace } = this.props.navigate;
+            this.props.updatePreferences(userData);
+            const { replace } = this.props.navigation;
             replace("DrawerNavigator");
         }
     }
