@@ -103,10 +103,10 @@ class UserSetupScreen extends Component {
                 <View style={styles.horizontalCenter}>
                     <Surface style={styles.surface}>
                         <Title style={styles.titleText}>When would you like to start tallying from?</Title>
+                        <HelperText style={{paddingBottom: 7}}>We recommend using your date of birth</HelperText>
                         <TextInput
                             style={styles.dateSelector}
                             mode='outlined'
-                            label='Start/Birth Date'
                             value={this.state.dateOfBirth}
                             onFocus={() => { Keyboard.dismiss(); this._showDateTimePicker(); }}
                         />
@@ -118,7 +118,7 @@ class UserSetupScreen extends Component {
                         </HelperText>
                     </Surface>
                     <Surface style={styles.surface}>
-                        <Title style={styles.titleText}>Which theme do you prefer?</Title>
+                        <Title style={styles.titleText}>Which theme would you like to use?</Title>
                         <RadioButton.Group
                             onValueChange={primaryTheme => this.setState({ primaryTheme })}
                             value={this.state.primaryTheme}
@@ -126,11 +126,11 @@ class UserSetupScreen extends Component {
                             <View style={styles.radioGroup}>
                                 <View style={styles.leftRadio}>
                                     <Text>Light</Text>
-                                    <RadioButton.Android value="light" />
+                                    <RadioButton.Android color={Colors.blue} value="light" />
                                 </View>
                                 <View style={styles.rightRadio}>
                                     <Text>Dark</Text>
-                                    <RadioButton.Android value="dark" />
+                                    <RadioButton.Android color={Colors.blue} value="dark" />
                                 </View>
                             </View>
                         </RadioButton.Group>
@@ -144,11 +144,11 @@ class UserSetupScreen extends Component {
                             <View style={styles.radioGroup}>
                                 <View style={styles.leftRadio}>
                                     <Text>Yes</Text>
-                                    <RadioButton.Android value={true} />
+                                    <RadioButton.Android color={Colors.blue} value={true} />
                                 </View>
                                 <View style={styles.rightRadio}>
                                     <Text>No</Text>
-                                    <RadioButton.Android value={false} />
+                                    <RadioButton.Android color={Colors.blue} value={false} />
                                 </View>
                             </View>
                         </RadioButton.Group>

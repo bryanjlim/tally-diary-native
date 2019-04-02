@@ -18,7 +18,6 @@ export default StyleSheet.create({
   titleText: {
     fontSize: 15,
     color: Colors.blue,
-    paddingBottom: 12,
   },
   surface: {
     borderRadius: 5,
