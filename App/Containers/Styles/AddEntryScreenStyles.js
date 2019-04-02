@@ -90,14 +90,12 @@ export default StyleSheet.create({
         borderColor: Colors.blue,
         backgroundColor: 'white',
         marginBottom: 10,
-        lineHeight: 30,
     },
     bodyTextDark: {
         height: 300,
         borderColor: Colors.lightBlue,
         backgroundColor: Colors.surfaceDark,
         marginBottom: 10,
-        lineHeight: 30,
     },
     thumbButton: {
         marginBottom: 5,
