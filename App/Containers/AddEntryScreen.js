@@ -34,7 +34,6 @@ class AddEntryScreen extends Component {
       date: currentDate,
       bodyText: "",
       tallies: [],
-      todos: [],
       tallyType: "",
       tallyText: "",
       isThumbUp: false,
@@ -95,7 +94,6 @@ class AddEntryScreen extends Component {
       "date": this.state.date,
       "bodyText": this.state.bodyText,
       "tallies": this.state.tallies,
-      "todos": this.state.todos,
       "isThumbUp": this.state.isThumbUp,
       "isThumbDown": this.state.isThumbDown,
     });
@@ -115,7 +113,6 @@ class AddEntryScreen extends Component {
       date: currentDate,
       bodyText: "",
       tallies: [],
-      todos: [],
       tallyType: "",
       tallyText: "",
       isThumbUp: false,
