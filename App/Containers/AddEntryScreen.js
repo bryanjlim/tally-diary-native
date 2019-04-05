@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import DriveHelper from '../Helpers/driveHelper'
 import TimeHelper from '../Helpers/timeHelper';
 import { connect } from 'react-redux'
@@ -156,47 +156,48 @@ class AddEntryScreen extends Component {
       new Date(this.state.date));
 
     return (
-      <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
+      <KeyboardAvoidingView behavior={Platform.OS == "android" ? "" : "padding"}
+        keyboardVerticalOffset={Platform.OS == "android" ? 0 : 50}>
+        <SafeAreaView style={this.props.lightTheme ? styles.notchContainer : styles.notchContainerDark}>
 
-        <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
-          <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
-          <Title style={{ fontSize: 20, color: 'white', marginLeft: 15, }}>Add Entry</Title>
-        </Appbar>
+          <Appbar style={this.props.lightTheme ? styles.appBar : styles.appBarDark}>
+            <Appbar.Action icon="menu" onPress={() => this.props.navigation.openDrawer()} />
+            <Title style={{ fontSize: 20, color: 'white', marginLeft: 15, }}>Add Entry</Title>
+          </Appbar>
 
-        <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
-          <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
-            <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
+          <ScrollView style={this.props.lightTheme ? styles.mainContainer : styles.mainContainerDark}>
+            <View style={this.props.lightTheme ? styles.centerContainer : styles.centerContainerDark}>
+              <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
 
-              {/* Header */}
-              <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
-              <TouchableOpacity
-                onPress={() => { this._showDateTimePicker(); }}
-                style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
-              >
-                <Text style={this.props.lightTheme ? {} : { color: 'white' }}>
-                  {this.state.date}
-                </Text>
-              </TouchableOpacity>
-              <TextInput
-                placeholder="Title (Optional)"
-                value={this.state.title}
-                onChangeText={(title) => this.setState({ title })}
-                style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
-                placeholderTextColor={this.props.lightTheme ? 'lightgray' : 'darkgray'}
-              />
+                {/* Header */}
+                <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
+                <TouchableOpacity
+                  onPress={() => { this._showDateTimePicker(); }}
+                  style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
+                >
+                  <Text style={this.props.lightTheme ? {} : { color: 'white' }}>
+                    {this.state.date}
+                  </Text>
+                </TouchableOpacity>
+                <TextInput
+                  placeholder="Title (Optional)"
+                  value={this.state.title}
+                  onChangeText={(title) => this.setState({ title })}
+                  style={this.props.lightTheme ? styles.inputTitle : styles.inputTitleDark}
+                  placeholderTextColor={this.props.lightTheme ? 'lightgray' : 'darkgray'}
+                />
 
-              <Divider style={this.props.lightTheme ? styles.topDivider : styles.topDividerDark} />
+                <Divider style={this.props.lightTheme ? styles.topDivider : styles.topDividerDark} />
 
-              {/* Paragraph Entry */}
-              <KeyboardAvoidingView>
+                {/* Paragraph Entry */}
                 <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Your Thoughts</Title>
                 <PaperInput
-                  theme={this.props.lightTheme ? 
-                    this.state.bodyTouched ? { colors: { placeholder: 'white', primary: 'white' } } : 
-                    { colors: { placeholder: 'black', primary: 'white' } } :
-                    this.state.bodyTouched ? 
-                    { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: Colors.surfaceDark } } : 
-                    { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: 'white' } }}
+                  theme={this.props.lightTheme ?
+                    this.state.bodyTouched ? { colors: { placeholder: 'white', primary: 'white' } } :
+                      { colors: { placeholder: 'black', primary: 'white' } } :
+                    this.state.bodyTouched ?
+                      { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: Colors.surfaceDark } } :
+                      { colors: { primary: Colors.surfaceDark, text: 'white', placeholder: 'white' } }}
                   mode="outlined"
                   selectionColor={Colors.blue}
                   underlineColor={Colors.blue}
@@ -206,52 +207,50 @@ class AddEntryScreen extends Component {
                   onTouchEnd={() => this.setState({ bodyTouched: this.state.bodyText != "" })}
                   onChangeText={(bodyText) => this.setState({ bodyText, bodyTouched: bodyText != '' })}
                 />
-              </KeyboardAvoidingView>
-              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
+                <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
-              {/* Thumbs */}
-              <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
-              <View style={styles.row}>
-                {this.state.isThumbUp ?
-                  <Icon.Button
-                    name="thumb-up"
-                    onPress={this.toggleThumbsUp}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
-                      { color: 'white', backgroundColor: Colors.surfaceDark }}
-                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
-                    style={styles.thumbButton}
-                  /> :
-                  <Icon.Button
-                    name="thumb-up-outline"
-                    onPress={this.toggleThumbsUp}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
-                      { color: 'white', backgroundColor: Colors.surfaceDark }}
-                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
-                    style={styles.thumbButton}
-                  />}
-                {this.state.isThumbDown ?
-                  <Icon.Button
-                    name="thumb-down"
-                    onPress={this.toggleThumbsDown}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
-                      { color: 'white', backgroundColor: Colors.surfaceDark }}
-                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
-                    style={styles.thumbButton}
-                  /> :
-                  <Icon.Button
-                    name="thumb-down-outline"
-                    onPress={this.toggleThumbsDown}
-                    iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
-                      { color: 'white', backgroundColor: Colors.surfaceDark }}
-                    backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
-                    style={styles.thumbButton}
-                  />}
-              </View>
+                {/* Thumbs */}
+                <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Rate Your Day</Title>
+                <View style={styles.row}>
+                  {this.state.isThumbUp ?
+                    <Icon.Button
+                      name="thumb-up"
+                      onPress={this.toggleThumbsUp}
+                      iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                        { color: 'white', backgroundColor: Colors.surfaceDark }}
+                      backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
+                      style={styles.thumbButton}
+                    /> :
+                    <Icon.Button
+                      name="thumb-up-outline"
+                      onPress={this.toggleThumbsUp}
+                      iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                        { color: 'white', backgroundColor: Colors.surfaceDark }}
+                      backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
+                      style={styles.thumbButton}
+                    />}
+                  {this.state.isThumbDown ?
+                    <Icon.Button
+                      name="thumb-down"
+                      onPress={this.toggleThumbsDown}
+                      iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                        { color: 'white', backgroundColor: Colors.surfaceDark }}
+                      backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
+                      style={styles.thumbButton}
+                    /> :
+                    <Icon.Button
+                      name="thumb-down-outline"
+                      onPress={this.toggleThumbsDown}
+                      iconStyle={this.props.lightTheme ? { color: 'black', backgroundColor: 'white' } :
+                        { color: 'white', backgroundColor: Colors.surfaceDark }}
+                      backgroundColor={this.props.lightTheme ? "white" : Colors.surfaceDark}
+                      style={styles.thumbButton}
+                    />}
+                </View>
 
-              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
+                <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
-              {/* Tally Entry */}
-              <KeyboardAvoidingView>
+                {/* Tally Entry */}
                 <Title style={this.props.lightTheme ? styles.tallyTitle : styles.tallyTitleDark}>Tallies</Title>
                 <View style={styles.tallyRow}>
                   <View style={styles.dropdownMenu}>
@@ -281,58 +280,58 @@ class AddEntryScreen extends Component {
                     onPress={this.addTally}
                   />
                 </View>
-              </KeyboardAvoidingView>
 
-              {/* Tally View */}
-              <View style={styles.tallyChipContainer}>
-                {this.state.tallies.map((value, index) => {
-                  return (
-                    <View style={styles.tallyChip}>
-                      <Chip onClose={() => { this.deleteTally(index) }}>
-                        {value.type} | {value.text}
-                      </Chip>
-                    </View>
-                  );
-                })}
-              </View>
+                {/* Tally View */}
+                <View style={styles.tallyChipContainer}>
+                  {this.state.tallies.map((value, index) => {
+                    return (
+                      <View style={styles.tallyChip}>
+                        <Chip onClose={() => { this.deleteTally(index) }}>
+                          {value.type} | {value.text}
+                        </Chip>
+                      </View>
+                    );
+                  })}
+                </View>
 
-              <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
+                <Divider style={this.props.lightTheme ? styles.divider : styles.dividerDark} />
 
-              {/* Submit */}
-              <Button
-                color={this.props.lightTheme ? Colors.blue : 'white'}
-                theme={this.props.lightTheme ? {} : { colors: { primary: 'white', text: 'white' } }}
-                onPress={this.submitEntry}
-                mode="outlined"
-                style={this.props.lightTheme ? styles.submitButton : styles.submitButtonDark}>
-                Add Entry
+                {/* Submit */}
+                <Button
+                  color={this.props.lightTheme ? Colors.blue : 'white'}
+                  theme={this.props.lightTheme ? {} : { colors: { primary: 'white', text: 'white' } }}
+                  onPress={this.submitEntry}
+                  mode="outlined"
+                  style={this.props.lightTheme ? styles.submitButton : styles.submitButtonDark}>
+                  Add Entry
               </Button>
 
-            </Surface>
-          </View>
-        </ScrollView>
+              </Surface>
+            </View>
+          </ScrollView>
 
-        <DateTimePicker
-          date={new Date(this.state.date)}
-          isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
-          onCancel={this._hideDateTimePicker}
-        />
+          <DateTimePicker
+            date={new Date(this.state.date)}
+            isVisible={this.state.isDateTimePickerVisible}
+            onConfirm={this._handleDatePicked}
+            onCancel={this._hideDateTimePicker}
+          />
 
-        <Snackbar
-          visible={this.state.showSuccess}
-          onDismiss={() => this.setState({ showSuccess: false })}
-          duration={4000}
-          action={{
-            label: 'Ok',
-            onPress: () => { },
-          }}
-          style={{ bottom: 100, }}
-        >
-          Diary Entry Added
+          <Snackbar
+            visible={this.state.showSuccess}
+            onDismiss={() => this.setState({ showSuccess: false })}
+            duration={4000}
+            action={{
+              label: 'Ok',
+              onPress: () => { },
+            }}
+            style={{ bottom: 100, }}
+          >
+            Diary Entry Added
         </Snackbar>
 
-      </SafeAreaView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     )
   }
 }
