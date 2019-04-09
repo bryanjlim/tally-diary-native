@@ -36,6 +36,7 @@ export default StyleSheet.create({
         flex: 1,
         alignContent: 'flex-end',
         maxWidth: '45%',
+        right: 0,
     },
     dayLabel: {
         fontSize: 30,
@@ -52,13 +53,17 @@ export default StyleSheet.create({
         fontSize: 17,
         color: 'black',
         alignContent: 'flex-end',
+        alignSelf: 'flex-end',
         marginTop: 12,
+        right: 7,
     },
     inputDateDark: {
         fontSize: 17,
         color: 'white',
         alignContent: 'flex-end',
+        alignSelf: 'flex-end',
         marginTop: 12,
+        right: 7,
     },
     inputTitle: {
         marginLeft: 10,
