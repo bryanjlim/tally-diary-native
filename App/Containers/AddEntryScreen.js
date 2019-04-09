@@ -170,15 +170,21 @@ class AddEntryScreen extends Component {
               <Surface style={this.props.lightTheme ? styles.surface : styles.surfaceDark}>
 
                 {/* Header */}
-                <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
-                <TouchableOpacity
-                  onPress={() => { this._showDateTimePicker(); }}
-                  style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
-                >
-                  <Text style={this.props.lightTheme ? {} : { color: 'white' }}>
-                    {this.state.date}
-                  </Text>
-                </TouchableOpacity>
+                <View style={styles.row}>
+                  <View style={styles.titleWrapper}>
+                    <Title style={this.props.lightTheme ? styles.dayLabel : styles.dayLabelDark}>Day {dayNumber}</Title>
+                  </View>
+                  <View style={styles.dateWrapper}>
+                    <TouchableOpacity
+                      onPress={() => { this._showDateTimePicker(); }}
+                      style={this.props.lightTheme ? styles.inputDate : styles.inputDateDark}
+                    >
+                      <Text style={this.props.lightTheme ? {} : { color: 'white' }}>
+                        {this.state.date}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
                 <TextInput
                   placeholder="Title (Optional)"
                   value={this.state.title}

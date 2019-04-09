@@ -25,6 +25,17 @@ export default StyleSheet.create({
     },
     row: {
         flexDirection: "row",
+        alignSelf: 'stretch',
+        alignContent: 'stretch',
+    },
+    titleWrapper: {
+        flex: 1,
+        alignContent: 'flex-start',
+    },
+    dateWrapper: {
+        flex: 1,
+        alignContent: 'flex-end',
+        maxWidth: '45%',
     },
     dayLabel: {
         fontSize: 30,
@@ -38,20 +49,16 @@ export default StyleSheet.create({
         marginLeft: 10,
     },
     inputDate: {
-        position: 'absolute',
         fontSize: 17,
         color: 'black',
         alignContent: 'flex-end',
-        marginTop: 15,
-        right: 13,
+        marginTop: 12,
     },
     inputDateDark: {
-        position: 'absolute',
         fontSize: 17,
         color: 'white',
         alignContent: 'flex-end',
-        marginTop: 15,
-        right: 13,
+        marginTop: 12,
     },
     inputTitle: {
         marginLeft: 10,
