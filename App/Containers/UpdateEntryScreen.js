@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, BackHandler, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, Text, View, TextInput, BackHandler, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import TimeHelper from '../Helpers/timeHelper';
 import { Button, IconButton, Surface, Chip, Title, Divider, TextInput as PaperInput } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Dropdown } from 'react-native-material-dropdown';
+import firebase from 'react-native-firebase';
 
 // Styles
 import styles from './Styles/AddEntryScreenStyles'
@@ -41,6 +42,8 @@ export default class UpdateEntryScreen extends Component {
 
   // Handle Android back button press
   componentDidMount() {
+    firebase.analytics().setCurrentScreen("Update Entry");
+    firebase.analytics().logEvent("User_View_Entry")
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
 

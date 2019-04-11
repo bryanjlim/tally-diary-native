@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, View, ActivityIndicator } from 'react-native'
-import DriveHelper from '../Helpers/driveHelper'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, View, ActivityIndicator } from 'react-native';
+import DriveHelper from '../Helpers/driveHelper';
+import { connect } from 'react-redux';
 import { Appbar, Button, IconButton, Title } from 'react-native-paper';
-import LargeEntryCard from '../Components/LargeEntryCard'
-import SmallEntryCard from '../Components/SmallEntryCard'
-import { updateEntries, updatePreferences } from '../Redux/actions'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import LargeEntryCard from '../Components/LargeEntryCard';
+import SmallEntryCard from '../Components/SmallEntryCard';
+import { updateEntries, updatePreferences } from '../Redux/actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import UpdateEntryScreen from './UpdateEntryScreen';
 import TimelineFiltersModal from '../Components/TimelineFiltersModal';
 import ConfirmationModal from '../Components/ConfirmationModal';
+import firebase from 'react-native-firebase';
 
 // Styles
 import styles from './Styles/TimelineScreenStyles'
@@ -74,6 +75,10 @@ class TimelineSreen extends Component {
     this.hideModal = this.hideModal.bind(this);
     this.isCloseToBottom = this.isCloseToBottom.bind(this);
     this.loadMoreEntries = this.loadMoreEntries.bind(this);
+  }
+
+  componentDidMount() {
+    firebase.analytics().setCurrentScreen("Timeline");
   }
 
   isCloseToBottom() {

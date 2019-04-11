@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
-import DriveHelper from '../Helpers/driveHelper'
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import DriveHelper from '../Helpers/driveHelper';
 import TimeHelper from '../Helpers/timeHelper';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Appbar, Button, IconButton, Surface, Chip, Title, Divider, Snackbar, TextInput as PaperInput } from 'react-native-paper';
-import { updateEntries } from '../Redux/actions'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import { updateEntries } from '../Redux/actions';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Dropdown } from 'react-native-material-dropdown';
+import firebase from 'react-native-firebase';
 
 // Styles
 import styles from './Styles/AddEntryScreenStyles'
@@ -52,6 +53,10 @@ class AddEntryScreen extends Component {
     this.submitEntry = this.submitEntry.bind(this);
   }
 
+  componentDidMount(){
+    firebase.analytics().setCurrentScreen("Add Entry");
+  }
+
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
@@ -81,6 +86,7 @@ class AddEntryScreen extends Component {
   }
 
   submitEntry() {
+    firebase.analytics().logEvent("User_Wrote_Entry")
     let entries = [];
     for (let i = 0; i < this.props.entries.length; i++) {
       entries[i] = this.props.entries[i];

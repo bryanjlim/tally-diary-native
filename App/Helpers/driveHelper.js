@@ -2,7 +2,7 @@ export default class DriveHelper {
 
   static url = 'https://www.googleapis.com/drive/v3'
   static uploadUrl = 'https://www.googleapis.com/upload/drive/v3'
-  static boundaryString = '-------314159265358979323846264'
+  static boundaryString = '-------3141592653589793238462641'
 
   static queryParams() {
     return encodeURIComponent("'appDataFolder' in parents")
@@ -95,8 +95,10 @@ export default class DriveHelper {
       fetch(`${this.url}/files?q=${qParams}&spaces=appDataFolder`, options)
         .then(this.parseAndHandleErrors)
         .then((response) => {
-          const files = JSON.parse(response._bodyInit).files
-          res(files)
+          response.json().then((list) => {
+            const files = list.files
+            res(files)
+          })
         }).catch((error) => err(error))
     })
   }
@@ -107,15 +109,15 @@ export default class DriveHelper {
       fetch(`${this.url}/files/${fileId}?alt=media`, options)
         .then(this.parseAndHandleErrors)
         .then((response) => {
-          res(response._bodyInit)
+          res(response.json())
         }).catch((error) => err(error))
     })
   }
 
   static deleteFileById(accessToken, fileId) {
-      const options = this.configureDeleteOptions(accessToken)
-      fetch(`${this.url}/files/${fileId}`, options)
-        .then(this.parseAndHandleErrors)
-        .catch((error) => err(error))
+    const options = this.configureDeleteOptions(accessToken)
+    fetch(`${this.url}/files/${fileId}`, options)
+      .then(this.parseAndHandleErrors)
+      .catch((error) => err(error))
   }
 }

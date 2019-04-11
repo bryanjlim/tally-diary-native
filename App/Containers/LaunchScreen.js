@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
-import { Image, View } from 'react-native'
-import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin'
-import { Snackbar } from 'react-native-paper'
-import { setUserInfo } from '../Redux/actions'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { Image, View, Platform } from 'react-native';
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import { Snackbar } from 'react-native-paper';
+import { setUserInfo } from '../Redux/actions';
+import { connect } from 'react-redux';
+import firebase from 'react-native-firebase';
 
 // Styles
-import styles from './Styles/LaunchScreenStyles'
+import styles from './Styles/LaunchScreenStyles';
 
 class LaunchScreen extends Component {
 
@@ -22,6 +23,17 @@ class LaunchScreen extends Component {
   }
 
   componentDidMount() {
+    firebase.analytics().setAnalyticsCollectionEnabled(true);
+    firebase.analytics().setMinimumSessionDuration(100);
+    firebase.analytics().logEvent("App_Launch")
+    firebase.analytics().setCurrentScreen("Launch");
+
+    if(Platform.OS == 'ios') {
+      firebase.analytics().logEvent("iOS_User_Launch")
+    } else {
+      firebase.analytics().logEvent("Android_User_launch")
+    }
+
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/drive.appdata'],
       webClientId: '577206274010-9oung4hgd77fij9e50kjbc32tlviai4e.apps.googleusercontent.com',

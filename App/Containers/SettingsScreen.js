@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
-import { View, ScrollView, Keyboard, SafeAreaView } from 'react-native'
-import DriveHelper from '../Helpers/driveHelper'
+import React, { Component } from 'react';
+import { View, ScrollView, Keyboard, SafeAreaView } from 'react-native';
+import DriveHelper from '../Helpers/driveHelper';
 import TimeHelper from '../Helpers/timeHelper';
-import { updatePreferences } from '../Redux/actions'
+import { updatePreferences } from '../Redux/actions';
 import { Appbar, Surface, TextInput, Text, HelperText, RadioButton, Button, Title, Snackbar } from 'react-native-paper';
-import { GoogleSignin } from 'react-native-google-signin'
-import { connect } from 'react-redux'
+import { GoogleSignin } from 'react-native-google-signin';
+import { connect } from 'react-redux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import firebase from 'react-native-firebase';
 
 // Styles
-import styles from './Styles/SettingsScreenStyles'
-import Colors from '../Themes/Colors'
+import styles from './Styles/SettingsScreenStyles';
+import Colors from '../Themes/Colors';
 
 class SettingsScreen extends Component {
 
@@ -45,6 +46,10 @@ class SettingsScreen extends Component {
         this._handleDatePicked = this._handleDatePicked.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.validate = this.validate.bind(this);
+    }
+
+    componentDidMount() {
+        firebase.analytics().setCurrentScreen("Settings");
     }
 
     updateUser(e) {

@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { View, ActivityIndicator, Image } from 'react-native'
-import DriveHelper from '../Helpers/driveHelper'
-import { TextInput, Title, Button, Snackbar } from 'react-native-paper'
-import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { View, ActivityIndicator, Image } from 'react-native';
+import DriveHelper from '../Helpers/driveHelper';
+import { TextInput, Title, Button, Snackbar } from 'react-native-paper';
+import { updatePreferences, updateEntries, setPreferencesId, setEntriesId } from '../Redux/actions';
+import firebase from 'react-native-firebase';
+import { connect } from 'react-redux';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles'
@@ -27,6 +28,7 @@ class LaunchScreen extends Component {
   }
 
   componentDidMount() {
+    firebase.analytics().setCurrentScreen("Loading");
     const { replace } = this.props.navigation;
     DriveHelper.getFileList(this.props.accessToken).then((files) => {
       if (files.length == 0) {
@@ -41,12 +43,10 @@ class LaunchScreen extends Component {
         this.props.setEntriesId(entriesId);
 
         DriveHelper.getFileById(this.props.accessToken, preferencesId).then((preferences) => {
-          const parsedPreferences = JSON.parse(preferences);
-          parsedPreferences.appLaunches++;
-          DriveHelper.patchFile(this.props.accessToken, parsedPreferences, "0", preferencesId);
-          this.props.updatePreferences(parsedPreferences);
-          DriveHelper.getFileById(this.props.accessToken, entriesId).then((entries) => {
-            let entriesArray = JSON.parse(entries);
+          preferences.appLaunches++;
+          DriveHelper.patchFile(this.props.accessToken, preferences, "0", preferencesId);
+          this.props.updatePreferences(preferences);
+          DriveHelper.getFileById(this.props.accessToken, entriesId).then((entriesArray) => {
             if (entriesArray instanceof Array) {
               entriesArray.sort((a, b) => {
                 return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -55,11 +55,11 @@ class LaunchScreen extends Component {
 
             this.props.updateEntries(entriesArray);
 
-            if (parsedPreferences.usePassword) {
+            if (preferences.usePassword) {
               // Request password
               this.setState({
                 usePassword: true,
-                password: parsedPreferences.password,
+                password: preferences.password,
                 passwordError: false,
               });
             } else {
@@ -69,6 +69,7 @@ class LaunchScreen extends Component {
         });
       }
     }).catch((err) => {
+      console.log(err)
       this.setState({
         driveErrorExists: true,
         errorToShow: "Error connecting to Google servers. Please try again"

@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import { View, Keyboard, SafeAreaView, ScrollView } from 'react-native'
-import DriveHelper from '../Helpers/driveHelper'
-import TimeHelper from '../Helpers/timeHelper'
-import { updatePreferences, updateEntries } from '../Redux/actions'
+import React, { Component } from 'react';
+import { View, Keyboard, SafeAreaView, ScrollView } from 'react-native';
+import DriveHelper from '../Helpers/driveHelper';
+import TimeHelper from '../Helpers/timeHelper';
+import { updatePreferences, updateEntries } from '../Redux/actions';
 import { Title, Surface, TextInput, Text, HelperText, RadioButton, Button } from 'react-native-paper';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import firebase from 'react-native-firebase';
 
 // Styles
 import styles from './Styles/UserSetupScreenStyles'
@@ -42,8 +43,14 @@ class UserSetupScreen extends Component {
         this.validate = this.validate.bind(this);
     }
 
+    componentDidMount() {
+        firebase.analytics().logEvent("User_Started_Account_Creation")
+        firebase.analytics().setCurrentScreen("User Setup");
+    }
+
     createNewUser(e) {
         e.preventDefault();
+        firebase.analytics().logEvent("User_Finished_Account_Creation");
 
         if (!this.state.usePassword) {
             this.setState({ password: '' });

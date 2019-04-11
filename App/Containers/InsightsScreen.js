@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { View, ScrollView, SafeAreaView } from 'react-native'
+import React, { Component } from 'react';
+import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Appbar, Surface, Text, Title, List } from 'react-native-paper';
-import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import firebase from 'react-native-firebase';
 
 // Styles
 import styles from './Styles/InsightsScreenStyles'
@@ -27,6 +28,10 @@ class SettingsScreen extends Component {
         };
 
         this.eachTallyObject = this.eachTallyObject.bind(this);
+    }
+
+    componentDidMount() {
+        firebase.analytics().setCurrentScreen("Insights");
     }
 
     eachTallyObject(tally) {
